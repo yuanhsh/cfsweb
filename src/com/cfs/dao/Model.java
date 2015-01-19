@@ -13,7 +13,7 @@ import com.cfs.bean.EmployeeBean;
 
 public class Model {
 	private EmployeeDAO employeeDAO;
-	
+	private FundDAO fundDAO;
 
 	public Model(ServletConfig config) throws ServletException {
 		try {
@@ -21,8 +21,8 @@ public class Model {
 			String jdbcURL    = config.getInitParameter("jdbcURL");
 			
 			ConnectionPool pool = new ConnectionPool(jdbcDriver, jdbcURL);
-			employeeDAO  = new EmployeeDAO( "mjaiswal_user",pool); // Please update the  table name
-			
+			employeeDAO  = new EmployeeDAO( "employee_table",pool); // Please update the  table name
+			fundDAO= new FundDAO("fund_table",pool);
 			
 			if(employeeDAO.getCount()==0){
 				createDefaultUser();
@@ -37,6 +37,7 @@ public class Model {
 	}
 	
 	public EmployeeDAO getEmployeeDAO() { return employeeDAO; }
+	public FundDAO getFundDAO() { return fundDAO; }
 
 	public void createDefaultUser() throws RollbackException{
 		 // create the admin login

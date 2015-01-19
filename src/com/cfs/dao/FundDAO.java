@@ -8,7 +8,7 @@ import org.genericdao.RollbackException;
 import com.cfs.bean.FundBean;
 
 public class FundDAO extends GenericDAO<FundBean> { 
-	public FundDAO(String tableName,ConnectonPool pool ) throws DAOException {
+	public FundDAO(String tableName,ConnectionPool pool ) throws DAOException {
 		super (FundBean.class,tableName,pool);
 	}
 

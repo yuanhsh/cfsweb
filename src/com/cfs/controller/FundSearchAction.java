@@ -9,6 +9,7 @@ import org.genericdao.RollbackException;
 
 import com.cfs.bean.FundBean;
 import com.cfs.dao.FundDAO;
+import com.cfs.dao.Model;
 
 public class FundSearchAction extends Action {
 
