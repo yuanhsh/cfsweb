@@ -24,7 +24,7 @@ private FundDAO fundDAO;
 	
 	public String perform (HttpServletRequest request){
 		
-		List<String> errors = new ArrayList<String>;
+		List<String> errors = new ArrayList<String>();
 		
 		request.setAttribute("errors",errors);
 		
