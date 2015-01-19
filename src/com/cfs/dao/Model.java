@@ -13,6 +13,9 @@ public class Model {
 	private CustomerDAO customerDAO;
 	private EmployeeDAO employeeDAO;
 	private FundDAO fundDAO;
+	private FundPriceHistoryDAO priceHistoryDAO;
+	private PositionDAO positionDAO;
+	private TransactionDAO transactionDAO;
 
 	public Model(ServletConfig config) throws ServletException {
 		try {
@@ -20,9 +23,12 @@ public class Model {
 			String jdbcURL = config.getInitParameter("jdbcURL");
 
 			ConnectionPool pool = new ConnectionPool(jdbcDriver, jdbcURL);
-			customerDAO = new CustomerDAO("customers", pool);
-			employeeDAO = new EmployeeDAO("employees", pool);
-			fundDAO = new FundDAO("funds", pool);
+			customerDAO = new CustomerDAO("customer", pool);
+			employeeDAO = new EmployeeDAO("employee", pool);
+			fundDAO = new FundDAO("fund", pool);
+			priceHistoryDAO = new FundPriceHistoryDAO("fund_price_history", pool);
+			positionDAO = new PositionDAO("position", pool);
+			transactionDAO = new TransactionDAO("transaction", pool);
 
 			if (employeeDAO.getCount() == 0) {
 				createDefaultUser();
@@ -36,6 +42,10 @@ public class Model {
 		}
 	}
 
+	public CustomerDAO getCustomerDAO() {
+		return customerDAO;
+	}
+
 	public EmployeeDAO getEmployeeDAO() {
 		return employeeDAO;
 	}
@@ -44,8 +54,16 @@ public class Model {
 		return fundDAO;
 	}
 
-	public CustomerDAO getCustomerDAO() {
-		return this.customerDAO;
+	public FundPriceHistoryDAO getPriceHistoryDAO() {
+		return priceHistoryDAO;
+	}
+
+	public PositionDAO getPositionDAO() {
+		return positionDAO;
+	}
+
+	public TransactionDAO getTransactionDAO() {
+		return transactionDAO;
 	}
 
 	public void createDefaultUser() throws RollbackException {
