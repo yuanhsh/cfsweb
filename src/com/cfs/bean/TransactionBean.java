@@ -10,9 +10,9 @@ public class TransactionBean {
 	private int customer_id;
 	private int fund_id;
 	private Date execute_date;
-	private String shares;
+	private long shares;
 	private String transaction_type;
-	private String amount;
+	private long amount;
 
 	// added new field to display the status of the transaction
 	private String status;
@@ -49,11 +49,11 @@ public class TransactionBean {
 		this.execute_date = execute_date;
 	}
 
-	public String getShares() {
+	public long getShares() {
 		return shares;
 	}
 
-	public void setShares(String shares) {
+	public void setShares(long shares) {
 		this.shares = shares;
 	}
 
@@ -65,11 +65,11 @@ public class TransactionBean {
 		this.transaction_type = transaction_type;
 	}
 
-	public String getAmount() {
+	public long getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(long amount) {
 		this.amount = amount;
 	}
 

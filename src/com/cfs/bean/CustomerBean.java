@@ -17,7 +17,7 @@ public class CustomerBean {
 	private String city;
 	private String state;
 	private String zip;
-	private String cash;
+	private long cash;
 
 	private String hashedPassword = "*";
 	private int salt = 0;
@@ -123,11 +123,11 @@ public class CustomerBean {
 		this.zip = zip;
 	}
 
-	public String getCash() {
+	public long getCash() {
 		return cash;
 	}
 
-	public void setCash(String cash) {
+	public void setCash(long cash) {
 		this.cash = cash;
 	}
 

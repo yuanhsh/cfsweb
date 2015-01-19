@@ -9,7 +9,7 @@ public class FundPriceHistoryBean {
 	private int history_id;
 	private int fund_id;
 	private Date price_date;
-	private String price;
+	private long price;
 
 	public int getHistory_id() {
 		return history_id;
@@ -35,11 +35,11 @@ public class FundPriceHistoryBean {
 		this.price_date = price_date;
 	}
 
-	public String getPrice() {
+	public long getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(long price) {
 		this.price = price;
 	}
 
