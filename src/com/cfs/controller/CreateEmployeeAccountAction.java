@@ -18,10 +18,10 @@ import com.cfs.form.CreateEmployeeAccountForm;
 
 public class CreateEmployeeAccountAction {
 	private FormBeanFactory<CreateEmployeeAccountForm> formBeanFactory = FormBeanFactory.getInstance(CreateEmployeeAccountForm.class);
-	private EmployeeDAO employeedao;
+	private EmployeeDAO employeeDAO;
 	
 	public CreateEmployeeAccountAction(Model model){
-		employeedao = model.getEmployeeDAO();
+		employeeDAO = model.getEmployeeDAO();
 	}
 	
 	public String getName() { return "createEmployeeAccount.do"; }
@@ -32,25 +32,24 @@ public class CreateEmployeeAccountAction {
 	        
 	        
 	        
-	        CreateEmployeeAccountForm form;
+	       
 			try {
-				form = formBeanFactory.create(request);
+				CreateEmployeeAccountForm form = formBeanFactory.create(request);
 				request.setAttribute("form",form);
 				
 				if (!form.isPresent()) {
-		            return "CreateEmployeeAccountAction.jsp";
+		            return "CreateEmployeeAccount.jsp";
 		        }
 				
 				errors.addAll(form.getValidationErrors());
 				
-				EmployeeBean employee = employeedao.read(form.getUserName());
+				EmployeeBean employee = employeeDAO.read(form.getUserName());
 				if(employee !=null){
-					errors.add("Employee's user name is already exist.");
+					errors.add("This user name is already exist.");
 				}
 				
 				if (errors.size() == 0) {
 					errors.add("You create an employee account success!");
-					return "CreateEmployeeAccountAction.jsp";
 				}
 				
 				
@@ -59,7 +58,7 @@ public class CreateEmployeeAccountAction {
 				employee.setFirstname(form.getFirstName());
 				employee.setLastname(form.getLastName());
 				employee.setPassword(form.getPassword());
-				employeedao.create(employee);
+				employeeDAO.create(employee);
 	        
 				// Attach (this copy of) the user bean to the session
 		        HttpSession session = request.getSession(false);
@@ -71,12 +70,13 @@ public class CreateEmployeeAccountAction {
 			} catch (FormBeanException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				return "CreateEmployeeAccountAction.jsp";
+				return "CreateEmployeeAccount.jsp";
 			} catch (RollbackException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				return "CreateEmployeeAccountAction.jsp";
-			}			
+				return "CreateEmployeeAccount.jsp";
+			}	
+
 	}
 
 }

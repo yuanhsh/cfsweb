@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-
 import com.cfs.dao.Model;
 import com.cfs.bean.CustomerBean;
+import com.cfs.bean.EmployeeBean;
+
+
 
 
 
@@ -25,6 +26,8 @@ public class Controller extends HttpServlet {
     	Model model = new Model(getServletConfig());
 
         Action.add(new FundSearchAction(model));
+      
+
         
         
         
@@ -48,7 +51,8 @@ public class Controller extends HttpServlet {
     private String performTheAction(HttpServletRequest request) {
         HttpSession session     = request.getSession(true);
         String      servletPath = request.getServletPath();
-        CustomerBean        user = (CustomerBean) session.getAttribute("customer");
+        CustomerBean    customer = (CustomerBean) session.getAttribute("customer");
+        EmployeeBean    employee = (EmployeeBean) session.getAttribute("employee");
         String      action = getActionName(servletPath);
 
         // System.out.println("servletPath="+servletPath+" requestURI="+request.getRequestURI()+"  user="+user);
@@ -58,8 +62,13 @@ public class Controller extends HttpServlet {
 			return Action.perform(action,request);
         }
         
-        if (user == null) {
-        	// If the user hasn't logged in, direct him to the login page
+        if (customer == null) {
+        	// If the customer hasn't logged in, direct him to the login page
+			return Action.perform("login.do",request);
+        }
+        
+        if (employee == null) {
+        	// If the employee hasn't logged in, direct him to the login page
 			return Action.perform("login.do",request);
         }
 
