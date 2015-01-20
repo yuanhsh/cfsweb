@@ -16,17 +16,18 @@ import com.cfs.bean.FundBean;
 import com.cfs.dao.CustomerDAO;
 import com.cfs.dao.FundDAO;
 import com.cfs.dao.Model;
+import com.cfs.form.CreateFundForm;
 import com.cfs.form.CustomerForm;
 import com.cfs.form.SearchCustomerForm;
 import com.cfs.controller.*;
 
 
 
-public class SearchCustomerAction extends Action {
-	private FormBeanFactory<SearchCustomerForm> formBeanFactory = FormBeanFactory.getInstance(SearchCustomerForm.class);
+public class CreateFund extends Action {
+	private FormBeanFactory<CreateFundForm> formBeanFactory = FormBeanFactory.getInstance(CreateFundForm.class);
 private CustomerDAO customerDAO;
 	
-	public SearchCustomerAction(Model model) {
+	public CreateFund(Model model) {
 		
 		customerDAO= model.getCustomerDAO();
 }
@@ -50,7 +51,7 @@ private CustomerDAO customerDAO;
         	
         //	request.setAttribute("customerName", customerDAO.getCustomerName());
         	
-	        SearchCustomerForm form = formBeanFactory.create(request);
+	        CreateFundForm form = formBeanFactory.create(request);
 	       // request.setAttribute("form",form);
 
 	      //  if (!form.isPresent()) {
@@ -63,12 +64,12 @@ private CustomerDAO customerDAO;
 	            return "error.jsp";
 	        }
 	
-	        CustomerBean[] array = customerDAO.match(MatchArg.equals("customer_id", form.getCustomerID()));
+	       // CustomerBean[] array = customerDAO.match(MatchArg.equals("customer_id", form.getCustomerID()));
 	        
-	     
+	       form.getFundName()
 	       
         	
-			CustomerBean customer = null;
+			//CustomerBean customer = null;
 			
         
 	        //HttpSession session = request.getSession(false);//why add false at here?
