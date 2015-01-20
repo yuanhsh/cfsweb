@@ -1,48 +1,48 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	id="WebApp_ID" version="3.0">
+<?xml version="1.0" encoding="ISO-8859-1"?>
 
-	<display-name>Carnegie Financial Services</display-name>
-	<description>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
+
+    <display-name>Carnegie Financial Services</display-name>
+    <description>
       Configuration file for the CFS web site
     </description>
+    
+    <servlet>
+        <servlet-name>    favorite-controller        </servlet-name>
+        <servlet-class>   controller.Controller   </servlet-class>
+        <init-param>
+          <param-name>    jdbcDriverName          </param-name> 
+	      <param-value>   com.mysql.jdbc.Driver   </param-value>
+        </init-param>
+        <init-param>
+          <param-name>    jdbcURL                 </param-name> 
+	      <param-value>   jdbc:mysql:///cfs    </param-value>
+        </init-param>
+        <init-param>
+          <param-name>    csvDir                  </param-name> 
+	      <param-value>                           </param-value>
+        </init-param>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>   image-servlet            </servlet-name>
+        <servlet-class>  view.ImageServlet        </servlet-class>
+    </servlet>
 
-	<servlet>
-		<servlet-name>cfs-controller</servlet-name>
-		<servlet-class>com.cfs.controller.Controller</servlet-class>
-		<init-param>
-			<param-name>jdbcDriverName</param-name>
-			<param-value>com.mysql.jdbc.Driver</param-value>
-		</init-param>
-		<init-param>
-			<param-name>jdbcURL</param-name>
-			<param-value>jdbc:mysql://54.172.83.108:3306/cfsdb</param-value>
-		</init-param>
-		<init-param>
-			<param-name>username</param-name>
-			<param-value>cfsuser</param-value>
-		</init-param>
-		<init-param>
-			<param-name>password</param-name>
-			<param-value>Passw0rd</param-value>
-		</init-param>
-	</servlet>
+    <servlet-mapping>
+        <servlet-name>   favorite-controller         </servlet-name>
+        <url-pattern>    *.do                     </url-pattern>
+    </servlet-mapping>
 
-	<servlet-mapping>
-		<servlet-name>cfs-controller</servlet-name>
-		<url-pattern>*.do</url-pattern>
-	</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>   image-servlet            </servlet-name>
+        <url-pattern>    /image                   </url-pattern>
+    </servlet-mapping>
 
-	<resource-ref>
-		<description>MySQL Datasource</description>
-		<res-ref-name>jdbc/mysql</res-ref-name>
-		<res-type>javax.sql.DataSource</res-type>
-		<res-auth>Container</res-auth>
-	</resource-ref>
-	
-	<welcome-file-list>
-		<welcome-file>login.do</welcome-file>
-	</welcome-file-list>
+    <welcome-file-list>
+        <welcome-file>   manage.do                    </welcome-file>
+    </welcome-file-list>
 </web-app>
