@@ -32,6 +32,21 @@ public class CustomerDAO extends GenericDAO<CustomerBean> {
 			if (Transaction.isActive()) Transaction.rollback();
 		}
 	}
+
+
+	public static CustomerBean[] getCustomers() {
+		// TODO Auto-generated method stub
+		return null;
 }
+	
+	public static Object getCustomerID() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	public Object getCustomerName() {
+		// TODO Auto-generated method stub
+		return null;
+	}	
 
+}
