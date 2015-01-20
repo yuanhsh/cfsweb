@@ -31,4 +31,9 @@ public class FundBean {
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
+
+	public void setMoney(long l) {
+		// TODO Auto-generated method stub
+		
+	}
 }
