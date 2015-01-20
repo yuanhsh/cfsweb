@@ -7,10 +7,6 @@ import org.mybeans.form.FormBean;
 
 public class CustomerForm extends FormBean{
 
-	public boolean isPresent() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	public List<String> getValidationErrors() {
 		// TODO Auto-generated method stub
