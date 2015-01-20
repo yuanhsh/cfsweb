@@ -36,9 +36,10 @@ public class CreateEmployeeAccountAction extends Action {
 			try {
 				CreateEmployeeAccountForm form = formBeanFactory.create(request);
 				request.setAttribute("form",form);
+			
 				
 				if (!form.isPresent()) {
-		            return "CreateEmployeeAccount.jsp";
+		            return "create-employee-account.jsp";
 		        }
 				
 				errors.addAll(form.getValidationErrors());
@@ -70,11 +71,11 @@ public class CreateEmployeeAccountAction extends Action {
 			} catch (FormBeanException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				return "CreateEmployeeAccount.jsp";
+				return "create-employee-account.jsp";
 			} catch (RollbackException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				return "CreateEmployeeAccount.jsp";
+				return "create-employee-account.jsp";
 			}	
 
 	}

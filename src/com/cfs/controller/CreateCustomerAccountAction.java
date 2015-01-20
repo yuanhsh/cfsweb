@@ -36,7 +36,7 @@ public class CreateCustomerAccountAction extends Action {
 			CreateCustomerAccountForm form = formBeanFactory.create(request);
 			request.setAttribute("form",form);
 			if (!form.isPresent()) {
-	            return "CreateCustomerAccount.jsp";
+	            return "create-customer-account.jsp";
 	        }
 			errors.addAll(form.getValidationErrors());
 			CustomerBean customer= customerDAO.read(form.getUserName());
@@ -67,11 +67,11 @@ public class CreateCustomerAccountAction extends Action {
 		} catch (FormBeanException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "CreateCustomerAccount.jsp";
+			return "create-customer-account.jsp";
 		} catch (RollbackException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "CreateCustomerAccount.jsp";
+			return "create-customer-account.jsp";
 		}
 		
 	}
