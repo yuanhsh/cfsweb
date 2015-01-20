@@ -13,7 +13,7 @@ public class TransactionBean {
 	private long shares;
 	private String transaction_type;
 	private long amount;
-
+	private long price;
 	// added new field to display the status of the transaction
 	private String status;
 
@@ -80,4 +80,13 @@ public class TransactionBean {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public long getPrice() {
+		return price;
+	}
+
+	public void setPrice(long price) {
+		this.price = price;
+	}
+
 }

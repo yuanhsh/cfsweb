@@ -165,14 +165,4 @@ public class CustomerBean {
 		Random random = new Random();
 		return random.nextInt(8192) + 1; // salt cannot be zero
 	}
-
-	public void setCustomer(Object customers) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setCustomerID(Object customerID) {
-		// TODO Auto-generated method stub
-		
-	}
 }
