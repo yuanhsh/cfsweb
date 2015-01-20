@@ -16,7 +16,7 @@ import com.cfs.dao.Model;
 import com.cfs.form.CreateEmployeeAccountForm;
 
 
-public class CreateEmployeeAccountAction {
+public class CreateEmployeeAccountAction extends Action {
 	private FormBeanFactory<CreateEmployeeAccountForm> formBeanFactory = FormBeanFactory.getInstance(CreateEmployeeAccountForm.class);
 	private EmployeeDAO employeeDAO;
 	

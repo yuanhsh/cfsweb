@@ -17,12 +17,13 @@ import com.cfs.dao.Model;
 import com.cfs.form.CreateCustomerAccountForm;
 import com.cfs.form.CreateEmployeeAccountForm;
 
-public class CreateCustomerAccountAction {
+public class CreateCustomerAccountAction extends Action {
 	private FormBeanFactory<CreateCustomerAccountForm> formBeanFactory = FormBeanFactory.getInstance(CreateCustomerAccountForm.class);
 	private CustomerDAO customerDAO;
 	
 	public CreateCustomerAccountAction(Model model){
 		customerDAO=model.getCustomerDAO();
+		
 	}
 	
 	public String getName() { return "createCustomerAccount.do"; }

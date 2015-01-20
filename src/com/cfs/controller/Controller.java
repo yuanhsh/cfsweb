@@ -26,6 +26,10 @@ public class Controller extends HttpServlet {
     	Model model = new Model(getServletConfig());
 
         Action.add(new FundSearchAction(model));
+        Action.add(new CreateEmployeeAccountAction(model));
+        Action.add(new CreateCustomerAccountAction(model));
+        Action.add(new ResetPasswordAction(model));
+        
       
 
         
