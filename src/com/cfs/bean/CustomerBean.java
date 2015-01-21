@@ -8,7 +8,7 @@ import java.util.Random;
 
 @PrimaryKey("customer_id")
 public class CustomerBean {
-	private int customer_id;
+	private String customer_id;
 	private String username;
 	private String firstname;
 	private String lastname;
@@ -22,12 +22,12 @@ public class CustomerBean {
 	private String hashedPassword = "*";
 	private int salt = 0;
 
-	public int getCustomer_id() {
+	public String getCustomer_id() {
 		return customer_id;
 	}
 
-	public void setCustomer_id(int customer_id) {
-		this.customer_id = customer_id;
+	public void setCustomer_id(String string) {
+		this.customer_id = string;
 	}
 
 	public String getUsername() {

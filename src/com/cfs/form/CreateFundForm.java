@@ -9,6 +9,7 @@ public class CreateFundForm extends FormBean {
 private String symbol;
 private int fundid;
 private String name;
+
 	public List<String> getValidationErrors() {
 		// TODO Auto-generated method stub
 		return null;
