@@ -19,7 +19,9 @@ import com.cfs.dao.Model;
 
 import com.cfs.form.DepositCheckForm;
 
-
+//note from Aditi:::::::
+//@ Meiqi: The error is because of making Customer_Id a int instead of a String in the CustomerBean. 
+//I changed it because cust_id is suppose to be an int value
 
 public class DepositCheck extends Action {
 	private FormBeanFactory<DepositCheckForm> formBeanFactory = FormBeanFactory.getInstance(DepositCheckForm.class);

@@ -20,7 +20,7 @@ import com.cfs.form.CustomerForm;
 import com.cfs.form.SearchCustomerForm;
 import com.cfs.controller.*;
 
-
+//@ Meiqi: Changed line 44 and replaced CustomerDAO with customerDAO after ||
 
 public class SearchCustomerAction extends Action {
 	private FormBeanFactory<SearchCustomerForm> formBeanFactory = FormBeanFactory.getInstance(SearchCustomerForm.class);
@@ -41,7 +41,7 @@ private CustomerDAO customerDAO;
 		
 		
 	    try {
-        	if (customerDAO.getCustomers() == null || CustomerDAO.getCustomers().length == 0) {
+        	if (customerDAO.getCustomers() == null || customerDAO.getCustomers().length == 0) {
             	return "login.do";
             }
         	request.setAttribute("customerList",customerDAO.getCustomers());

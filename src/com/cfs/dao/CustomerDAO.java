@@ -1,5 +1,49 @@
 package com.cfs.dao;
 
+
+import org.genericdao.ConnectionPool;
+import org.genericdao.DAOException;
+import org.genericdao.GenericDAO;
+import org.genericdao.MatchArg;
+import org.genericdao.RollbackException;
+
+import com.cfs.bean.CustomerBean;
+
+
+public class CustomerDAO extends GenericDAO<CustomerBean> {
+	public CustomerDAO(String tableName, ConnectionPool pool)
+			throws DAOException {
+		super(CustomerBean.class, tableName, pool);
+	}
+
+	public CustomerBean[] getCustomers() throws RollbackException {
+		CustomerBean[] customer = match();
+		return customer;
+	}
+
+	public CustomerBean[] getCustomerByUsername(String username) throws RollbackException {
+		//CustomerBean[] customer = match();
+		//System.out.println(customer[0].getCustomer_id() + " cId1 ");
+		CustomerBean[] customer1 = match(MatchArg.equals("username", username));
+		//System.out.println(customer1[0].getCustomer_id() + " cId2 ");
+		return customer1;
+	}
+
+	public int getCustomer_Id(String username) throws RollbackException {
+		CustomerBean[] customer1 = match(MatchArg.equals("username", username));
+		if(customer1!=null && customer1.length>0){
+		return customer1[0].getCustomer_id();
+		}else{
+			return 0;
+		}
+	}
+	
+}
+
+
+
+
+/*
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
 import org.genericdao.GenericDAO;
@@ -50,3 +94,4 @@ public class CustomerDAO extends GenericDAO<CustomerBean> {
 	}	
 
 }
+*/

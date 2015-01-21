@@ -14,6 +14,7 @@ public class EmployeeBean {
 	private String lastname;
 	private String hashedPassword = "*";
 	private int salt = 0;
+	
 
 	public int getEmployee_id() {
 		return employee_id;

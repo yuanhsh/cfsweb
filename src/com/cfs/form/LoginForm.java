@@ -8,7 +8,6 @@ import org.mybeans.form.FormBean;
 public class LoginForm extends FormBean {
 	private String username;
 	private String password;
-	private String button;
 
 	public String getUsername() {
 		return username;
@@ -18,24 +17,12 @@ public class LoginForm extends FormBean {
 		return password;
 	}
 
-	public String getButton() {
-		return button;
-	}
-
 	public void setUsername(String s) {
-		username = s.trim();
+		username = trimAndConvert(s, "<>\"");
 	}
 
 	public void setPassword(String s) {
 		password = s.trim();
-	}
-
-	public void setButton(String s) {
-		button = s;
-	}
-
-	public boolean isPresent() {
-		return button != null;
 	}
 
 	public List<String> getValidationErrors() {
@@ -45,24 +32,8 @@ public class LoginForm extends FormBean {
 			errors.add("Username is required");
 		}
 
-		if (username.matches(".*[<>\"].*")) {
-			errors.add("Whoops! Username cannot contain angular brackets or quotes");
-		}
-
 		if (password == null || password.length() == 0) {
 			errors.add("Password is required");
-		}
-
-		if (button == null) {
-			errors.add("Clicking on login button is required");
-		}
-
-		if (!button.equals("Login")) {
-			errors.add("Invalid button");
-		}
-
-		if (errors.size() > 0) {
-			return errors;
 		}
 
 		return errors;

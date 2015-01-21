@@ -1,3 +1,4 @@
+
 <html>
 <head>
         <meta charset="utf-8">
@@ -80,7 +81,7 @@
         <div class="form-group">
             <label for="inputvpassword" class="col-lg-4 control-label">Username:</label>
             <div class="col-lg-4">
-                <input type="text" name="username" class="form-control" id="inputVpassword" placeholder="Username" value="${form.userName}"/>
+                <input type="text" name="username" class="form-control" id="inputVpassword" placeholder="Username" value="${form.username}"/>
             </div>
         </div>
         <div class="form-group">
