@@ -7,7 +7,7 @@ import org.mybeans.form.FormBean;
 
 public class DepositCheckForm extends FormBean {
 	private String name;
-	private String customerID;
+	private int customerID;
 	private String button;
 	private long cash;
 	private int fundID;
@@ -17,8 +17,8 @@ public class DepositCheckForm extends FormBean {
 		name = s.trim();
 	}
 
-	public void setCustomerID(String s) {
-		customerID = s.trim();
+	public void setCustomerID(int s) {
+		customerID = s;
 	}
 	
     public void setCash(long s){
@@ -38,7 +38,7 @@ public class DepositCheckForm extends FormBean {
 	}
 	
 
-	public String getCustomerID() {
+	public int getCustomerID() {
 		// TODO Auto-generated method stub
 		return customerID;
 	}
@@ -52,6 +52,7 @@ public class DepositCheckForm extends FormBean {
   
 	String FundID="fundID";
 	String cash1="cash";
+	String customerid="customerID";
 
 	public List<String> getValidationErrors() {
 		List<String> errors = new ArrayList<String>();
@@ -59,7 +60,7 @@ public class DepositCheckForm extends FormBean {
 		if (name == null || name.length() == 0) {
 			errors.add("Fund name is required");
 		}
-		if (customerID == null || customerID.length() == 0) {
+		if (customerid == null || customerid.length() == 0) {
 			errors.add("CustomerID is required");
 		}
 		if (FundID==null||FundID.length()==0) {
@@ -72,7 +73,7 @@ public class DepositCheckForm extends FormBean {
 		if (name.matches(".*[<>\"].*")) {
 			errors.add("Funds name cannot contain angular brackets or quotes");
 		}
-		if (customerID.matches(".*[<>\"].*")) {
+		if (customerid.matches(".*[<>\"].*")) {
 			errors.add("customerID cannot contain angular brackets or quotes");
 		}
 		if (FundID.matches(".*[<>\"].*")) {
