@@ -1,39 +1,32 @@
 package com.cfs.controller;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class LogoutAction
- */
-@WebServlet("/logout.do")
-public class LogoutAction extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LogoutAction() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+import com.cfs.dao.CustomerDAO;
+import com.cfs.dao.EmployeeDAO;
+import com.cfs.dao.Model;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+public class LogoutAction extends Action {
+
+	private CustomerDAO customerDAO;
+	private EmployeeDAO employeeDAO;
+
+	public LogoutAction(Model model) {
+		customerDAO = model.getCustomerDAO();
+		employeeDAO = model.getEmployeeDAO();
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public String getName() {
+		return "logout.do";
 	}
 
+	public String perform(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		session.setAttribute("user", null);
+		session.setAttribute("username", null);
+		session.setAttribute("loginAs", null);
+		request.setAttribute("message", "You are now logged out");
+		return "success.jsp";
+	}
 }

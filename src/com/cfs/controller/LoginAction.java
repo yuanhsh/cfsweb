@@ -20,6 +20,7 @@ import com.cfs.bean.CustomerBean;
 import com.cfs.form.LoginForm;
 
 
+
 public class LoginAction extends Action {
 	private FormBeanFactory<LoginForm> formBeanFactory = FormBeanFactory.getInstance(LoginForm.class);
 
@@ -104,11 +105,17 @@ public class LoginAction extends Action {
 			HttpSession session = request.getSession();
 			if (loginAs.equals("cust")) {
 				session.setAttribute("user", customerBean);
+				session.setAttribute("loginAs", "cust");
+				session.setAttribute("username", customerBean.getFirstname());
+				return "cus_view_portfolio.do";
 			} else if (loginAs.equals("emp")) {
 				session.setAttribute("user", employeeBean);
+				session.setAttribute("loginAs", "emp");
+				session.setAttribute("username", employeeBean.getFirstname());
+				//////redirecting the employee on which page after login
+				return "login.do";/////////////////////////////////////////////////needs to be decided
 			}
-///////////////////////after login WHICH page the customer/employee has to be redirected??????????
-			return "manage.do"; /////////////////manage.do needs to be changed
+			return "login.jsp"; 
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
 			return "error.jsp";

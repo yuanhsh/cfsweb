@@ -6,6 +6,7 @@ import org.genericdao.DAOException;
 import org.genericdao.GenericDAO;
 import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 
 import com.cfs.bean.CustomerBean;
 
@@ -22,10 +23,7 @@ public class CustomerDAO extends GenericDAO<CustomerBean> {
 	}
 
 	public CustomerBean[] getCustomerByUsername(String username) throws RollbackException {
-		//CustomerBean[] customer = match();
-		//System.out.println(customer[0].getCustomer_id() + " cId1 ");
 		CustomerBean[] customer1 = match(MatchArg.equals("username", username));
-		//System.out.println(customer1[0].getCustomer_id() + " cId2 ");
 		return customer1;
 	}
 
@@ -38,9 +36,27 @@ public class CustomerDAO extends GenericDAO<CustomerBean> {
 		}
 	}
 	
+
+	public void setPassword(String username, String password) throws RollbackException {
+		try {
+			Transaction.begin();
+			CustomerBean dbCustomer = read(username);
+
+			if (dbCustomer == null) {
+				throw new RollbackException("User " + username + " no longer exists");
+			}
+
+			dbCustomer.setPassword(password);
+
+			update(dbCustomer);
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
+		}
+	}
+	
 }
-
-
 
 
 /*

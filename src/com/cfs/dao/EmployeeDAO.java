@@ -6,6 +6,7 @@ import org.genericdao.DAOException;
 import org.genericdao.GenericDAO;
 import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 
 import com.cfs.bean.EmployeeBean;
 
@@ -33,6 +34,26 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean> {
 		return employee1[0].getEmployee_id();
 		}else{
 			return 0;
+		}
+	}
+	
+
+	public void setPassword(String username, String password) throws RollbackException {
+		try {
+			Transaction.begin();
+			//User dbUser = read(username);
+			EmployeeBean dbEmployee = read(username);
+			if (dbEmployee == null) {
+				throw new RollbackException("User " + username + " no longer exists");
+			}
+
+			dbEmployee.setPassword(password);
+
+			update(dbEmployee);
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
 		}
 	}
 }
