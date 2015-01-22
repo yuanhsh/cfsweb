@@ -71,16 +71,16 @@ public class DepositCheck extends Action {
 			HttpSession session = request.getSession(false);
 			session.setAttribute("check", check);
 			
-			return "createFund.do"; 		
+			return "depositCheck.jsp"; 		
 			 
 		} catch (FormBeanException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "CreateFund.jsp";
+			return "error.jsp";
 		} catch (RollbackException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "CreateFund.jsp";
+			return "error.jsp";
 		}
 		
 	}

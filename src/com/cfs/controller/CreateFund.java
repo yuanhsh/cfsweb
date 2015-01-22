@@ -64,16 +64,16 @@ public class CreateFund extends Action {
 			HttpSession session = request.getSession(false);
 			session.setAttribute("fund", fund);
 			
-			return "createFund.do"; 		
+			return "createFund.jsp"; 		
 			 
 		} catch (FormBeanException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "CreateFund.jsp";
+			return "error.jsp";
 		} catch (RollbackException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "CreateFund.jsp";
+			return "error.jsp";
 		}
 		
 	}

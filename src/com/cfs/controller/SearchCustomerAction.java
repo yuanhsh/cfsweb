@@ -74,7 +74,8 @@ private CustomerDAO customerDAO;
 	        //HttpSession session = request.getSession(false);//why add false at here?
 	       // session.setAttribute("customer",customer);
 	        
-			request.setAttribute("searchResult", array);
+		request.setAttribute("searchResult", array);	
+        
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
         	return "error.jsp";
@@ -82,6 +83,7 @@ private CustomerDAO customerDAO;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    return "searchResult.jsp";
+		return "searchResult.jsp";
+	   
 	}
 }
