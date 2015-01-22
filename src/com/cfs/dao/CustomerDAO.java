@@ -37,13 +37,13 @@ public class CustomerDAO extends GenericDAO<CustomerBean> {
 	}
 	
 
-	public void setPassword(String username, String password) throws RollbackException {
+	public void setPassword(int customer_id, String password) throws RollbackException {
 		try {
 			Transaction.begin();
-			CustomerBean dbCustomer = read(username);
+			CustomerBean dbCustomer = read(customer_id);
 
 			if (dbCustomer == null) {
-				throw new RollbackException("User " + username + " no longer exists");
+				throw new RollbackException("User " + customer_id + " no longer exists");
 			}
 
 			dbCustomer.setPassword(password);

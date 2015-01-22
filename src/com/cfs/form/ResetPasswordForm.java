@@ -1,5 +1,8 @@
 package com.cfs.form;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mybeans.form.FormBean;
 
 public class ResetPasswordForm extends FormBean{
