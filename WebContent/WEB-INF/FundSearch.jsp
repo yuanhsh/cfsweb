@@ -10,7 +10,7 @@
 	<form method="post" action="search_funds.do"> 										// is the action name correct
 		<table>
 			<tr>
-				<td><a><href="search_fund.do?id=${fund.fundId}" ${fund.name}</a> </td> 	// is this correct
+				<td><a><href="search_fund.do?id=${fund.fundId}">${fund.name}</a> </td> 	// is this correct
 				<td><input type="text" name="email" /></td>
 			</tr>
 			
