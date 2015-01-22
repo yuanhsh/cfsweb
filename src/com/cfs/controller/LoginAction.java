@@ -69,8 +69,8 @@ public class LoginAction extends Action {
 			}
 
 			// User user = userDAO.read(form.getUsername());
-			CustomerBean customerBean = customerDAO.read(customerDAO.getCustomer_Id(form.getUsername()));
-			EmployeeBean employeeBean = employeeDAO.read(employeeDAO.getEmployee_Id(form.getUsername()));
+			CustomerBean customerBean = customerDAO.getCustomer(form.getUsername(), form.getPassword());
+			EmployeeBean employeeBean = employeeDAO.getEmployee(form.getUsername(), form.getPassword());
 			System.out.println(employeeBean + " emp ");
 			System.out.println(loginAs + " loginAs ");
 			

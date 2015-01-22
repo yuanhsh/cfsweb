@@ -8,6 +8,7 @@ import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 import org.genericdao.Transaction;
 
+import com.cfs.bean.CustomerBean;
 import com.cfs.bean.EmployeeBean;
 
 public class EmployeeDAO extends GenericDAO<EmployeeBean> {
@@ -34,6 +35,18 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean> {
 		return employee1[0].getEmployee_id();
 		}else{
 			return 0;
+		}
+	}
+	
+
+	public EmployeeBean getEmployee(String username, String password) throws RollbackException {
+		EmployeeBean[] employee1 = match(MatchArg.equals("username", username));
+		if(employee1!=null && employee1.length>0){
+			EmployeeBean emp = employee1[0];
+			if(emp.checkPassword(password)) return emp;
+			return null;
+		}else{
+			return null;
 		}
 	}
 	

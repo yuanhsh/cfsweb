@@ -133,7 +133,7 @@ public class CustomerBean {
 		this.cash = cash;
 	}
 
-	private String hash(String clearPassword) {
+	public String hash(String clearPassword) {
 		if (salt == 0)
 			return null;
 

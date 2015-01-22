@@ -27,12 +27,14 @@ public class CustomerDAO extends GenericDAO<CustomerBean> {
 		return customer1;
 	}
 
-	public int getCustomer_Id(String username) throws RollbackException {
+	public CustomerBean getCustomer(String username, String password) throws RollbackException {
 		CustomerBean[] customer1 = match(MatchArg.equals("username", username));
 		if(customer1!=null && customer1.length>0){
-		return customer1[0].getCustomer_id();
+			CustomerBean cust = customer1[0];
+			if(cust.checkPassword(password)) return cust;
+			return null;
 		}else{
-			return 0;
+			return null;
 		}
 	}
 	
