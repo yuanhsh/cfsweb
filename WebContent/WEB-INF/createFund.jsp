@@ -8,8 +8,8 @@
 
 			<td valign="top">
 				<form method="POST" action="createFund.do">
-					<input type="hidden" name="fundname" value="${funds.name}" /> <input
-						type="hidden" value="fundid" /> FundID: ${fund.id} } <br>
+					<input type="text" name="fundname" value="${funds.name}" /> <input
+						type="text" value="fundid" /> FundID: ${fund.id} } <br>
 					<br>
 				</form>
 			</td>
