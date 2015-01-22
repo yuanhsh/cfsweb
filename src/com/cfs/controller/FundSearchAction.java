@@ -31,7 +31,7 @@ private FundDAO fundDAO;
 		try{
 			FundBean[] fundList= fundDAO.getFunds();
 			request.setAttribute("fundList",fundList);
-			return"fundList.jsp";
+			return"FundSearch.jsp";
 		}catch(RollbackException e){
 			errors.add(e.getMessage());
 			return "error.jsp";
