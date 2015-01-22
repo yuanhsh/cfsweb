@@ -12,4 +12,9 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 		super (TransactionBean.class,tableName,pool);
 	}
 
+	public TransactionBean[] getTransaction() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
