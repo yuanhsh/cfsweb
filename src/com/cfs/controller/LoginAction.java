@@ -52,9 +52,9 @@ public class LoginAction extends Action {
 				// CustomerBean customerBean = getCustomerByUserName(form.getUsername();
 				System.out.println(form.getUsername());
 				System.out.println(form.getPassword());
-				request.setAttribute("user", customerDAO.getCustomerByUsername(form.getUsername()));
+				request.setAttribute("customer", customerDAO.getCustomerByUsername(form.getUsername()));
 			} else if (loginAs != null && loginAs.equals("emp")) {
-				request.setAttribute("user", employeeDAO.getEmployeeByUsername(form.getUsername()));
+				request.setAttribute("employee", employeeDAO.getEmployeeByUsername(form.getUsername()));
 			}
 
 			// LoginForm form = formBeanFactory.create(request);
@@ -104,12 +104,12 @@ public class LoginAction extends Action {
 
 			HttpSession session = request.getSession();
 			if (loginAs.equals("cust")) {
-				session.setAttribute("user", customerBean);
+				session.setAttribute("customer", customerBean);
 				session.setAttribute("loginAs", "cust");
 				session.setAttribute("username", customerBean.getFirstname());
 				return "cus_view_portfolio.do";
 			} else if (loginAs.equals("emp")) {
-				session.setAttribute("user", employeeBean);
+				session.setAttribute("employee", employeeBean);
 				session.setAttribute("loginAs", "emp");
 				session.setAttribute("username", employeeBean.getFirstname());
 				//////redirecting the employee on which page after login
