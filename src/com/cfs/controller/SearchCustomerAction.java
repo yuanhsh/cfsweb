@@ -17,6 +17,7 @@ import com.cfs.dao.CustomerDAO;
 import com.cfs.dao.FundDAO;
 import com.cfs.dao.Model;
 import com.cfs.form.CustomerForm;
+import com.cfs.form.ResetPasswordForm;
 import com.cfs.form.SearchCustomerForm;
 import com.cfs.controller.*;
 
@@ -32,7 +33,37 @@ private CustomerDAO customerDAO;
 }
 	
 	public String getName() {return "search_customer.do";}
-	
+//	public String perform(HttpServletRequest request) {
+//		List<String> errors = new ArrayList<String>();
+//        request.setAttribute("errors",errors);
+//        
+//        
+//		try {
+//			ResetPasswordForm form = formBeanFactory.create(request);
+//			if (!form.isPresent()) {
+//	            return "resetpassword.jsp";
+//	        }
+//	        errors.addAll(form.getValidationErrors());
+//	        if (errors.size() != 0) {
+//	            return "resetpassword.jsp";
+//	        }
+//	        errors.addAll(form.getValidationErrors());
+//	        if (errors.size() == 0) {
+//	            errors.add("Reset password success!");
+//	        }
+//	        
+//	        CustomerBean customer =(CustomerBean)request.getSession().getAttribute("customer");
+//	      
+//	        request.setAttribute("message", "Password reset for "+customer.getCustomer_id());
+//	        return "success.jsp";
+//		} catch (FormBeanException e) {
+//			
+//			e.printStackTrace();
+//			return "error.jsp";
+//		
+//		}
+//	}
+
 	public String perform (HttpServletRequest request){
 		
 		List<String> errors = new ArrayList<String>();
@@ -41,6 +72,18 @@ private CustomerDAO customerDAO;
 		
 		
 	    try {
+	    	SearchCustomerForm form = formBeanFactory.create(request);
+	    	if (!form.isPresent()) {
+	            return "error.jsp";
+	        }
+	        errors.addAll(form.getValidationErrors());
+	        if (errors.size() != 0) {
+	            return "error.jsp";
+	        }
+	        errors.addAll(form.getValidationErrors());
+	        if (errors.size() == 0) {
+	            errors.add("Wrong!");
+	        }
         	if (customerDAO.getCustomers() == null || customerDAO.getCustomers().length == 0) {
             	return "login.do";
             }
@@ -50,7 +93,7 @@ private CustomerDAO customerDAO;
         	
         //	request.setAttribute("customerName", customerDAO.getCustomerName());
         	
-	        SearchCustomerForm form = formBeanFactory.create(request);
+	        
 	       // request.setAttribute("form",form);
 
 	      //  if (!form.isPresent()) {
@@ -58,23 +101,21 @@ private CustomerDAO customerDAO;
 	      //  }
 	
 	        // Any validation errors?
-	        errors.addAll(form.getValidationErrors());
-	        if (errors.size() != 0) {
-	            return "error.jsp";
-	        }
+	     
 	
 	        CustomerBean[] array = customerDAO.match(MatchArg.equals("customer_id", form.getCustomerID()));
 	        
 	     
 	       
         	
-			CustomerBean customer = null;
+			
 			
         
 	        //HttpSession session = request.getSession(false);//why add false at here?
 	       // session.setAttribute("customer",customer);
 	        
-		request.setAttribute("searchResult", array);	
+		request.setAttribute("searchResult", array);
+		return "searchResult.jsp";
         
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
@@ -82,8 +123,8 @@ private CustomerDAO customerDAO;
         } catch (RollbackException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		return "searchResult.jsp";
-	   
-	}
-}
+		return "error.jsp";}
+		
+	
+	
+}}
