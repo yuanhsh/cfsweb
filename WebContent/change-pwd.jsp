@@ -193,6 +193,12 @@
 </html>
     
         <div class="form-group">
+            <label for="inputopassword" class="col-lg-4 control-label">Old Password:</label>
+            <div class="col-lg-4">
+                <input type="Password" class="form-control" id="inputopassword" name="newPassword" placeholder="New Password" value=""/>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="inputnpassword" class="col-lg-4 control-label">New Password:</label>
             <div class="col-lg-4">
                 <input type="Password" class="form-control" id="inputnpassword" name="newPassword" placeholder="New Password" value=""/>

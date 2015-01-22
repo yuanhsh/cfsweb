@@ -18,7 +18,6 @@ import com.cfs.form.ChangePwdForm;
 
 public class ChangePwdAction extends Action {
 	private FormBeanFactory<ChangePwdForm> fbFactory = FormBeanFactory.getInstance(ChangePwdForm.class);
-
 	private CustomerDAO customerDAO;
 	private EmployeeDAO employeeDAO;
 
@@ -52,21 +51,27 @@ public class ChangePwdAction extends Action {
 			String loginAs = (String) request.getSession().getAttribute("loginAs");
 			if (loginAs.equals("cust")) {
 				customerBean = (CustomerBean) request.getSession().getAttribute("user");
-				customerDAO.setPassword(customerBean.getUsername(), form.getNewPassword());
-				request.setAttribute("message", "Password changed for " + customerBean.getUsername());
-///////////				what would be coming here .do or .jsp?
-				
-				return "success.jsp";//////////////////////////////////////////////////////////
-
+				if (customerBean.checkPassword(form.getOldPassword())) {
+					customerDAO.setPassword(customerBean.getUsername(), form.getNewPassword());
+					request.setAttribute("message", "Password changed for " + customerBean.getUsername());
+					return "success.jsp";
+				} else {
+					errors.add("Old password is incorrect");
+					return "change-pwd.jsp";
+				}
 			}
+			
 			if (loginAs.equals("emp")) {
 				employeeBean = (EmployeeBean) request.getSession().getAttribute("user");
-				employeeDAO.setPassword(employeeBean.getUsername(), form.getNewPassword());
-				request.setAttribute("message", "Password changed for " + employeeBean.getUsername());
-///////////				what would be coming here .do or .jsp?
+				if (employeeBean.checkPassword(form.getOldPassword())) {
+					employeeDAO.setPassword(employeeBean.getUsername(),form.getNewPassword());
+					request.setAttribute("message", "Password changed for "+ employeeBean.getUsername());
+				} else {
+					errors.add("Old password is incorrect");
+					return "change-pwd.jsp";
+				}
 				
-				return "success.jsp";//////////////////////////////////////////////////////////
-
+				return "success.jsp";
 			}
 			return "change-pwd.jsp";
 
