@@ -29,7 +29,7 @@ public class ResetPasswordForm extends FormBean{
 		}
 		
 		if (confirmPassword == null || confirmPassword.length() == 0) {
-			errors.add("Confirm Pwd is required");
+			errors.add("Confirm Password is required");
 		}
 		
 		if (errors.size() > 0) {
@@ -37,7 +37,7 @@ public class ResetPasswordForm extends FormBean{
 		}
 		
 		if (!newPassword.equals(confirmPassword)) {
-			errors.add("Passwords do not match");
+			errors.add("New password with confirm password do not match");
 		}
 
 		return errors;

@@ -24,7 +24,7 @@ public class CreateEmployeeAccountAction extends Action {
 		employeeDAO = model.getEmployeeDAO();
 	}
 	
-	public String getName() { return "createEmployeeAccount.do"; }
+	public String getName() { return "create-employee-account.do"; }
 	
 	public String perform(HttpServletRequest request){
 		 List<String> errors = new ArrayList<String>();
@@ -65,7 +65,7 @@ public class CreateEmployeeAccountAction extends Action {
 		        HttpSession session = request.getSession(false);
 		        session.setAttribute("employee",employee);
 		        
-				return "createEmployeeAccount.do";
+				return "create-employee-account.do";
 				
 				
 			} catch (FormBeanException e) {

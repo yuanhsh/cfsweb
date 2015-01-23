@@ -6,17 +6,11 @@
    <div class="mainContent">
 
 
-    <h3  style="text-align: center">Reset account</h3>
+    <h3  style="text-align: center">Reset password for ${username} </h3>
 
 <jsp:include page="error-list.jsp" />
 <form class="form-horizontal" method="post" action="reset_password.do">
     <fieldset>
-        <div class="form-group">
-            <label for="inputvpassword" class="col-lg-4 control-label">Customer name:</label>
-            <div class="col-lg-4">
-                <input type="Password" class="form-control" id="inputVpassword"value="" placeholder="Customer name">
-            </div>
-        </div>
         <div class="form-group">
             <label for="inputnpassword" class="col-lg-4 control-label">Password:</label>
             <div class="col-lg-4">
