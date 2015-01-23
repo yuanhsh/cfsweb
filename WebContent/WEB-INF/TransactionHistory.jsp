@@ -18,7 +18,7 @@
                                         <th>Fund ID(Ticker)</th>
                                         <th style="text-align:right">Customer ID</th>
                                         <th style="text-align:right">Shares</th>
-                                        <th style="text-align:right">Shares</th>
+                                        <th style="text-align:right">Amounts</th>
                                         <th style="text-align:right">Status</th>
                                         
                                         <th style="text-align:right">Date</th>
