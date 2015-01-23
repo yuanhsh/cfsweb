@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.genericdao.DAOException;
+import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
@@ -41,9 +43,17 @@ public class ViewAccountDetails extends Action {
 			//request.setAttribute("funds", funds);
 			String role = (String)request.getSession().getAttribute("loginAs");
 			if(role.equals("cust")) {
-				CustomerBean customer = (CustomerBean)request.getSession().getAttribute("customer");
-				//double balance = ((double)customer.getCash())/100.0;
-				request.setAttribute("customer", customer);
+				int customer_id = (int)request.getSession().getAttribute("customer_id");
+				//CustomerBean customer = (CustomerBean)request.getSession().getAttribute("customer");
+				CustomerBean customer;
+				try {
+					customer = customerDAO.getCustomerByCustomerId(customer_id);
+					request.setAttribute("customer", customer);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				
 			}
 			return "view-account-details.jsp";
 		} catch (FormBeanException e) {

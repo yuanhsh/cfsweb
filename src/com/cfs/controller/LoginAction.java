@@ -106,15 +106,18 @@ public class LoginAction extends Action {
 				session.setAttribute("customer", customerBean);
 				session.setAttribute("loginAs", "cust");
 				session.setAttribute("username", customerBean.getUsername());
-//				session.setAttribute("customer_id", customerBean.getCustomer_id());
-				//return "view_protfolio.do?customer_id="+customerBean.getCustomer_id();
-				return "view-account-details.do";
+				session.setAttribute("customer_id", customerBean.getCustomer_id());
+				return "view_protfolio.do?customer_id="+customerBean.getCustomer_id();
+				//return "view-account-details.do?customer_id="+customerBean.getCustomer_id();
 			} else if (loginAs.equals("emp")) {
 				session.setAttribute("employee", employeeBean);
 				session.setAttribute("loginAs", "emp");
 				session.setAttribute("username", employeeBean.getUsername());
+				return "fund-list.do";
 				//////redirecting the employee on which page after login
-				return "create-customer-account.do?employee_id="+employeeBean.getEmployee_id();/////////////////////////////////////////////////needs to be decided
+				//session.setAttribute("customer_id", customerBean.getCustomer_id());
+				//return "create-customer-account.do?employee_id="+employeeBean.getEmployee_id();/////////////////////////////////////////////////needs to be decided
+				//return "view-account-details.do?customer_id="+employeeBean.getEmployee_id();
 			}
 			return "login.jsp"; 
 		} catch (RollbackException e) {
