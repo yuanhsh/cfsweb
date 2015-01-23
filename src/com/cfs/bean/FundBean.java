@@ -33,7 +33,14 @@ public class FundBean {
 		this.symbol = symbol;
 	}
 
-	public void setPrice(long l) {
-		price=l;
-		}
+	public long getPrice() {
+		return price;
+	}
+
+	public void setPrice(long price) {
+		this.price = price;
+	}
+
+	
+	
 }
