@@ -107,7 +107,8 @@ public class LoginAction extends Action {
 				session.setAttribute("loginAs", "cust");
 				session.setAttribute("username", customerBean.getUsername());
 //				session.setAttribute("customer_id", customerBean.getCustomer_id());
-				return "view_protfolio.do?customer_id="+customerBean.getCustomer_id();
+				//return "view_protfolio.do?customer_id="+customerBean.getCustomer_id();
+				return "view-account-details.do";
 			} else if (loginAs.equals("emp")) {
 				session.setAttribute("employee", employeeBean);
 				session.setAttribute("loginAs", "emp");
