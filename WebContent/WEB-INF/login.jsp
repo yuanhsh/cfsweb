@@ -83,13 +83,13 @@
         <div class="form-group">
             <label for="inputvpassword" class="col-lg-4 control-label">Username:</label>
             <div class="col-lg-4">
-                <input type="text" name="username" class="form-control" id="inputVpassword" placeholder="Username" value="${form.username}" required/>
+                <input type="text" name="username" class="form-control" id="inputVpassword" placeholder="Username" value="${form.username}"/>
             </div>
         </div>
         <div class="form-group">
             <label for="inputnpassword" class="col-lg-4 control-label">Password:</label>
             <div class="col-lg-4">
-                <input type="Password" name="password" class="form-control" id="inputnpassword" placeholder="Password" value="" required/>
+                <input type="Password" name="password" class="form-control" id="inputnpassword" placeholder="Password" value=""/>
             </div>
         </div>
         <div class="form-group">
