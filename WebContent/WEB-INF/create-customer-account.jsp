@@ -6,6 +6,7 @@
 
     <h3 style="text-align: center">Create an Account for customer</h3>
 <jsp:include page="error-list.jsp" />
+<p style="font-size:medium">${message}</p>
 
 <form class="form-horizontal" method="post" action="create-customer-account.do">
     <fieldset>

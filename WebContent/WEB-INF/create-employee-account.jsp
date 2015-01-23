@@ -8,6 +8,7 @@
     <h3 style="text-align: center">Create an Account for employee</h3>
 
 <jsp:include page="error-list.jsp" />
+<p style="font-size:medium">${message}</p>
 <form class="form-horizontal" method="post" action="create-employee-account.do">
     <fieldset>
         <div class="form-group">

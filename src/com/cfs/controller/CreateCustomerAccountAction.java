@@ -35,7 +35,7 @@ public class CreateCustomerAccountAction extends Action {
 			CreateCustomerAccountForm form = formBeanFactory.create(request);
 			request.setAttribute("form",form);
 			if (!form.isPresent()) {
-	            return "create-customer-account.jsp";
+	            return "create-customer-account.do";
 	        }
 			errors.addAll(form.getValidationErrors());
 			CustomerBean customer= customerDAO.read(form.getUserName());
@@ -43,8 +43,9 @@ public class CreateCustomerAccountAction extends Action {
 				errors.add("this user name is already exist.");
 			}
 			if (errors.size() != 0) {
-				return "create-customer-account.jsp";
+				return "create-customer-account.do";
 			}
+			
 			
 			customer=new CustomerBean();
 			customer.setUsername(form.getUserName());
@@ -61,7 +62,8 @@ public class CreateCustomerAccountAction extends Action {
 			HttpSession session = request.getSession(false);
 			session.setAttribute("customer", customer);
 			
-			return "create-customer-account.do"; 		
+			request.setAttribute("message", "Success create an account for "+customer.getUsername());
+			 return "success.jsp";		
 			 
 		} catch (FormBeanException e) {
 			e.printStackTrace();

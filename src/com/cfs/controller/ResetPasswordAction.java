@@ -50,7 +50,7 @@ public class ResetPasswordAction extends Action {
 	        
 	        CustomerBean customer =(CustomerBean)request.getSession().getAttribute("customer");
 	        customerDAO.setPassword(customer.getCustomer_id(), form.getNewPassword());
-	        request.setAttribute("message", "Password reset for "+customer.getCustomer_id());
+	        request.setAttribute("message", "Password reset for "+customer.getUsername());
 	        return "success.jsp";
 		} catch (FormBeanException e) {
 			// TODO Auto-generated catch block
