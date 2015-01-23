@@ -7,16 +7,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.cfs.dao.Model;
-import com.cfs.dao.EmployeeDAO;
-import com.cfs.dao.CustomerDAO;
-
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
-import com.cfs.bean.EmployeeBean;
 import com.cfs.bean.CustomerBean;
+import com.cfs.bean.EmployeeBean;
+import com.cfs.dao.CustomerDAO;
+import com.cfs.dao.EmployeeDAO;
+import com.cfs.dao.Model;
 import com.cfs.form.LoginForm;
 
 
@@ -114,7 +113,7 @@ public class LoginAction extends Action {
 				session.setAttribute("loginAs", "emp");
 				session.setAttribute("username", employeeBean.getUsername());
 				//////redirecting the employee on which page after login
-				return "view_protfolio.do?customer_id="+customerBean.getCustomer_id();/////////////////////////////////////////////////needs to be decided
+				return "view_protfolio.do?employee_id="+employeeBean.getEmployee_id();/////////////////////////////////////////////////needs to be decided
 			}
 			return "login.jsp"; 
 		} catch (RollbackException e) {
