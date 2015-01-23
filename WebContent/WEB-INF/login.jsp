@@ -72,35 +72,33 @@
 
     <h3  style="text-align: center">Login</h3>
     <jsp:include page="error-list.jsp" />
-<p style="font-size:medium">
-	Please login below or click to create an <a href="CreateEmployeeAccount.do">account for an employee</a> or <a href="CreateCustomerAccount.do">account for a customer</a>.
-</p>
 
 <form class="form-horizontal" method="post" action="login.do">
     <fieldset>
         <div class="form-group">
             <label for="inputvpassword" class="col-lg-4 control-label">Username:</label>
             <div class="col-lg-4">
-                <input type="text" name="username" class="form-control" id="inputVpassword" placeholder="Username" value="${form.username}"/>
+                <input type="text" name="username" class="form-control" id="inputVpassword" placeholder="Username" value="${form.username}" required/>
             </div>
         </div>
         <div class="form-group">
             <label for="inputnpassword" class="col-lg-4 control-label">Password:</label>
             <div class="col-lg-4">
-                <input type="Password" name="password" class="form-control" id="inputnpassword" placeholder="Password" value=""/>
+                <input type="Password" name="password" class="form-control" id="inputnpassword" placeholder="Password" value="" required/>
             </div>
         </div>
         <div class="form-group">
             <label for="select" class="col-lg-4 control-label">Login as:</label>
-            <div class="col-lg-5">
+            <div class="col-lg-4">
                 <select class="form-control" id="loginAs" name="loginAs">
                     <option value="cust">Customer</option>
    					<option value="emp">Employee</option>
      </select>
             </div>
+        </div>
 
         <div class="form-group">
-            <div class="col-lg-6 col-lg-offset-4">
+            <div class="col-lg-6 col-lg-offset-5">
                 
                 <button type="submit" class="btn btn-primary">Login</button>
             </div>
@@ -110,6 +108,5 @@
 </div>
  
 </div>
-</p>
 </body>
 </html>

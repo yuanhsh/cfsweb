@@ -14,8 +14,16 @@ public class TransactionBean {
 	private String transaction_type;
 	private long amount;
 	private long price;
-	// added new field to display the status of the transaction
 	private String status;
+	
+	public static final String STATUS_PENDING = "Pending";
+	public static final String STATUS_COMPLETED = "Completed";
+	public static final String STATUS_CANCELLED = "Cancelled";
+	
+	public static final String TYPE_BUY = "Buy";
+	public static final String TYPE_SELL = "Sell";
+	public static final String TYPE_DEPOSIT = "Deposit";
+	public static final String TYPE_REQUEST = "Request Check";
 
 	public int getTransaction_id() {
 		return transaction_id;

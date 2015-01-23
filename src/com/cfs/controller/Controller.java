@@ -31,6 +31,8 @@ public class Controller extends HttpServlet {
 		Action.add(new CreateFund(model));
 		Action.add(new DepositCheck(model));
 		Action.add(new SearchCustomerAction(model));
+		
+		Action.add(new ViewProtfolioAction(model));
 
 		createAutomaticCustomers(model);
 
@@ -38,13 +40,14 @@ public class Controller extends HttpServlet {
 
 	public void createAutomaticCustomers(Model model) {
 		try {
-			if (model.getCustomerDAO().match().length == 0) {
+			if (model.getCustomerDAO().match().length <= 1) {
 
 				CustomerBean cus1 = new CustomerBean();
 				cus1.setCustomer_id(11);
 				cus1.setUsername("cus1");
-				cus1.setHashedPassword("cus1");
+				
 				cus1.setSalt(10);
+				cus1.setPassword("cus1");
 				cus1.setFirstname("customer");
 				cus1.setLastname("one");
 				cus1.setAddr_line1("CMU");
@@ -58,8 +61,8 @@ public class Controller extends HttpServlet {
 				CustomerBean cus2 = new CustomerBean();
 				cus2.setCustomer_id(12);
 				cus2.setUsername("cus2");
-				cus2.setHashedPassword("cus2");
-				cus1.setSalt(11);
+				cus2.setSalt(11);
+				cus2.setPassword("cus2");
 				cus2.setFirstname("customer");
 				cus2.setLastname("two");
 				cus2.setAddr_line1("Pitthbsjhbdh");
@@ -72,8 +75,9 @@ public class Controller extends HttpServlet {
 
 				CustomerBean cus3 = new CustomerBean();
 				cus3.setCustomer_id(13);
-				cus3.setUsername("cus2");
-				cus3.setHashedPassword("cus3");
+				cus3.setUsername("cus3");
+				cus3.setSalt(12);
+				cus3.setPassword("cus3");
 				cus3.setFirstname("customer");
 				cus3.setLastname("three");
 				cus3.setAddr_line1("CmuPitts");
@@ -114,24 +118,31 @@ public class Controller extends HttpServlet {
 		EmployeeBean employee = (EmployeeBean) session.getAttribute("employee");
 		String action = getActionName(servletPath);
 
-		// System.out.println("servletPath="+servletPath+" requestURI="+request.getRequestURI()+"  user="+user);
+		System.out.println("servletPath="+servletPath+" requestURI="+request.getRequestURI());
 
-		if (action.equals("register.do") || action.equals("login.do")
-				|| action.equals("list.do") || action.equals("view.do")) {
+		if (action.equals("login.do")) {
 			// Allow these actions without logging in
 			return Action.perform(action, request);
 		}
-
-		if (customer == null) {
-			// If the customer hasn't logged in, direct him to the login page
+		String role = (String)request.getSession().getAttribute("loginAs");
+		boolean illegal = false;
+		if (role == null) {
+			illegal = true;
+		} else if(role.equals("cust")) {
+			if(action.startsWith("emp_")) {
+				illegal = true;
+			}
+		} else if(role.equals("emp")) {
+			if(action.startsWith("cust_")) {
+				illegal = true;
+			}
+		} else {
+			illegal = true;
+		}
+		// If the use hasn't logged in, direct him to the login page
+		if(illegal) {
 			return Action.perform("login.do", request);
 		}
-
-		if (employee == null) {
-			// If the employee hasn't logged in, direct him to the login page
-			return Action.perform("login.do", request);
-		}
-
 		// Let the logged in user run his chosen action
 		return Action.perform(action, request);
 	}
@@ -149,14 +160,13 @@ public class Controller extends HttpServlet {
 			return;
 		}
 
-		if (nextPage.endsWith(".do")) {
+		if (nextPage.endsWith(".do") || nextPage.indexOf(".do?")!=-1) {
 			response.sendRedirect(nextPage);
 			return;
 		}
 
-		if (nextPage.endsWith(".jsp")) {
-			RequestDispatcher d = request.getRequestDispatcher("WEB-INF/"
-					+ nextPage);
+		if (nextPage.endsWith(".jsp") || nextPage.indexOf(".jsp?")!=-1) {
+			RequestDispatcher d = request.getRequestDispatcher("WEB-INF/" + nextPage);
 			d.forward(request, response);
 			return;
 		}

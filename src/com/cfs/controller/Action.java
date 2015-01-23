@@ -25,13 +25,24 @@ public abstract class Action {
     	}
     }
 
-    public static String perform(String name,HttpServletRequest request) {
+    public static String perform(String path,HttpServletRequest request) {
+    	String[] paths = path.split("\\?");
+    	if(paths == null || paths.length == 0) return null;
+    	String actionName = paths[0];
         Action a;
         synchronized (hash) {
-        	a = hash.get(name);
+        	a = hash.get(actionName);
         }
         
         if (a == null) return null;
+        
+        if(paths.length == 2) {
+        	String[] paramPairs = paths[1].split("&");
+        	for(String pair:paramPairs) {
+        		String[] kv = pair.split("=");
+        		request.setAttribute(kv[0], kv[1]);
+        	}
+        }
         return a.perform(request);
     }
 

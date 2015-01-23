@@ -106,12 +106,13 @@ public class LoginAction extends Action {
 			if (loginAs.equals("cust")) {
 				session.setAttribute("customer", customerBean);
 				session.setAttribute("loginAs", "cust");
-				session.setAttribute("username", customerBean.getFirstname());
-				return "cus_view_portfolio.do";
+				session.setAttribute("username", customerBean.getUsername());
+//				session.setAttribute("customer_id", customerBean.getCustomer_id());
+				return "view_protfolio.do?customer_id="+customerBean.getCustomer_id();
 			} else if (loginAs.equals("emp")) {
 				session.setAttribute("employee", employeeBean);
 				session.setAttribute("loginAs", "emp");
-				session.setAttribute("username", employeeBean.getFirstname());
+				session.setAttribute("username", employeeBean.getUsername());
 				//////redirecting the employee on which page after login
 				return "login.do";/////////////////////////////////////////////////needs to be decided
 			}

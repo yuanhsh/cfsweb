@@ -1,7 +1,11 @@
 package com.cfs.dao;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.sql.DataSource;
 
 import org.genericdao.ConnectionPool;
 import org.genericdao.DAOException;
@@ -16,6 +20,7 @@ public class Model {
 	private FundPriceHistoryDAO priceHistoryDAO;
 	private PositionDAO positionDAO;
 	private TransactionDAO transactionDAO;
+	private ProtfolioDAO protfolioDAO;
 
 	public Model(ServletConfig config) throws ServletException {
 		try {
@@ -31,6 +36,10 @@ public class Model {
 			priceHistoryDAO = new FundPriceHistoryDAO("fund_price_history", pool);
 			positionDAO = new PositionDAO("position", pool);
 			transactionDAO = new TransactionDAO("transaction", pool);
+			
+			Context	ctx = new InitialContext();
+			DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/mysql");
+			protfolioDAO = new ProtfolioDAO(ds);
 
 			if (employeeDAO.getCount() == 0) {
 				createDefaultUser();
@@ -39,7 +48,8 @@ public class Model {
 		} catch (DAOException e) {
 			throw new ServletException(e);
 		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
@@ -66,6 +76,10 @@ public class Model {
 
 	public TransactionDAO getTransactionDAO() {
 		return transactionDAO;
+	}
+
+	public ProtfolioDAO getProtfolioDAO() {
+		return protfolioDAO;
 	}
 
 	public void createDefaultUser() throws RollbackException {
