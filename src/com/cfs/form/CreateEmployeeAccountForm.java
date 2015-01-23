@@ -33,7 +33,7 @@ public class CreateEmployeeAccountForm extends FormBean {
 	public String getPassword() {
 		return password; 
 	}
-	public void setPassWord(String s) {
+	public void setPassword(String s) {
 		password  = s.trim(); 
 	}
 	public String getConfirm() {
