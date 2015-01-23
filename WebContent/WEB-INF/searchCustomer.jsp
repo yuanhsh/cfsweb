@@ -60,8 +60,9 @@
                                         <td><li style="list-style:none" class="dropdown">
                 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Action<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)">view account</a></li>
-                    <li><a href="javascript:void(0)">view transactions</a></li>
+                    <li><a href="view_account_details.do?customer_id=${customer.customer_id }">view account</a></li>
+                    <li><a href="view_protfolio.do?customer_id=${customer.customer_id }">view portfolio</a></li>
+                    <li><a href="transactionHistory.do?customer_id=${customer.customer_id }">view transactions</a></li>
                     <li><a href="emp_reset_password.do?customer_id=${customer.customer_id }">reset password</a></li>
                     <li><a href="javascript:void(0)">deposit check</a></li>                  
                 </ul>

@@ -45,7 +45,7 @@
                         		
                         %>
                             <ul class="nav navbar-nav">
-                                <li class=""><a href="view_protfolio.do?customer_id=${customer.customer_id }">Portfolio</a></li>
+                                <li class=""><a href="view_protfolio.do?customer_id=${customer_id }">Portfolio</a></li>
                                 <li><a href="TransactionHistory.do">Transactions</a></li>
                                 <li><a href="search_fund.do">Funds</a></li>
                             </ul>
@@ -57,7 +57,7 @@
                                 <li class="dropdown">
                                     <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">${username }<b class="caret"></b><div class="ripple-wrapper"></div></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="view_account_details.do?customer_id=${customer.customer_id }">View Account Info</a></li>
+                                        <li><a href="view_account_details.do?customer_id=${customer_id }">View Account Info</a></li>
                                         <li><a href="change-pwd.do">Change Password</a></li>
                                         <li><a href="javascript:void(0)">Help</a></li>
                                         <li><a href="logout.do">Logout</a></li>
