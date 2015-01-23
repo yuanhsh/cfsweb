@@ -65,7 +65,7 @@ public class CreateEmployeeAccountAction extends Action {
 				// Attach (this copy of) the user bean to the session
 		        HttpSession session = request.getSession(false);
 		        session.setAttribute("employee",employee);
-		        request.setAttribute("message", "Success create an account for "+employee.getUsername());
+		        request.setAttribute("message", "Success create an account for employee"+employee.getUsername());
 		        return "success.jsp";
 				
 				
