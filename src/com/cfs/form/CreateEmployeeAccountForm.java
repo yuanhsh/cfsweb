@@ -15,32 +15,32 @@ public class CreateEmployeeAccountForm extends FormBean {
 	public String getUserName() {
 		return userName;
 	}
-	public void setUserName(String userName) {
-		userName  = trimAndConvert(userName,"<>\""); 
+	public void setUserName(String s) {
+		userName  = trimAndConvert(s,"<>\""); 
 	}
 	public String getFirstName() {
 		return firstName;
 	}
-	public void setFirstName(String firstName) {
-		firstName  = trimAndConvert(firstName,"<>\"");
+	public void setFirstName(String s) {
+		firstName  = trimAndConvert(s,"<>\"");
 	}
 	public String getLastName() {
 		return lastName;
 	}
-	public void setLastName(String lastName) {
-		lastName  = trimAndConvert(lastName,"<>\"");
+	public void setLastName(String s) {
+		lastName  = trimAndConvert(s,"<>\"");
 	}
 	public String getPassword() {
 		return password; 
 	}
-	public void setPassWord(String password) {
-		password  = password.trim(); 
+	public void setPassWord(String s) {
+		password  = s.trim(); 
 	}
 	public String getConfirm() {
 		return confirm;
 	}
-	public void setConfirm(String confirm) {
-		confirm   = confirm.trim();
+	public void setConfirm(String s) {
+		confirm   = s.trim();
 	}
 	
 	
