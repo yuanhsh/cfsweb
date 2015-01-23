@@ -81,7 +81,7 @@
                                     <ul class="dropdown-menu">
                                         <li><a href="javascript:void(0)">View Customers</a></li>
                                         <li><a href="javascript:void(0)">(account and transactions)</a></li>
-                                        <li><a href="javascript:void(0)">Create Customer Account</a></li>
+                                        <li><a href="create-customer-account.do">Create Customer Account</a></li>
                                         <li><a href="javascript:void(0)">Deposit Check</a></li>
                                         <li><a href="javascript:void(0)">Reset Customer Password</a></li>
                                     </ul>
@@ -90,7 +90,7 @@
                                     <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Employee Management<b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="javascript:void(0)">View Employees</a></li>
-                                        <li><a href="javascript:void(0)">Create Employee Account</a></li>
+                                        <li><a href="create-employee-account.do">Create Employee Account</a></li>
                                     </ul>
                                 </li>
                                 <!-- <li><a href="javascript:void(0)">Transition Day</a></li> -->
