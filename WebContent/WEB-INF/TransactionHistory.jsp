@@ -8,12 +8,10 @@
 
 			<td valign="top">
 				<form method="POST" action="csearch_transaction.do">
-					<input type="hidden" name="fundId" value="${transactionList.transaction_Id}" /> <br> Price: ${transactionList.price} } <br>
+					<input type="hidden" name="fundId" value="${transactionList.transaction_Id}" /> <br> Price: ${transactionList.price}  <br>
 					Price-date: ${transactionList.execuate_date}<br>
 				</form>
 			</td>
 		</tr>
 	</c:forEach>
 </table>
-
-ï

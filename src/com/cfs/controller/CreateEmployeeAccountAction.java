@@ -49,8 +49,8 @@ public class CreateEmployeeAccountAction extends Action {
 					errors.add("This user name is already exist.");
 				}
 				
-				if (errors.size() == 0) {
-					errors.add("You create an employee account success!");
+				if (errors.size() != 0) {
+					return "create-employee-account.jsp";
 				}
 				
 				

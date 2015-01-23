@@ -8,7 +8,6 @@ import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 import org.genericdao.Transaction;
 
-import com.cfs.bean.CustomerBean;
 import com.cfs.bean.EmployeeBean;
 
 public class EmployeeDAO extends GenericDAO<EmployeeBean> {
@@ -50,11 +49,23 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean> {
 		}
 	}
 	
+	public void create(EmployeeBean employee) throws RollbackException {
+
+		try {
+			Transaction.begin();
+			createAutoIncrement(employee);
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
+		}
+
+	}
+	
 
 	public void setPassword(String username, String password) throws RollbackException {
 		try {
 			Transaction.begin();
-			//User dbUser = read(username);
 			EmployeeBean dbEmployee = read(username);
 			if (dbEmployee == null) {
 				throw new RollbackException("User " + username + " no longer exists");

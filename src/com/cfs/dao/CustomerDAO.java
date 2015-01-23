@@ -37,6 +37,18 @@ public class CustomerDAO extends GenericDAO<CustomerBean> {
 			return null;
 		}
 	}
+	public void create(CustomerBean customer) throws RollbackException {
+
+		try {
+			Transaction.begin();
+			createAutoIncrement(customer);
+			Transaction.commit();
+		} finally {
+			if (Transaction.isActive())
+				Transaction.rollback();
+		}
+
+	}
 	
 
 	public void setPassword(int customer_id, String password) throws RollbackException {

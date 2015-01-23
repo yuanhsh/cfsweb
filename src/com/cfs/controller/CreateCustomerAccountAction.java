@@ -12,10 +12,9 @@ import org.mybeans.form.FormBeanFactory;
 
 import com.cfs.bean.CustomerBean;
 import com.cfs.dao.CustomerDAO;
-import com.cfs.dao.EmployeeDAO;
 import com.cfs.dao.Model;
 import com.cfs.form.CreateCustomerAccountForm;
-import com.cfs.form.CreateEmployeeAccountForm;
+
 
 public class CreateCustomerAccountAction extends Action {
 	private FormBeanFactory<CreateCustomerAccountForm> formBeanFactory = FormBeanFactory.getInstance(CreateCustomerAccountForm.class);
@@ -26,7 +25,7 @@ public class CreateCustomerAccountAction extends Action {
 		
 	}
 	
-	public String getName() { return "createCustomerAccount.do"; }
+	public String getName() { return "create-customer-account.do"; }
 	
 	public String perform(HttpServletRequest request){
 		List<String> errors = new ArrayList<String>();
@@ -43,8 +42,8 @@ public class CreateCustomerAccountAction extends Action {
 			if(customer !=null){
 				errors.add("this user name is already exist.");
 			}
-			if (errors.size() == 0) {
-				errors.add("You create an employee account success!");
+			if (errors.size() != 0) {
+				return "create-customer-account.jsp";
 			}
 			
 			customer=new CustomerBean();
@@ -62,7 +61,7 @@ public class CreateCustomerAccountAction extends Action {
 			HttpSession session = request.getSession(false);
 			session.setAttribute("customer", customer);
 			
-			return "createCustomerAccount.do"; 		
+			return "create-customer-account.do"; 		
 			 
 		} catch (FormBeanException e) {
 			// TODO Auto-generated catch block
