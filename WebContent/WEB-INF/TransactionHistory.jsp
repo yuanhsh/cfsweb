@@ -1,8 +1,5 @@
 
 
-<jsp:include page="template-bottom.jsp" />
-
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="template-top.jsp" />
@@ -14,20 +11,22 @@
     <h3  style="text-align: center">Transaction History </h3>
 
 <jsp:include page="error-list.jsp" />
-<form class="form-horizontal" method="post" action="TransactionHistory.do">
-    <table>
-	
-		
+<form class="form-horizontal" method="post" action="transactionHistory.do">
+    <fieldset>
+        <div class="form-group">
+            <label for="inputnpassword" class="col-lg-4 control-label">Customer ID:</label>
+            <div class="col-lg-4">
+                <input type="Password" class="form-control" id="inputnpassword" name="newPassword" value="" placeholder="Customer ID">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputnpassword" class="col-lg-4 control-label">Transaction Type:</label>
+            <div class="col-lg-4">
+                <input type="Password" class="form-control" id="inputnpassword" name="confirmPassword" value="" placeholder="Check">
+            </div>
+        </div>
 
-			<tr>
-				
-					<th>CustomerID:${transactionList.customer_id}</th><th>transaction ID: ${transactionList.transaction_Id}</th> <th> transaction type:${transactionList.transaction_type}</th><th> transaction status:${transactionList.status} <th>Price: ${transactionList.price} </th> 
-					<th>Price-date: ${transactionList.execuate_date}</th>
-				
-			</tr>
-		
-	
-</table>
+    </fieldset>
 </form>
 </div>
  
