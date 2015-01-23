@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
+import com.cfs.bean.CustomerBean;
 import com.cfs.dao.Model;
 import com.cfs.dao.ProtfolioDAO;
 import com.cfs.dto.ProtfolioDTO;
@@ -35,6 +36,12 @@ public class ViewProtfolioAction extends Action {
 			}
 			List<ProtfolioDTO> funds = this.protfolioDAO.getProtfolio(form.getCustomerIdNumber());
 			request.setAttribute("funds", funds);
+			String role = (String)request.getSession().getAttribute("loginAs");
+			if(role.equals("cust")) {
+				CustomerBean customer = (CustomerBean)request.getSession().getAttribute("customer");
+				double balance = ((double)customer.getCash())/100.0;
+				request.setAttribute("balance", ProtfolioDTO.moneyFomatter.format(balance));
+			}
 			return "protfolio.jsp";
 		} catch (FormBeanException e) {
 			e.printStackTrace();

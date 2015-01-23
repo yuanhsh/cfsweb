@@ -1,56 +1,57 @@
 package com.cfs.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import com.cfs.bean.CustomerBean;
+import com.cfs.bean.FundBean;
 import com.cfs.dao.CustomerDAO;
+import com.cfs.dao.FundDAO;
 import com.cfs.dao.Model;
-import com.cfs.dao.PositionDAO;
 import com.cfs.dao.TransactionDAO;
-import com.cfs.form.BuyFundForm;
+import com.cfs.dto.ProtfolioDTO;
+import com.cfs.form.DepositCheckForm;
+import com.cfs.form.RequestCheckForm;
 import com.cfs.form.SellFundForm;
 import com.google.gson.Gson;
 
-public class SellFundAction extends Action {
-	private FormBeanFactory<SellFundForm> fbFactory = FormBeanFactory.getInstance(SellFundForm.class);
+public class RequestCheckAction extends Action {
+	private FormBeanFactory<RequestCheckForm> formBeanFactory = FormBeanFactory.getInstance(RequestCheckForm.class);
+	private CustomerDAO customerDAO;
 	private TransactionDAO transactionDAO;
-	private PositionDAO positionDAO;
-
-	public SellFundAction(Model model) {
-		transactionDAO = model.getTransactionDAO();
-		positionDAO = model.getPositionDAO();
+	
+	public RequestCheckAction(Model model){
+		customerDAO=model.getCustomerDAO();
+		transactionDAO = model.getTransactionDAO(); 
 	}
-
-	@Override
-	public String getName() {
-		return "cust_ajax_sell_fund.do";
-	}
-
+	
+	public String getName() { return "cust_ajax_request_check.do"; }
+	
 	@Override
 	public String perform(HttpServletRequest request) {
 		return null;
 	}
 	
-	@Override
 	public void performAjax(HttpServletRequest request, HttpServletResponse response) {
-    	CustomerBean customer = (CustomerBean)request.getSession().getAttribute("customer");
+		CustomerBean customer = (CustomerBean)request.getSession().getAttribute("customer");
     	response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         Map<String, String> map = new HashMap<String, String>();
         map.put("success", "false");
     	try {
-			SellFundForm form = fbFactory.create(request);
-			List<String> errors = form.getValidationErrors(request);
+    		RequestCheckForm form = formBeanFactory.create(request);
+			List<String> errors = form.getValidationErrors();
 			if(errors != null && errors.size() != 0) {
 				request.setAttribute("errors", errors);
 				map.put("error", errors.get(0));
@@ -60,15 +61,16 @@ public class SellFundAction extends Action {
 				return;
 			}
 			
-			int fundId = form.getBuyFundId();
-			long shares = form.getSellShares();
-			transactionDAO.sellFund(positionDAO, customer.getCustomer_id(), fundId, shares);
+			long requestAmount = form.getRequestCashAmount();
+			customer = transactionDAO.requestCheck(customerDAO, customer.getCustomer_id(), requestAmount);
+			request.getSession().setAttribute("customer", customer);
 			map.put("success", "true");
+			map.put("cash", "USD "+ProtfolioDTO.moneyFomatter.format(customer.getCash()/100.0));
 			map.put("info", "Your order has been scheduled.");
 		} catch (Exception e) {
 			e.printStackTrace();
 			map.put("success", "false");
-			map.put("error", e.getMessage());
+			map.put("error", "Error detected.");
 		}
     	
     	try {
@@ -78,6 +80,7 @@ public class SellFundAction extends Action {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    }
-
+		
+	}
+	
 }

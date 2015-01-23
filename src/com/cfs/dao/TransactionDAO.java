@@ -79,4 +79,31 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 			throw e;
 		}
 	}
+	
+	public CustomerBean requestCheck(CustomerDAO customerDAO, int customer_id, long requestAmount) throws RollbackException {
+		TransactionBean trans = new TransactionBean();
+		trans.setTransaction_type(TransactionBean.TYPE_REQUEST);
+		trans.setCustomer_id(customer_id);
+		trans.setStatus(TransactionBean.STATUS_PENDING);
+		trans.setAmount(requestAmount);
+		CustomerBean customer;
+		try {
+			Transaction.begin();
+			customer = customerDAO.read(customer_id);
+			if(requestAmount > customer.getCash()) {
+				throw new RollbackException("Request amount exceeds your current cash balance.");
+			}
+			customer.setCash(customer.getCash()-requestAmount);
+			customerDAO.update(customer);
+			this.createAutoIncrement(trans);
+			Transaction.commit();
+		} catch (RollbackException e) {
+			e.printStackTrace();
+			if(Transaction.isActive()) {
+				Transaction.rollback();
+			}
+			throw e;
+		}
+		return customer;
+	}
 }

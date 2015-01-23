@@ -14,8 +14,8 @@ public class ProtfolioDTO {
 	private String disp_shares;
 	private String disp_amount;
 	
-	private static final DecimalFormat moneyFomatter = new DecimalFormat( "###,###,###,##0.00" );
-	private static final DecimalFormat shareFomatter = new DecimalFormat( "###,###,###,##0.000" );
+	public static final DecimalFormat moneyFomatter = new DecimalFormat( "###,###,###,##0.00" );
+	public static final DecimalFormat shareFomatter = new DecimalFormat( "###,###,###,##0.000" );
 	
 	public int getCustomer_id() {
 		return customer_id;

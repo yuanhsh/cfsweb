@@ -45,9 +45,9 @@
                         		
                         %>
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="javascript:void(0)">Portfolio</a></li>
-                                <li><a href="javascript:void(0)">Transactions</a></li>
-                                <li><a href="javascript:void(0)">Funds</a></li>
+                                <li class="active"><a href="view_protfolio.do?customer_id=${customer.customer_id }">Portfolio</a></li>
+                                <li><a href="TransactionHistory.do">Transactions</a></li>
+                                <li><a href="search_fund.do">Funds</a></li>
                             </ul>
                             <form class="navbar-form navbar-left">
                                 <div class="form-control-wrapper"><input type="text" class="form-control col-lg-8 empty" placeholder="Search Fund"><span class="material-input"></span></div>

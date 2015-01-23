@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
+<jsp:include page="template-top.jsp" />
 
 <table>
 	<c:forEach items="${history}" var="transactionList">
@@ -15,3 +15,5 @@
 		</tr>
 	</c:forEach>
 </table>
+
+<jsp:include page="template-bottom.jsp" />

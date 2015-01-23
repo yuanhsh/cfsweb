@@ -71,7 +71,7 @@ public class BuyFundAction extends Action {
 		} catch (Exception e) {
 			e.printStackTrace();
 			map.put("success", "false");
-			map.put("error", "Oops, something wrong happened.");
+			map.put("error", "Oops, "+e.getMessage());
 		}
     	
     	try {

@@ -1,7 +1,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<%@ page import="com.cfs.bean.CustomerBean" %>
 <jsp:include page="template-top.jsp" />
 
+<% String role = (String)request.getSession().getAttribute("loginAs");
+if(role.equals("cust")) {
+%>
+          <div class="bs-docs-section">
+                <div class="row">
+                    <div class="col-md-8">
+                     <h3 id="tables">Cash Balance</h3>
+                     <div class="form-group">
+                                        <h4 class="col-lg-3 cust-cash-label">USD ${balance }</h4>
+                                        <div class="col-lg-6">
+                                        <button class="btn btn-primary btn-request-check">Request Check<div class="ripple-wrapper"></div></button>
+                                        <!-- <a href="javascript:void(0)" class="btn btn-default btn-raised btn-request-check">Request Check</a> -->
+                                        </div>
+                                    </div>
+                    </div>
+                </div>
+          </div>                                    
+         <% }%>
+         
 <div class="bs-docs-section">
                 <div class="row">
                     <div class="col-md-8">
@@ -15,7 +35,9 @@
                                         <th>Shares</th>
                                         <th>Price</th>
                                         <th>Amount</th>
+                                        <%if(role.equals("cust")) { %>
                                         <th>Action</th>
+                                        <%} %>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -26,6 +48,7 @@
                                         <td>${fund.disp_shares }</td>
                                         <td>${fund.disp_price }</td>
                                         <td>${fund.disp_amount }</td>
+                                         <% if(role.equals("cust")) {%>
                                         <td>
                                             <li style="list-style:none" class="dropdown">
                 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Action<b class="caret"></b></a>
@@ -37,6 +60,7 @@
                 </ul>
             </li>
                                         </td>
+                                        <% } %>
                                     </tr>
                                 </c:forEach>    
                                 </tbody>
@@ -44,6 +68,8 @@
                     </div>
                 </div>
             </div>
+                                      
+            
 		<div id="buy-modal" class="modal fade" tabindex="-1">
                 <div class="modal-dialog modal-lg-6" style="margin:100px auto">
                     <div class="modal-content">
@@ -124,6 +150,39 @@
                 </div>
             </div>
             
+            <div id="request-modal" class="modal fade" tabindex="-1">
+                <div class="modal-dialog modal-lg-6" style="margin:100px auto">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Request Check</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-dismissable alert-success">
+                            </div>
+                            <div class="alert alert-dismissable alert-warning">
+                            </div>
+                            <form class="form-horizontal" id="form-request-check">
+                                <fieldset>
+                                   
+                                    <div class="form-group">
+                                        <label for="fundAmount" class="col-lg-5 control-label">Request Check Amount:</label>
+                                        <div class="col-lg-5">
+                                            <div class="form-control-wrapper"><input type="text" class="form-control empty" id="requestAmount" name="requestAmount" placeholder="Request Check Amount" required><span class="material-input"></span></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-lg-6 col-lg-offset-4">
+                                            <a href="javascript:void(0)" class="btn btn-primary submit-request-check">Submit<div class="ripple-wrapper"></div></a>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <script>
             $(function() {
             	$(".buy-fund-link").click(function(){
@@ -131,6 +190,7 @@
 					var fundName = $(this).attr("fund-name");
 					var fundSymbol = $(this).attr("fund-symbol");
 					$(".hidden-fund-id").val(fundId);
+					$("#fundAmount").val("");
 					$(".fund-name-label").text(fundName+" ("+fundSymbol+")");
 					$(".alert-success").hide();
 					$(".alert-warning").hide();
@@ -141,10 +201,17 @@
 					var fundName = $(this).attr("fund-name");
 					var fundSymbol = $(this).attr("fund-symbol");
 					$(".hidden-fund-id").val(fundId);
+					$("#sellShares").val("");
 					$(".fund-name-label").text(fundName+" ("+fundSymbol+")");
 					$(".alert-success").hide();
 					$(".alert-warning").hide();
             		$("#sell-modal").modal();
+                });
+            	$(".btn-request-check").click(function(){
+					$("#requestAmount").val("");
+					$(".alert-success").hide();
+					$(".alert-warning").hide();
+            		$("#request-modal").modal();
                 });
             	$(".submit-buy-fund").click(function(){
             		$.post( 'cust_ajax_buy_fund.do', $('form#form-buy-fund').serialize(), function(data) {
@@ -160,6 +227,17 @@
             		$.post( 'cust_ajax_sell_fund.do', $('form#form-sell-fund').serialize(), function(data) {
             	         if(data.success == "true") {
             	        	 $(".alert-success").text(data.info).show();
+            	         } else {
+            	        	 $(".alert-warning").text(data.error).show();
+            	         }
+            	      }, 'json' // I expect a JSON response
+            	    );
+                });
+            	$(".submit-request-check").click(function(){
+            		$.post( 'cust_ajax_request_check.do', $('form#form-request-check').serialize(), function(data) {
+            	         if(data.success == "true") {
+            	        	 $(".alert-success").text(data.info).show();
+            	        	 $(".cust-cash-label").text(data.cash);
             	         } else {
             	        	 $(".alert-warning").text(data.error).show();
             	         }
