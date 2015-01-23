@@ -22,9 +22,12 @@ public class CustomerDAO extends GenericDAO<CustomerBean> {
 		return customer;
 	}
 
-	public CustomerBean[] getCustomerByUsername(String username) throws RollbackException {
+	public CustomerBean getCustomerByUsername(String username) throws RollbackException {
 		CustomerBean[] customer1 = match(MatchArg.equals("username", username));
-		return customer1;
+		if (customer1 ==null || customer1.length<1) {
+			return null;
+		}
+		return customer1[0];
 	}
 
 	public CustomerBean getCustomer(String username, String password) throws RollbackException {

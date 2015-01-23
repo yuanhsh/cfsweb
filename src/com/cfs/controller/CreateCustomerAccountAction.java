@@ -38,7 +38,7 @@ public class CreateCustomerAccountAction extends Action {
 	            return "create-customer-account.do";
 	        }
 			errors.addAll(form.getValidationErrors());
-			CustomerBean customer= customerDAO.read(form.getUserName());
+			CustomerBean customer= customerDAO.getCustomerByUsername(form.getUserName());
 			if(customer !=null){
 				errors.add("this user name is already exist.");
 			}

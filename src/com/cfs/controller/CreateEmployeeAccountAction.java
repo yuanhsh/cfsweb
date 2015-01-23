@@ -43,8 +43,8 @@ public class CreateEmployeeAccountAction extends Action {
 		        }
 				
 				errors.addAll(form.getValidationErrors());
-				
-				EmployeeBean employee = employeeDAO.read(form.getUserName());
+				 
+				EmployeeBean employee = employeeDAO.getEmployeeByUsername(form.getUserName());
 				if(employee !=null){
 					errors.add("This user name is already exist.");
 				}
@@ -52,7 +52,7 @@ public class CreateEmployeeAccountAction extends Action {
 				if (errors.size() != 0) {
 					return "create-employee-account.jsp";
 				}
-				request.setAttribute("message", "Success create an account for "+employee.getUsername());
+				
 				
 				
 				employee = new EmployeeBean();
@@ -65,8 +65,7 @@ public class CreateEmployeeAccountAction extends Action {
 				// Attach (this copy of) the user bean to the session
 		        HttpSession session = request.getSession(false);
 		        session.setAttribute("employee",employee);
-		        
-		        
+		        request.setAttribute("message", "Success create an account for "+employee.getUsername());
 		        return "success.jsp";
 				
 				

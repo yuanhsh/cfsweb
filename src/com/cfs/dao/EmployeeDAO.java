@@ -20,12 +20,15 @@ public class EmployeeDAO extends GenericDAO<EmployeeBean> {
 		return employee;
 	}
 	
-	public EmployeeBean[] getEmployeeByUsername(String username) throws RollbackException {
+	public EmployeeBean getEmployeeByUsername(String username) throws RollbackException {
 		//EmployeeBean[] employee = match();
 		//System.out.println(employee[0].getEmployee_id() + " cId1 ");
 		EmployeeBean[] employee1 = match(MatchArg.equals("username", username));
+		if (employee1 ==null || employee1.length<1) {
+			return null;
+		}
 		//System.out.println(employee1[0].getEmployee_id() + " cId2 ");
-		return employee1;
+		return employee1[0];
 	}
 
 	public int getEmployee_Id(String username) throws RollbackException {
