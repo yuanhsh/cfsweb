@@ -7,6 +7,7 @@ public class FundBean {
 	private int fund_id;
 	private String name;
 	private String symbol;
+	private long price;
 
 	public int getFund_id() {
 		return fund_id;
@@ -32,8 +33,7 @@ public class FundBean {
 		this.symbol = symbol;
 	}
 
-	public void setMoney(long l) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void setPrice(long l) {
+		price=l;
+		}
 }
