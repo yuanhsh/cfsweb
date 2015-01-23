@@ -7,7 +7,7 @@
 		<tr>
 
 			<td valign="top">
-				<form method="POST" action="cus_buy_fund.do">
+				<form method="POST" action="view_fund_info.do">
 					<input type="hidden" name="fundId" value="${fundInfo.fundId}" /> <input
 						type="Buy" value="X" /> Price: ${fundInfo.price} } <br>
 					Price-date: ${fundInfo.price_date}<br>
