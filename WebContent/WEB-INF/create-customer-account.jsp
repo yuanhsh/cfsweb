@@ -12,61 +12,61 @@
         <div class="form-group">
             <label for="inputusername" class="col-lg-4 control-label">User Name:</label>
             <div class="col-lg-5">
-                <input type="text" class="form-control" id="inputusername" value="${form.userName}" placeholder="User Name">
+                <input type="text" class="form-control" id="inputusername" name="userName" value="${form.userName}" placeholder="User Name">
             </div>
         </div>
         <div class="form-group">
             <label for="inputnpassword" class="col-lg-4 control-label">Password:</label>
             <div class="col-lg-5">
-                <input type="Password" class="form-control" id="inputnpassword" value="" placeholder="Password">
+                <input type="Password" class="form-control" id="inputnpassword" name="password" value="" placeholder="Password">
             </div>
         </div>
         <div class="form-group">
             <label for="inputfpassword" class="col-lg-4 control-label">Confirm Password:</label>
             <div class="col-lg-5">
-                <input type="Password" class="form-control" id="inputVpassword" value="" placeholder="Confirm Password">
+                <input type="Password" class="form-control" id="inputVpassword" name="confirm" value="" placeholder="Confirm Password">
             </div>
         </div>
         <div class="form-group">
             <label for="inputfirstname" class="col-lg-4 control-label">First Name:</label>
             <div class="col-lg-5">
-                <input type="text" class="form-control" id="inputfname" value="${form.firstName}" placeholder="First Name">
+                <input type="text" class="form-control" id="inputfname" name="firstName" value="${form.firstName}" placeholder="First Name">
             </div>
         </div>
         <div class="form-group">
             <label for="inputulastname" class="col-lg-4 control-label">Last Name:</label>
             <div class="col-lg-5">
-                <input type="text" class="form-control" id="inputlname" value="${form.lastName}" placeholder="Last Name">
+                <input type="text" class="form-control" id="inputlname" name="lastName" value="${form.lastName}" placeholder="Last Name">
             </div>
         </div>
          <div class="form-group">
             <label for="inputaddress1" class="col-lg-4 control-label">Address line1:</label>
             <div class="col-lg-5">
-                <input type="text" class="form-control" id="inputaddress1" value="${form.addressl1}"placeholder="Address line1">
+                <input type="text" class="form-control" id="inputaddress1" name="addressl1" value="${form.addressl1}"placeholder="Address line1">
             </div>
         </div>
          <div class="form-group">
             <label for="inputaddress2" class="col-lg-4 control-label">Address line2:</label>
             <div class="col-lg-5">
-                <input type="text" class="form-control" id="inputaddress2"value="${form.addressl2 }" placeholder="Address line2">
+                <input type="text" class="form-control" id="inputaddress2"name="addressl2"value="${form.addressl2 }" placeholder="Address line2">
             </div>
         </div>
          <div class="form-group">
             <label for="inputcity" class="col-lg-4 control-label">City:</label>
             <div class="col-lg-5">
-                <input type="text" class="form-control" id="inputcity"value="${form.city }" placeholder="City">
+                <input type="text" class="form-control" id="inputcity" name="city"value="${form.city }" placeholder="City">
             </div>
         </div>
         <div class="form-group">
             <label for="inputzip" class="col-lg-4 control-label">Zip:</label>
             <div class="col-lg-5">
-                <input type="text" class="form-control" id="inputzip" value="${form.zip }" placeholder="Zip">
+                <input type="text" class="form-control" id="inputzip" name="zip" value="${form.zip }" placeholder="Zip">
             </div>
         </div>
          <div class="form-group">
             <label for="select" class="col-lg-4 control-label">State:</label>
             <div class="col-lg-5">
-                <select class="form-control" id="select"  >
+                <select class="form-control" id="select" name="state" >
                  <option value="0">Please select your state</option>
                     <option value="AL">Alabama</option>
     <option value="Alaska">Alaska</option>

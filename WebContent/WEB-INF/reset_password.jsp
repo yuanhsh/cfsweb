@@ -20,13 +20,13 @@
         <div class="form-group">
             <label for="inputnpassword" class="col-lg-4 control-label">Password:</label>
             <div class="col-lg-4">
-                <input type="Password" class="form-control" id="inputnpassword" value="" placeholder="Password">
+                <input type="Password" class="form-control" id="inputnpassword" name="newPassword" value="" placeholder="Password">
             </div>
         </div>
         <div class="form-group">
             <label for="inputnpassword" class="col-lg-4 control-label">Enter Password Again:</label>
             <div class="col-lg-4">
-                <input type="Password" class="form-control" id="inputnpassword" value="" placeholder="Enter Password Again">
+                <input type="Password" class="form-control" id="inputnpassword" name="confirmPassword" value="" placeholder="Enter Password Again">
             </div>
         </div>
         <div class="form-group">
