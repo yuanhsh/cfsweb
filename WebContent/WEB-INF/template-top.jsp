@@ -72,17 +72,17 @@
                                     <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Fund Management <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="javascript:void(0)">View Funds</a></li>
-                                        <li><a href="javascript:void(0)">Create Fund</a></li>
+                                        <li><a href="createFund.do">Create Fund</a></li>
                                         <li><a href="javascript:void(0)">Transition Day</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
                                     <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Customer Management <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="javascript:void(0)">View Customers</a></li>
+                                        <li><a href="view-account-details.do">View Customers</a></li>
                                         <li><a href="javascript:void(0)">(account and transactions)</a></li>
                                         <li><a href="create-customer-account.do">Create Customer Account</a></li>
-                                        <li><a href="javascript:void(0)">Deposit Check</a></li>
+                                        <li><a href="depositCheck.do">Deposit Check</a></li>
                                         <li><a href="javascript:void(0)">Reset Customer Password</a></li>
                                     </ul>
                                 </li>
@@ -103,8 +103,8 @@
                                 <li class="dropdown">
                                     <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">${username }<b class="caret"></b><div class="ripple-wrapper"></div></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="javascript:void(0)">Change Password</a></li>
-                                        <li><a href="javascript:void(0)">Logout</a></li>
+                                        <li><a href="change-pwd.do">Change Password</a></li>
+                                        <li><a href="logout.do">Logout</a></li>
                                     </ul>
                                 </li>
                             </ul>
