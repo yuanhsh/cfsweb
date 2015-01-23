@@ -6,7 +6,7 @@
    <div class="mainContent">
 
 
-    <h3  style="text-align: center">Reset password for ${username} </h3>
+    <h3  style="text-align: center">Reset password </h3>
 
 <jsp:include page="error-list.jsp" />
 <form class="form-horizontal" method="post" action="reset_password.do">
