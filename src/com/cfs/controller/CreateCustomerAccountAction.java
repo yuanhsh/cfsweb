@@ -25,7 +25,7 @@ public class CreateCustomerAccountAction extends Action {
 		
 	}
 	
-	public String getName() { return "create-customer-account.do"; }
+	public String getName() { return "emp_create_cust_account.do"; }
 	
 	public String perform(HttpServletRequest request){
 		List<String> errors = new ArrayList<String>();

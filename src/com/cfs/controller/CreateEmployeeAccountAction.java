@@ -24,7 +24,7 @@ public class CreateEmployeeAccountAction extends Action {
 		employeeDAO = model.getEmployeeDAO();
 	}
 	
-	public String getName() { return "create-employee-account.do"; }
+	public String getName() { return "emp_create_emp_account.do"; }
 	
 	public String perform(HttpServletRequest request){
 		 List<String> errors = new ArrayList<String>();

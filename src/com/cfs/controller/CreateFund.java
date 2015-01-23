@@ -29,7 +29,7 @@ public class CreateFund extends Action {
 		
 	}
 	
-	public String getName() { return "createFund.do"; }
+	public String getName() { return "emp_create_fund.do"; }
 	
 	public String perform(HttpServletRequest request){
 		List<String> errors = new ArrayList<String>();
@@ -38,11 +38,7 @@ public class CreateFund extends Action {
         try {
 			CreateFundForm form = formBeanFactory.create(request);
 			request.setAttribute("form",form);
-			
-		
-			
-			
-			
+
 	        if (!form.isPresent()) {
 	            return "createFund.jsp";
 	        }

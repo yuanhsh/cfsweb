@@ -45,7 +45,7 @@
                         		
                         %>
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="view_protfolio.do?customer_id=${customer.customer_id }">Portfolio</a></li>
+                                <li class=""><a href="view_protfolio.do?customer_id=${customer.customer_id }">Portfolio</a></li>
                                 <li><a href="TransactionHistory.do">Transactions</a></li>
                                 <li><a href="search_fund.do">Funds</a></li>
                             </ul>
@@ -68,32 +68,22 @@
                         	} else if("emp".equals(loginAs)) {
                         %>
                         	<ul class="nav navbar-nav">
-                                <li class="dropdown active">
+                                <li class="dropdown">
                                     <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Fund Management <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="javascript:void(0)">View Funds</a></li>
-                                        <li><a href="createFund.do">Create Fund</a></li>
-                                        <li><a href="javascript:void(0)">Transition Day</a></li>
+                                        <li><a href="search_fund.do">View Funds</a></li>
+                                        <li><a href="emp_create_fund.do">Create Fund</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Customer Management <b class="caret"></b></a>
+                                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Account Management <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="view-account-details.do">View Customers</a></li>
-                                        <li><a href="javascript:void(0)">(account and transactions)</a></li>
-                                        <li><a href="create-customer-account.do">Create Customer Account</a></li>
-                                        <li><a href="depositCheck.do">Deposit Check</a></li>
-                                        <li><a href="javascript:void(0)">Reset Customer Password</a></li>
+                                        <li><a href="emp_search_customer.do">View Customers</a></li>
+                                        <li><a href="emp_create_cust_account.do">Create Customer Account</a></li>
+                                        <li><a href="emp_create_emp_account.do">Create Employee Account</a></li>
                                     </ul>
                                 </li>
-                                <li class="dropdown">
-                                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Employee Management<b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="javascript:void(0)">View Employees</a></li>
-                                        <li><a href="create-employee-account.do">Create Employee Account</a></li>
-                                    </ul>
-                                </li>
-                                <!-- <li><a href="javascript:void(0)">Transition Day</a></li> -->
+                                <li><a href="emp_transition_day.do">Transition Day</a></li>
                             </ul>
                             <form class="navbar-form navbar-left">
                                 <div class="form-control-wrapper"><input type="text" class="form-control col-lg-8 empty" placeholder="Search Fund"><span class="material-input"></span></div>
