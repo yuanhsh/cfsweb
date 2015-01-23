@@ -2,7 +2,7 @@
 
 <jsp:include page="template-top.jsp" />
 <div id="content">
-    <%-- <c:forEach var="fund" items="${fund}"> --%>
+    <%-- <c:items="${fund}" forEach var="fund" > --%>
 <form class="form-horizontal" method="POST" action="emp_create_fund.do">
 
                           
@@ -11,13 +11,13 @@
                                     <div class="form-group">
                                         <label for="inputEmail" class="col-lg-3 control-label">Fund Name</label>
                                         <div class="col-lg-9">
-                                            <div class="form-control-wrapper"><input type="text" class="form-control empty" id="inputEmail" placeholder="Fund Name"><span class="material-input"></span></div>
+                                            <div class="form-control-wrapper"><input name="name" type="text" class="form-control empty" value="${fund.name}" placeholder="Fund Name"/><span class="material-input"></span></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="inputPassword" class="col-lg-3 control-label">Fund Ticker</label>
                                         <div class="col-lg-9">
-                                            <div class="form-control-wrapper"><input type="text" class="form-control empty" id="inputPassword" placeholder="Fund Ticker"><span class="material-input"></span></div>
+                                            <div class="form-control-wrapper"><input name="symbol" type="text" class="form-control empty" value="${fund.symbol}" placeholder="Fund Ticker"/><span class="material-input"></span></div>
                                         </div>
                                     </div>
                                     <div class="form-group">

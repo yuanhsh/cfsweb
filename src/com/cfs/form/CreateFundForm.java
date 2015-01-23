@@ -7,10 +7,10 @@ import java.util.List;
 import org.mybeans.form.FormBean;
 
 public class CreateFundForm extends FormBean {
-private String symbol;
-private int fundid;
-private String name;
-private String button;
+private String symbol;//、
+
+private String name;//、
+
 
 public void setName(String s) {
 	name = s.trim();
@@ -29,20 +29,8 @@ public String getSymbol() {
 	// TODO Auto-generated method stub
 	return symbol;
 }
-public void setButton(String s) {
-	button = s;
-}
-public String getButton() {
-	return button;
-}
-public void setFund_id(int s){
-	fundid=s;
-}
-public int getFund_id() {
-	
-	// TODO Auto-generated method stub
-	return fundid;
-}
+
+
 
 public List<String> getValidationErrors() {
 	List<String> errors = new ArrayList<String>();
@@ -70,13 +58,6 @@ public List<String> getValidationErrors() {
 
 	
 
-	if (button == null) {
-		errors.add("Clicking on create button is required");
-	}
-
-	if (!button.equals("Create")) {
-		errors.add("Invalid button");
-	}
 
 	if (errors.size() > 0) {
 		return errors;

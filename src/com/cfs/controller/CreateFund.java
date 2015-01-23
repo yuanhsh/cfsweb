@@ -51,14 +51,13 @@ public class CreateFund extends Action {
 			
 			FundBean fund=new FundBean();
 			fund.setName(form.getName());
-			fund.setFund_id(form.getFund_id());
+			
 			fund.setSymbol(form.getSymbol());
 			
 			
-			fundDAO.create(fund);
+			fundDAO.createAutoIncrement(fund);
 			
-			HttpSession session = request.getSession(false);
-			session.setAttribute("fund", fund);
+			
 			
 			return "createFund.jsp"; 		
 			 
