@@ -2,6 +2,7 @@ package com.cfs.controller;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,64 +26,29 @@ public class TransactionHistory extends Action {
 	
 	public TransactionHistory(Model model){
 		transactionDAO=model.getTransactionDAO();
-		
 	}
 	
 	public String getName() { return "transactionHistory.do"; }
 	
 	public String perform(HttpServletRequest request){
-		ArrayList<String> errors = new ArrayList<String>();
-        request.setAttribute("errors",errors);
-        
         try {
 			TransactionHistoryForm form = formBeanFactory.create(request);
-			request.setAttribute("form",form);
-			
-		
-			
-			
-			
 	        if (!form.isPresent()) {
-	            return "transactionHistory.jsp";
+	            return "TransactionHistory.jsp";
 	        }
-	
-	        // Any validation errors?
-	        errors.addAll(form.getValidationErrors());
-	        if (errors.size() != 0) {
+	        List<String> errors = form.getValidationErrors();
+	        if (errors != null && errors.size() != 0) {
+	        	request.setAttribute("errors", errors);
 	            return "error.jsp";
 	        }
-			
-		  // the cash means the check the customer wants to deposit, right?
-			
-			
-			TransactionBean trans=new TransactionBean();
-			trans.setFund_id(form.getfund_id());
-			
-			trans.setCustomer_id(form.getCustomer_id());
-			trans.setExecute_date(form.getExecute_date);
-			trans.setShares(form.getShares());
-			trans.setAmount(form.getAmount());
-			trans.setStatus(form.getStatus());
-			
-			transactionDAO.create(trans);
-			
-			HttpSession session = request.getSession(false);
-			session.setAttribute("transaction", trans);
-			
-			return "transactionHistory.jsp"; 		
-			 
-		} catch (FormBeanException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "error.jsp";
-		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
+			TransactionBean[] trans = transactionDAO.getTransactions(form.getCustID());
+			request.setAttribute("transactionList", trans);
+			return "TransactionHistory.jsp"; 	
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "error.jsp";
 		}
 		
 	}
 
-
-	
 }

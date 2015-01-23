@@ -46,7 +46,7 @@
                         %>
                             <ul class="nav navbar-nav">
                                 <li class=""><a href="view_protfolio.do?customer_id=${customer_id }">Portfolio</a></li>
-                                <li><a href="TransactionHistory.do">Transactions</a></li>
+                                <li><a href="transactionHistory.do?customer_id=${customer_id }">Transactions</a></li>
                                 <li><a href="search_fund.do">Funds</a></li>
                             </ul>
                             <form class="navbar-form navbar-left">
