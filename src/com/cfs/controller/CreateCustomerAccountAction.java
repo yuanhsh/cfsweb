@@ -64,7 +64,6 @@ public class CreateCustomerAccountAction extends Action {
 			return "create-customer-account.do"; 		
 			 
 		} catch (FormBeanException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "create-customer-account.jsp";
 		} catch (RollbackException e) {
