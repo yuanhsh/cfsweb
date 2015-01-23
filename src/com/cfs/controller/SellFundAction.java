@@ -44,6 +44,7 @@ public class SellFundAction extends Action {
 	@Override
 	public void performAjax(HttpServletRequest request, HttpServletResponse response) {
     	CustomerBean customer = (CustomerBean)request.getSession().getAttribute("customer");
+    	Integer custId = (Integer)request.getSession().getAttribute("customer_id");
     	response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         Map<String, String> map = new HashMap<String, String>();
@@ -62,7 +63,7 @@ public class SellFundAction extends Action {
 			
 			int fundId = form.getBuyFundId();
 			long shares = form.getSellShares();
-			transactionDAO.sellFund(positionDAO, customer.getCustomer_id(), fundId, shares);
+			transactionDAO.sellFund(positionDAO, custId, fundId, shares);
 			map.put("success", "true");
 			map.put("info", "Your order has been scheduled.");
 		} catch (Exception e) {

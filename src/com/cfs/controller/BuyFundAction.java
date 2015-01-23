@@ -47,7 +47,8 @@ public class BuyFundAction extends Action {
         Map<String, String> map = new HashMap<String, String>();
         map.put("success", "false");
     	try {
-    		customer = customerDAO.read(customer.getCustomer_id());
+    		Integer custId = (Integer)request.getSession().getAttribute("customer_id");
+    		customer = customerDAO.read(custId);
 			if(customer != null) {
 				request.getSession().setAttribute("customer", customer);
 			}
