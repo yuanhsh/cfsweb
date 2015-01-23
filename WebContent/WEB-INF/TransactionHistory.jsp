@@ -3,7 +3,7 @@
 <%@ page import="com.cfs.bean.TransactionBean" %>
 <jsp:include page="template-top.jsp" />
 
-
+<javascript>
 
          
 <div class="bs-docs-section">
@@ -77,10 +77,10 @@
                                         <td>Complete</td>
                                     </tr>
                                 <c:forEach items="${transaction}" var="t" >
-                                    <tr>
+                                    <tr><td></td>
                                         <td>${t.execuate_date }</td>
                                         <td>${t.fund_id }</td>
-                                        <td ></td>
+                                        <td> </td>
                                         <td >${t.shares }</td>
                                         <td >${t.amount }</td>
                                         <td >${t.amount}</td>
