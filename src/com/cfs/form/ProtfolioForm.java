@@ -1,10 +1,13 @@
 package com.cfs.form;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.mybeans.form.FormBean;
+
+import com.cfs.bean.CustomerBean;
 
 public class ProtfolioForm extends FormBean {
 	private String customer_id;
@@ -22,7 +25,19 @@ public class ProtfolioForm extends FormBean {
 	}
 	
 	public List<String> getValidationErrors(HttpServletRequest request) {
-		return null;
+		int custId = -1;
+		List<String> errors = new ArrayList<String>();
+		try {
+			custId = Integer.parseInt(customer_id);
+			CustomerBean customer = (CustomerBean)request.getSession().getAttribute("customer");
+			if(customer != null && customer.getCustomer_id() != custId) {
+				errors.add("you do not have permission to view other's account.");
+			}
+		} catch (NumberFormatException e) {
+			errors.add("customer id error.");
+			e.printStackTrace();
+		}
+		return errors;
 	}
 
 }

@@ -28,7 +28,7 @@ public class ViewProtfolioAction extends Action {
 	public String perform(HttpServletRequest request) {
 		try {
 			ProtfolioForm form = formBeanFactory.create(request);
-			List<String> errors = form.getValidationErrors();
+			List<String> errors = form.getValidationErrors(request);
 			if(errors != null && errors.size() != 0) {
 				request.setAttribute("errors", errors);
 				return "error.jsp";

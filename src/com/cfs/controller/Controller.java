@@ -33,6 +33,8 @@ public class Controller extends HttpServlet {
 		Action.add(new SearchCustomerAction(model));
 		
 		Action.add(new ViewProtfolioAction(model));
+		Action.add(new BuyFundAction(model));
+		Action.add(new SellFundAction(model));
 
 		createAutomaticCustomers(model);
 		//createAutomaticEmployee(model);
@@ -154,7 +156,7 @@ public class Controller extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String nextPage = performTheAction(request);
+		String nextPage = performTheAction(request, response);
 		sendToNextPage(nextPage, request, response);
 	}
 
@@ -166,7 +168,7 @@ public class Controller extends HttpServlet {
 	 * 
 	 * @return the next page (the view)
 	 */
-	private String performTheAction(HttpServletRequest request) {
+	private String performTheAction(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(true);
 		String servletPath = request.getServletPath();
 		CustomerBean customer = (CustomerBean) session.getAttribute("customer");
@@ -198,6 +200,11 @@ public class Controller extends HttpServlet {
 		if(illegal) {
 			return Action.perform("login.do", request);
 		}
+		
+		if(action.indexOf("ajax_") != -1) {
+			return Action.perform(action, request, response);
+		}
+		
 		// Let the logged in user run his chosen action
 		return Action.perform(action, request);
 	}
@@ -214,6 +221,8 @@ public class Controller extends HttpServlet {
 					request.getServletPath());
 			return;
 		}
+		
+		if(nextPage.isEmpty()) return;
 
 		if (nextPage.endsWith(".do") || nextPage.indexOf(".do?")!=-1) {
 			response.sendRedirect(nextPage);

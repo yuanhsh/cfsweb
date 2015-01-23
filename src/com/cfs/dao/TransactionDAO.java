@@ -7,6 +7,8 @@ import org.genericdao.MatchArg;
 import org.genericdao.RollbackException;
 import org.genericdao.Transaction;
 
+import com.cfs.bean.CustomerBean;
+import com.cfs.bean.PositionBean;
 import com.cfs.bean.TransactionBean;
 
 public class TransactionDAO extends GenericDAO<TransactionBean> { 
@@ -25,34 +27,48 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 		return trans;
 	}
 	
-	public void buyFund(int customer_id, int fund_id, long amount) {
+	// IMPORTANT: need to be synchonized, customer cash should be updated through sql, 
+	// not bean object from session.
+	public void buyFund(CustomerDAO customerDAO, CustomerBean customer, int fund_id, long amount) throws RollbackException {
 		TransactionBean trans = new TransactionBean();
 		trans.setTransaction_type(TransactionBean.TYPE_BUY);
-		trans.setCustomer_id(customer_id);
+		trans.setCustomer_id(customer.getCustomer_id());
 		trans.setFund_id(fund_id);
 		trans.setAmount(amount);
 		trans.setStatus(TransactionBean.STATUS_PENDING);
+		
+		long originalCash = customer.getCash();
+		customer.setCash(customer.getCash()-amount);
 		try {
 			Transaction.begin();
 			this.createAutoIncrement(trans);
+			customerDAO.update(customer);
 			Transaction.commit();
 		} catch (RollbackException e) {
 			e.printStackTrace();
 			if(Transaction.isActive()) {
 				Transaction.rollback();
+				customer.setCash(originalCash);
 			}
+			throw e;
 		}
 	}
 	
-	public void sellFund(int customer_id, int fund_id, long shares) {
+	public void sellFund(PositionDAO positionDAO, int customer_id, int fund_id, long shares) throws RollbackException {
 		TransactionBean trans = new TransactionBean();
-		trans.setTransaction_type(TransactionBean.TYPE_BUY);
+		trans.setTransaction_type(TransactionBean.TYPE_SELL);
 		trans.setCustomer_id(customer_id);
 		trans.setFund_id(fund_id);
 		trans.setShares(shares);
 		trans.setStatus(TransactionBean.STATUS_PENDING);
 		try {
 			Transaction.begin();
+			PositionBean position = positionDAO.getCustomerFundPosition(customer_id, fund_id);
+			if(shares > position.getShares()) {
+				throw new RollbackException("Sell share number exceeds your current share numbers");
+			}
+			position.setShares(position.getShares()-shares);
+			positionDAO.update(position);
 			this.createAutoIncrement(trans);
 			Transaction.commit();
 		} catch (RollbackException e) {
@@ -60,6 +76,7 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 			if(Transaction.isActive()) {
 				Transaction.rollback();
 			}
+			throw e;
 		}
 	}
 }
