@@ -17,15 +17,19 @@ import com.cfs.bean.TransactionBean;
 import com.cfs.dao.CustomerDAO;
 import com.cfs.dao.FundDAO;
 import com.cfs.dao.Model;
+import com.cfs.dao.TransHistoryDAO;
 import com.cfs.dao.TransactionDAO;
+import com.cfs.dto.TransHistoryDTO;
 import com.cfs.form.TransactionHistoryForm;
 
 public class TransactionHistory extends Action {
 	private FormBeanFactory<TransactionHistoryForm> formBeanFactory = FormBeanFactory.getInstance(TransactionHistoryForm.class);
-	private TransactionDAO transactionDAO;
+//	private TransactionDAO transactionDAO;
+	private TransHistoryDAO transHistoryDAO;
 	
 	public TransactionHistory(Model model){
-		transactionDAO=model.getTransactionDAO();
+//		transactionDAO=model.getTransactionDAO();
+		transHistoryDAO = model.getTransHistoryDAO();
 	}
 	
 	public String getName() { return "transactionHistory.do"; }
@@ -41,7 +45,8 @@ public class TransactionHistory extends Action {
 	        	request.setAttribute("errors", errors);
 	            return "error.jsp";
 	        }
-			TransactionBean[] trans = transactionDAO.getTransactions(form.getCustID());
+//			TransactionBean[] trans = transactionDAO.getTransactions(form.getCustID());
+	        List<TransHistoryDTO> trans = transHistoryDAO.getTransHistory(form.getCustID());
 			request.setAttribute("transactionList", trans);
 			return "TransactionHistory.jsp"; 	
 		} catch (Exception e) {

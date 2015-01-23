@@ -21,6 +21,7 @@ public class Model {
 	private PositionDAO positionDAO;
 	private TransactionDAO transactionDAO;
 	private ProtfolioDAO protfolioDAO;
+	private TransHistoryDAO transHistoryDAO;
 
 	public Model(ServletConfig config) throws ServletException {
 		try {
@@ -40,6 +41,7 @@ public class Model {
 			Context	ctx = new InitialContext();
 			DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/mysql");
 			protfolioDAO = new ProtfolioDAO(ds);
+			transHistoryDAO = new TransHistoryDAO(ds);
 
 			if (employeeDAO.getCount() == 0) {
 				createDefaultUser();
@@ -80,6 +82,10 @@ public class Model {
 
 	public ProtfolioDAO getProtfolioDAO() {
 		return protfolioDAO;
+	}
+	
+	public TransHistoryDAO getTransHistoryDAO() {
+		return transHistoryDAO;
 	}
 
 	public void createDefaultUser() throws RollbackException {

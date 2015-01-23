@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 
 public class TransHistoryDTO {
 	private int transaction_id;
+	private int fund_id;
 	private Date execute_date;
 	private String fund_name;
 	private String fund_symbol;
@@ -14,6 +15,7 @@ public class TransHistoryDTO {
 	private String status;
 	private long price;
 	private long shares;
+	private long amount;
 	
 	private String disp_price;
 	private String disp_shares;
@@ -24,7 +26,12 @@ public class TransHistoryDTO {
 	public static final DecimalFormat shareFomatter = new DecimalFormat( "###,###,###,##0.000" );
 	public static final DateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
 	
-	
+	public int getFund_id() {
+		return fund_id;
+	}
+	public void setFund_id(int fund_id) {
+		this.fund_id = fund_id;
+	}
 	public int getTransaction_id() {
 		return transaction_id;
 	}
@@ -74,6 +81,13 @@ public class TransHistoryDTO {
 		return price;
 	}
 	
+	
+	public long getAmount() {
+		return amount;
+	}
+	public void setAmount(long amount) {
+		this.amount = amount;
+	}
 	public String getDisp_price() {
 		disp_price = "USD "+moneyFomatter.format((double)this.price/100);
 		if(this.price == 0) {
@@ -89,8 +103,8 @@ public class TransHistoryDTO {
 		return disp_shares;
 	}
 	public String getDisp_amount() {
-		disp_amount = "USD "+moneyFomatter.format((double)this.price*(double)this.shares/100000);
-		if(shares == 0 || price == 0) {
+		disp_amount = "USD "+moneyFomatter.format((double)this.amount/100);
+		if(amount == 0) {
 			disp_amount = "-";
 		}
 		return disp_amount;

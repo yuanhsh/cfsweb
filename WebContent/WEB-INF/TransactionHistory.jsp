@@ -4,7 +4,7 @@
          
 <div class="bs-docs-section">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-lg-10">
                         <h3 id="tables">Transaction History</h3>
                         <div class="bs-component">
                             <table class="table table-striped table-hover ">
@@ -17,19 +17,19 @@
                                         <th style="text-align:right">Shares</th>
                                         <th style="text-align:right">Price</th>
                                         <th style="text-align:right">Amount</th>
-                                        <th >Status</th>
+                                        <th style="text-align:right">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <c:forEach items="${transactionList}" var="t" >
                                     <tr><td>${t.transaction_id }</td>
-                                        <td>${t.execute_date }</td>
-                                        <td>${t.fund_id } </td>
+                                        <td>${t.disp_date }</td>
+                                        <td>${t.fund_name } (${t.fund_symbol }) </td>
                                         <td>${t.transaction_type } </td>
-                                        <td style="text-align:right">${t.shares }</td>
-                                        <td style="text-align:right">${t.price }</td>
-                                        <td style="text-align:right">${t.amount}</td>
-                                         <td >${t.status }</td>
+                                        <td style="text-align:right">${t.disp_shares }</td>
+                                        <td style="text-align:right">${t.disp_price }</td>
+                                        <td style="text-align:right">${t.disp_amount}</td>
+                                         <td style="text-align:right">${t.status }</td>
                                     </tr>
                                 </c:forEach>    
                                 </tbody>
