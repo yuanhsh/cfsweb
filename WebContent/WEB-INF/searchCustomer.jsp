@@ -43,110 +43,34 @@
                                     <tr>
                                         <th>User Id</th>
                                         <th>User Name</th>
-                                        <th>Customer's name</th>
+                                        <th>Customer Name</th>
                                         <th>Cash Balance</th>
-                                        <th>Date of the last trading day</th>
+                                        <th>Last Trading Day</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <c:forEach items="${customers}" var="customer" varStatus="status">
                                     <tr>
-                                        <td>1</td>
-                                        <td>happy</td>
-                                        <td>John Boo</td>
-                                        <td>300</td>
-                                        <td>01/14/2015</td>
-                                        <td><li style=" list-style:none" class="dropdown">
+                                        <td>${customer.customer_id }</td>
+                                        <td>${customer.username }</td>
+                                        <td>${customer.firstname } ${customer.lastname }</td>
+                                        <td>${customer.cash }</td>
+                                        <td>01/15/2015</td>
+                                        <td><li style="list-style:none" class="dropdown">
                 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Action<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="javascript:void(0)">view account</a></li>
                     <li><a href="javascript:void(0)">view transactions</a></li>
-                    <li><a href="javascript:void(0)">reset password</a></li>
+                    <li><a href="emp_reset_password.do?customer_id=${customer.customer_id }">reset password</a></li>
                     <li><a href="javascript:void(0)">deposit check</a></li>                  
                 </ul>
             </li></td>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>zhsi</td>
-                                        <td>Michael Robinson</td>
-                                        <td>500</td>
-                                        <td>01/14/2015</td>
-                                        <td>
-    
-    <li  style=" list-style:none"class="dropdown">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Action<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)">view account</a></li>
-                    <li><a href="javascript:void(0)">view transactions</a></li>
-                    <li><a href="javascript:void(0)">reset password</a></li>
-                    <li><a href="javascript:void(0)">deposit check</a></li>                  
-                </ul>
-            </li>
-</td>
-                                        
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>kidj</td>
-                                        <td>Jennifer Pinsker</td>
-                                        <td>700</td>
-                                        <td>01/13/2015</td>
-                                       <td><li style=" list-style:none"class="dropdown">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Action<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)">view account</a></li>
-                    <li><a href="javascript:void(0)">view transactions</a></li>
-                    <li><a href="javascript:void(0)">reset password</a></li>
-                    <li><a href="javascript:void(0)">deposit check</a></li>                  
-                </ul>
-            </li></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>djsjs</td>
-                                        <td>Bob Robson</td>
-                                        <td>600</td>
-                                        <td>01/13/2015</td>
-                                        <td><li style=" list-style:none"class="dropdown">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Action<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)">view account</a></li>
-                    <li><a href="javascript:void(0)">view transactions</a></li>
-                    <li><a href="javascript:void(0)">reset password</a></li>
-                    <li><a href="javascript:void(0)">deposit check</a></li>                  
-                </ul>
-            </li></td>
-                                        
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>shdd</td>
-                                        <td>Alexander Robson</td>
-                                        <td>200</td>
-                                        <td>01/11/2015</td>
-                                        <td><li style=" list-style:none" class="dropdown">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Action<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)">view account</a></li>
-                    <li><a href="javascript:void(0)">view transactions</a></li>
-                    <li><a href="javascript:void(0)">reset password</a></li>
-                    <li><a href="javascript:void(0)">deposit check</a></li>                  
-                </ul>
-            </li></td>
-                                        
-                                    </tr>
+                                  </c:forEach>
                                 </tbody>
                             </table>
-                            <ul class="pagination">
-                                <li class="disabled"><a href="javascript:void(0)">«</a></li>
-                                <li class="active"><a href="javascript:void(0)">1</a></li>
-                                <li><a href="javascript:void(0)">2</a></li>
-                                <li><a href="javascript:void(0)">3</a></li>
-                                <li><a href="javascript:void(0)">4</a></li>
-                                <li><a href="javascript:void(0)">5</a></li>
-                                <li><a href="javascript:void(0)">»</a></li>
-                            </ul>
+                          
         
                     
                 </div>

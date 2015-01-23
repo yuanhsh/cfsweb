@@ -23,7 +23,7 @@ private CustomerDAO customerDAO;
 		customerDAO= model.getCustomerDAO();
 }
 	
-	public String getName() {return "searchCustomer.do";}
+	public String getName() {return "emp_search_customer.do";}
 	
 	public String perform (HttpServletRequest request){
 		
@@ -32,8 +32,8 @@ private CustomerDAO customerDAO;
 		request.setAttribute("errors",errors);
 		
 		try{
-			CustomerBean[] searchCustomer= customerDAO.getCustomers();
-			request.setAttribute("searchCustomer",searchCustomer);
+			CustomerBean[] customers= customerDAO.getCustomers();
+			request.setAttribute("customers",customers);
 			return"searchCustomer.jsp";
 		}catch(RollbackException e){
 			errors.add(e.getMessage());

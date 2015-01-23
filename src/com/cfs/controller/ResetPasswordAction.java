@@ -28,7 +28,7 @@ public class ResetPasswordAction extends Action {
 	@Override
 	public String getName() {
 		
-		return "reset_password.do";
+		return "emp_reset_password.do";
 	}
 
 	@Override
