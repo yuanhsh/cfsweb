@@ -63,7 +63,7 @@ public class DepositCheck extends Action {
 			
 			FundBean deposit=new FundBean();
 			deposit.setFund_id(form.getFund_id());
-			deposit.setMoney(form.getCash());
+			deposit.setPrice(form.getCash());
 			
 			fundDAO.create(deposit);
 			customerDAO.create(check);
