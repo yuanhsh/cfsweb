@@ -27,7 +27,7 @@ public class ViewAccountDetails extends Action {
 	
 	@Override
 	public String getName() {
-		return "view-account-details.do";
+		return "view_account_details.do";
 	}
 
 	@Override
