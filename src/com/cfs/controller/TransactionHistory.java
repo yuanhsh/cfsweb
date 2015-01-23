@@ -22,7 +22,7 @@ private TransactionDAO transactionDAO;
 		transactionDAO= model.getTransactionDAO();
 }
 	
-	public String getName() {return "search_transaction.do";}
+	public String getName() {return "TransactionHistory.do";}
 	
 	public String perform (HttpServletRequest request){
 		
