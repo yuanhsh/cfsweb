@@ -31,6 +31,7 @@ public class CreateCustomerAccountAction extends Action {
 		List<String> errors = new ArrayList<String>();
         request.setAttribute("errors",errors);
         
+        
         try {
 			CreateCustomerAccountForm form = formBeanFactory.create(request);
 			request.setAttribute("form",form);
