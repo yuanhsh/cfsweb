@@ -12,21 +12,8 @@
 
 <jsp:include page="error-list.jsp" />
 <form class="form-horizontal" method="post" action="transactionHistory.do">
-    <fieldset>
-        <div class="form-group">
-            <label for="inputnpassword" class="col-lg-4 control-label">Customer ID:</label>
-            <div class="col-lg-4">
-                <input type="Password" class="form-control" id="inputnpassword" name="newPassword" value="" placeholder="Customer ID">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputnpassword" class="col-lg-4 control-label">Transaction Type:</label>
-            <div class="col-lg-4">
-                <input type="Password" class="form-control" id="inputnpassword" name="confirmPassword" value="" placeholder="Check">
-            </div>
-        </div>
-
-    </fieldset>
+ <table border="1"><tr><th>Customer ID</th> <th>Transaction amount</th><th>transaction type</th><th>transaction day</th><th>transaction status</th></tr>
+ </table>
 </form>
 </div>
  
