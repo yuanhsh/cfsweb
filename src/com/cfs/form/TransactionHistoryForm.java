@@ -1,112 +1,56 @@
 package com.cfs.form;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.mybeans.form.FormBean;
 
 public class TransactionHistoryForm extends FormBean {
-	private String name;
-	private int customerID;
-	private String button;
-	private long cash;
-	private int fundID;
-	private String type;
+     public int fund_id;
+	public Date getExecute_date;
+	public int customer_id;
+	public long shares;
+	public long amounts;
+	public String status;
 	
-	
-	
-		public void setName(String s) {
-		name = s.trim();
-	}
-
-	public void setCustomerID(int s) {
-		customerID = s;
+	public void setfund_id(int s) {
+		fund_id = s;
 	}
 	
-    public void setCash(long s){
-    	cash=s;
-    }
-	public long getCash() {
+	public int getfund_id() {
 		// TODO Auto-generated method stub
-		return cash;
+		return 0;
 	}
-	  public void setType(String s){
-	    	type=s;
-	    }
-		public String getType() {
-			// TODO Auto-generated method stub
-			return type;
-		}
 
-	public void setFund_id(int s){
-		fundID=s;
-	}
-	public int getFund_id() {
+	public int getCustomer_id() {
 		// TODO Auto-generated method stub
-		return fundID;
+		return 0;
+	}
+	public void setCustomer_id(int s) {
+		customer_id = s;
+	}
+	public long getShares() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public void setShares(long s) {
+		shares = s;
 	}
 	
-
-	public int getCustomerID() {
+	public long getAmount() {
 		// TODO Auto-generated method stub
-		return customerID;
+		return 0;
 	}
-	public void setButton(String s) {
-		button = s;
+	public void setAmount(long s) {
+		amounts = s;
 	}
-	public String getButton() {
-		return button;
+	public String getStatus() {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-  
-	String FundID="fundID";
-	String cash1="cash";
-	String customerid="customerID";
-
-	public List<String> getValidationErrors() {
-		List<String> errors = new ArrayList<String>();
-
-		if (name == null || name.length() == 0) {
-			errors.add("Fund name is required");
-		}
-		if (customerid == null || customerid.length() == 0) {
-			errors.add("CustomerID is required");
-		}
-		if (FundID==null||FundID.length()==0) {
-			errors.add("FundID is required");
-		}
-		if (cash1==null||cash1.length()==0) {
-			errors.add("cash is required");
-		}
-
-		if (name.matches(".*[<>\"].*")) {
-			errors.add("Funds name cannot contain angular brackets or quotes");
-		}
-		if (customerid.matches(".*[<>\"].*")) {
-			errors.add("customerID cannot contain angular brackets or quotes");
-		}
-		if (FundID.matches(".*[<>\"].*")) {
-			errors.add("FundID  cannot contain angular brackets or quotes");
-		}
-		if (cash1.matches(".*[<>\"].*")) {
-			errors.add("cash1  cannot contain angular brackets or quotes");
-		}
-		
-
-		if (button == null) {
-			errors.add("Clicking on deposit button is required");
-		}
-
-		if (!button.equals("Deposit")) {
-			errors.add("Invalid button");
-		}
-
-		if (errors.size() > 0) {
-			return errors;
-		}
-
-		return errors;
+	public void setStatus(String s) {
+		status = s;
 	}
-
 
 }

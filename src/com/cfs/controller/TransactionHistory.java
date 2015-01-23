@@ -12,18 +12,20 @@ import org.mybeans.form.FormBeanFactory;
 
 import com.cfs.bean.CustomerBean;
 import com.cfs.bean.FundBean;
+import com.cfs.bean.TransactionBean;
 import com.cfs.dao.CustomerDAO;
 import com.cfs.dao.FundDAO;
 import com.cfs.dao.Model;
+import com.cfs.dao.TransactionDAO;
 import com.cfs.form.TransactionHistoryForm;
 
 public class TransactionHistory extends Action {
 	private FormBeanFactory<TransactionHistoryForm> formBeanFactory = FormBeanFactory.getInstance(TransactionHistoryForm.class);
-	private CustomerDAO customerDAO;
-	private FundDAO fundDAO;
+	private TransactionDAO transactionDAO;
+	
 	public TransactionHistory(Model model){
-		customerDAO=model.getCustomerDAO();
-		fundDAO= model.getFundDAO();
+		transactionDAO=model.getTransactionDAO();
+		
 	}
 	
 	public String getName() { return "transactionHistory.do"; }
@@ -50,20 +52,22 @@ public class TransactionHistory extends Action {
 	            return "error.jsp";
 	        }
 			
-			CustomerBean check=new CustomerBean();
-			check.setCustomer_id(form.getCustomerID());
-			check.setCash(form.getCash());  // the cash means the check the customer wants to deposit, right?
+		  // the cash means the check the customer wants to deposit, right?
 			
 			
-			FundBean deposit=new FundBean();
-			deposit.setFund_id(form.getFund_id());
-			deposit.setMoney(form.getCash());
+			TransactionBean trans=new TransactionBean();
+			trans.setFund_id(form.getfund_id());
 			
-			fundDAO.create(deposit);
-			customerDAO.create(check);
+			trans.setCustomer_id(form.getCustomer_id());
+			trans.setExecute_date(form.getExecute_date);
+			trans.setShares(form.getShares());
+			trans.setAmount(form.getAmount());
+			trans.setStatus(form.getStatus());
+			
+			transactionDAO.create(trans);
 			
 			HttpSession session = request.getSession(false);
-			session.setAttribute("check", check);
+			session.setAttribute("transaction", trans);
 			
 			return "transactionHistory.jsp"; 		
 			 
