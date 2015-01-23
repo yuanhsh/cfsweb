@@ -5,7 +5,7 @@
 
 
     <h3 style="text-align: center">Create an Account for customer</h3>
-
+<jsp:include page="error-list.jsp" />
 
 <form class="form-horizontal" method="post" action="create-customer-account.do">
     <fieldset>
@@ -131,6 +131,5 @@
     </fieldset>
 </form>
 </div>
-
 
 <jsp:include page="template-bottom.jsp" />

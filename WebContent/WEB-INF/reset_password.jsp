@@ -8,7 +8,7 @@
 
     <h3  style="text-align: center">Reset account</h3>
 
-
+<jsp:include page="error-list.jsp" />
 <form class="form-horizontal" method="post" action="reset_password.do">
     <fieldset>
         <div class="form-group">
@@ -43,4 +43,4 @@
  
  
  
- <jsp:include page="template-bottom.jsp" />
+<jsp:include page="template-bottom.jsp" />
