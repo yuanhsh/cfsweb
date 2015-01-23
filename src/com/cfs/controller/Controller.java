@@ -35,6 +35,7 @@ public class Controller extends HttpServlet {
 		Action.add(new ViewProtfolioAction(model));
 
 		createAutomaticCustomers(model);
+		//createAutomaticEmployee(model);
 
 	}
 
@@ -91,7 +92,61 @@ public class Controller extends HttpServlet {
 		} catch (Exception e) {
 		}
 	}
+	
+	/*public void createAutomaticCustomers(Model model) {
+		try {
+			if (model.getCustomerDAO().match().length <= 1) {
 
+				CustomerBean cus1 = new CustomerBean();
+				cus1.setCustomer_id(11);
+				cus1.setUsername("cus1");
+				
+				cus1.setSalt(10);
+				cus1.setPassword("cus1");
+				cus1.setFirstname("customer");
+				cus1.setLastname("one");
+				cus1.setAddr_line1("CMU");
+				cus1.setAddr_line2("cus1 add");
+				cus1.setCity("Pittsburgh");
+				cus1.setState("AA");
+				cus1.setZip("15213");
+				cus1.setCash(99999);
+				model.getCustomerDAO().create(cus1);
+
+				CustomerBean cus2 = new CustomerBean();
+				cus2.setCustomer_id(12);
+				cus2.setUsername("cus2");
+				cus2.setSalt(11);
+				cus2.setPassword("cus2");
+				cus2.setFirstname("customer");
+				cus2.setLastname("two");
+				cus2.setAddr_line1("Pitthbsjhbdh");
+				cus2.setAddr_line2("cus2 add");
+				cus2.setCity("Pitts");
+				cus2.setState("AB");
+				cus2.setZip("15238");
+				cus2.setCash(88888);
+				model.getCustomerDAO().create(cus2);
+
+				CustomerBean cus3 = new CustomerBean();
+				cus3.setCustomer_id(13);
+				cus3.setUsername("cus3");
+				cus3.setSalt(12);
+				cus3.setPassword("cus3");
+				cus3.setFirstname("customer");
+				cus3.setLastname("three");
+				cus3.setAddr_line1("CmuPitts");
+				cus3.setAddr_line2("cus3 add");
+				cus3.setCity("Burgh");
+				cus3.setState("AC");
+				cus3.setZip("15864");
+				cus3.setCash(77777);
+				model.getCustomerDAO().create(cus3);
+			}
+		} catch (Exception e) {
+		}
+	}
+*/
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);

@@ -114,7 +114,7 @@ public class LoginAction extends Action {
 				session.setAttribute("loginAs", "emp");
 				session.setAttribute("username", employeeBean.getUsername());
 				//////redirecting the employee on which page after login
-				return "login.do";/////////////////////////////////////////////////needs to be decided
+				return "view_protfolio.do?customer_id="+customerBean.getCustomer_id();/////////////////////////////////////////////////needs to be decided
 			}
 			return "login.jsp"; 
 		} catch (RollbackException e) {

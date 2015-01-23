@@ -50,7 +50,7 @@ public class ChangePwdAction extends Action {
 			EmployeeBean employeeBean = null;
 			String loginAs = (String) request.getSession().getAttribute("loginAs");
 			if (loginAs.equals("cust")) {
-				customerBean = (CustomerBean) request.getSession().getAttribute("user");
+				customerBean = (CustomerBean) request.getSession().getAttribute("customer");
 				if (customerBean.checkPassword(form.getOldPassword())) {
 					customerDAO.setPassword(customerBean.getCustomer_id(), form.getNewPassword());
 					request.setAttribute("message", "Password changed for " + customerBean.getUsername());
@@ -62,7 +62,7 @@ public class ChangePwdAction extends Action {
 			}
 			
 			if (loginAs.equals("emp")) {
-				employeeBean = (EmployeeBean) request.getSession().getAttribute("user");
+				employeeBean = (EmployeeBean) request.getSession().getAttribute("employee");
 				if (employeeBean.checkPassword(form.getOldPassword())) {
 					employeeDAO.setPassword(employeeBean.getUsername(),form.getNewPassword());
 					request.setAttribute("message", "Password changed for "+ employeeBean.getUsername());
