@@ -7,7 +7,7 @@
     <h3 style="text-align: center">Create an Account for customer</h3>
 
 
-<form class="form-horizontal">
+<form class="form-horizontal" method="post" action="create-customer-account.do">
     <fieldset>
         <div class="form-group">
             <label for="inputusername" class="col-lg-4 control-label">User Name:</label>

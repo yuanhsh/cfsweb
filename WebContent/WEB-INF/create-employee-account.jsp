@@ -36,7 +36,7 @@
     <h3 style="text-align: center">Create an Account for employee</h3>
 
 
-<form class="form-horizontal" method="post" action="createEmployeeAccount.do">
+<form class="form-horizontal" method="post" action="create-employee-account.do">
     <fieldset>
         <div class="form-group">
             <label for="inputusername" class="col-lg-4 control-label">User Name:</label>
