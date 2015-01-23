@@ -32,7 +32,7 @@ private CustomerDAO customerDAO;
 		customerDAO= model.getCustomerDAO();
 }
 	
-	public String getName() {return "search_customer.do";}
+	public String getName() {return "searchCustomer.do";}
 //	public String perform(HttpServletRequest request) {
 //		List<String> errors = new ArrayList<String>();
 //        request.setAttribute("errors",errors);
@@ -114,8 +114,8 @@ private CustomerDAO customerDAO;
 	        //HttpSession session = request.getSession(false);//why add false at here?
 	       // session.setAttribute("customer",customer);
 	        
-		request.setAttribute("searchResult", array);
-		return "searchResult.jsp";
+		request.setAttribute("searchCustomer", array);
+		return "searchCustomer.jsp";
         
         } catch (FormBeanException e) {
         	errors.add(e.getMessage());
