@@ -70,16 +70,16 @@
    <div class="mainContent">
 
 
-    <h3  style="text-align: center">Login</h3>
+    
     <jsp:include page="error-list.jsp" />
-
-<p style="font-size:medium">
-	Please login below or click to create an <a href="create-employee-account.do">account for an employee</a> or <a href="CreateCustomerAccount.do">account for a customer</a>.
-</p>
-
 
 <form class="form-horizontal" method="post" action="login.do">
     <fieldset>
+    <div class="form-group">
+            <div class="col-lg-6 col-lg-offset-5">
+                <h3 style="padding:20px">Login</h3>
+            </div>
+        </div>
         <div class="form-group">
             <label for="inputvpassword" class="col-lg-4 control-label">Username:</label>
             <div class="col-lg-4">
