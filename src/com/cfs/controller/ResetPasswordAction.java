@@ -40,16 +40,13 @@ public class ResetPasswordAction extends Action {
 		try {
 			ResetPasswordForm form = formBeanFactory.create(request);
 			if (!form.isPresent()) {
-	            return "resetpassword.jsp";
+	            return "reset_password.jsp";
 	        }
 	        errors.addAll(form.getValidationErrors());
 	        if (errors.size() != 0) {
-	            return "resetpassword.jsp";
+	            return "reset_password.jsp";
 	        }
-	        errors.addAll(form.getValidationErrors());
-	        if (errors.size() == 0) {
-	            errors.add("Reset password success!");
-	        }
+	       
 	        
 	        CustomerBean customer =(CustomerBean)request.getSession().getAttribute("customer");
 	        customerDAO.setPassword(customer.getCustomer_id(), form.getNewPassword());

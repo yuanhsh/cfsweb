@@ -25,7 +25,7 @@ public class CreateCustomerAccountAction extends Action {
 		
 	}
 	
-	public String getName() { return "createCustomerAccount.do"; }
+	public String getName() { return "create-customer-account.do"; }
 	
 	public String perform(HttpServletRequest request){
 		List<String> errors = new ArrayList<String>();
@@ -42,8 +42,8 @@ public class CreateCustomerAccountAction extends Action {
 			if(customer !=null){
 				errors.add("this user name is already exist.");
 			}
-			if (errors.size() == 0) {
-				errors.add("You create an employee account success!");
+			if (errors.size() != 0) {
+				return "create-customer-account.jsp";
 			}
 			
 			customer=new CustomerBean();
@@ -61,7 +61,7 @@ public class CreateCustomerAccountAction extends Action {
 			HttpSession session = request.getSession(false);
 			session.setAttribute("customer", customer);
 			
-			return "createCustomerAccount.do"; 		
+			return "create-customer-account.do"; 		
 			 
 		} catch (FormBeanException e) {
 			// TODO Auto-generated catch block
