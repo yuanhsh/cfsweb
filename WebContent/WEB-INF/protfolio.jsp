@@ -32,11 +32,11 @@ if(role.equals("cust")) {
                                     <tr>
                                         <th>#</th>
                                         <th>Fund Name(Ticker)</th>
-                                        <th>Shares</th>
-                                        <th>Price</th>
-                                        <th>Amount</th>
+                                        <th style="text-align:right">Shares</th>
+                                        <th style="text-align:right">Price</th>
+                                        <th style="text-align:right">Amount</th>
                                         <%if(role.equals("cust")) { %>
-                                        <th>Action</th>
+                                        <th style="text-align:right">Action</th>
                                         <%} %>
                                     </tr>
                                 </thead>
@@ -45,11 +45,11 @@ if(role.equals("cust")) {
                                     <tr>
                                         <td>${status.count}</td>
                                         <td>${fund.fund_name } (${fund.fund_symbol })</td>
-                                        <td>${fund.disp_shares }</td>
-                                        <td>${fund.disp_price }</td>
-                                        <td>${fund.disp_amount }</td>
+                                        <td style="text-align:right">${fund.disp_shares }</td>
+                                        <td style="text-align:right">${fund.disp_price }</td>
+                                        <td style="text-align:right">${fund.disp_amount }</td>
                                          <% if(role.equals("cust")) {%>
-                                        <td>
+                                        <td style="text-align:right">
                                             <li style="list-style:none" class="dropdown">
                 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Action<b class="caret"></b></a>
                 <ul class="dropdown-menu">
