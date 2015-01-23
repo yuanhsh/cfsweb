@@ -9,7 +9,7 @@
     <h3  style="text-align: center">Create fund</h3>
 
 <jsp:include page="error-list.jsp" />
-<form class="form-horizontal" method="post" action="reset_password.do">
+<form class="form-horizontal" method="post" action="createFund.do">
     <fieldset>
         <div class="form-group">
             <label for="inputvpassword" class="col-lg-4 control-label">Fund ID:</label>
