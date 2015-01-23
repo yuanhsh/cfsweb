@@ -21,13 +21,14 @@ import com.cfs.dao.FundDAO;
 import com.cfs.dao.Model;
 import com.cfs.dao.TransactionDAO;
 import com.cfs.form.DepositCheckForm;
+import com.cfs.form.TransactionHistoryForm;
 
 //note from Aditi:::::::
 //@ Meiqi: The error is because of making Customer_Id a int instead of a String in the CustomerBean. 
 //I changed it because cust_id is suppose to be an int value
 
 public class TransactionHistory extends Action {
-	private FormBeanFactory<DepositCheckForm> formBeanFactory = FormBeanFactory.getInstance(DepositCheckForm.class);
+	private FormBeanFactory<TransactionHistoryForm> formBeanFactory = FormBeanFactory.getInstance(TransactionHistoryForm.class);
 	private TransactionDAO transactionDAO;
 public TransactionHistory(Model model) {
 		
@@ -41,7 +42,7 @@ public TransactionHistory(Model model) {
         request.setAttribute("errors",errors);
         
         try {
-			DepositCheckForm form = formBeanFactory.create(request);
+			TransactionHistoryForm form = formBeanFactory.create(request);
 			request.setAttribute("form",form);
 			
 		
