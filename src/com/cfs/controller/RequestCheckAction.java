@@ -70,7 +70,7 @@ public class RequestCheckAction extends Action {
 		} catch (Exception e) {
 			e.printStackTrace();
 			map.put("success", "false");
-			map.put("error", "Error detected.");
+			map.put("error", "Oops, "+e.getMessage());
 		}
     	
     	try {
