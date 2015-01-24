@@ -51,7 +51,7 @@ if(role.equals("cust")) {
                                          <% if(role.equals("cust")) {%>
                                         <td style="text-align:right">
                                             <li style="list-style:none" class="dropdown">
-                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Action<b class="caret"></b></a>
+                <a href="javascript:void(0)" class="dropdown-toggle action" data-toggle="dropdown">Action<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="javascript:void(0)" class="sell-fund-link" 
                     fund-id="${fund.fund_id }" fund-name="${fund.fund_name }" fund-symbol="${fund.fund_symbol }">Sell</a></li>
@@ -185,6 +185,10 @@ if(role.equals("cust")) {
             
             <script>
             $(function() {
+            	$(".action").click(function(){
+            		$(".submit-sell-fund").show();
+               	 $(".submit-buy-fund").show();
+            	});
             	$(".buy-fund-link").click(function(){
             		var fundId = $(this).attr("fund-id");
 					var fundName = $(this).attr("fund-name");
@@ -217,8 +221,11 @@ if(role.equals("cust")) {
             		$.post( 'cust_ajax_buy_fund.do', $('form#form-buy-fund').serialize(), function(data) {
             	         if(data.success == "true") {
             	        	 $(".alert-success").text(data.info).show();
+            	        	 $(".alert-warning").text(data.error).hide();
+            	        	 $(".submit-buy-fund").hide();
             	         } else {
             	        	 $(".alert-warning").text(data.error).show();
+            	        	 $(".alert-success").text(data.info).hide();
             	         }
             	      }, 'json' // I expect a JSON response
             	    );
@@ -227,8 +234,11 @@ if(role.equals("cust")) {
             		$.post( 'cust_ajax_sell_fund.do', $('form#form-sell-fund').serialize(), function(data) {
             	         if(data.success == "true") {
             	        	 $(".alert-success").text(data.info).show();
+            	        	 $(".alert-warning").text(data.error).hide();
+            	        	 $(".submit-sell-fund").hide();
             	         } else {
             	        	 $(".alert-warning").text(data.error).show();
+            	        	 $(".alert-success").text(data.info).hide();
             	         }
             	      }, 'json' // I expect a JSON response
             	    );
