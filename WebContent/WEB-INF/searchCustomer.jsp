@@ -14,13 +14,13 @@
         <div class="form-group">
             <label for="inputnpassword" class="col-lg-4 control-label">Customer Name:</label>
             <div class="col-lg-4">
-                <input type="Password" class="form-control" id="inputnpassword" name="newPassword" value="" placeholder="Customer name">
+                <input type="Password" class="form-control" id="inputnpassword" name="customers" value="" placeholder="Customer name">
             </div>
         </div>
         <div class="form-group">
             <label for="inputnpassword" class="col-lg-4 control-label">Customer ID:</label>
             <div class="col-lg-4">
-                <input type="Password" class="form-control" id="inputnpassword" name="confirmPassword" value="" placeholder="Customer ID">
+                <input type="Password" class="form-control" id="inputnpassword" name="customerID" value="" placeholder="Customer ID">
             </div>
         </div>
         <div class="form-group">
