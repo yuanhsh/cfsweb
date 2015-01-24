@@ -64,7 +64,7 @@ public class CreateCustomerAccountAction extends Action {
 			session.setAttribute("customer", customer);
 			
 			request.setAttribute("message", "Success create an account for customer"+customer.getUsername());
-			 return "success.jsp";		
+			 return "create-customer-account.jsp";		
 			 
 		} catch (FormBeanException e) {
 			e.printStackTrace();

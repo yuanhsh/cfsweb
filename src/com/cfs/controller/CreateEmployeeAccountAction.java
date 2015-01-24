@@ -66,7 +66,7 @@ public class CreateEmployeeAccountAction extends Action {
 		        HttpSession session = request.getSession(false);
 		        session.setAttribute("employee",employee);
 		        request.setAttribute("message", "Success create an account for employee"+employee.getUsername());
-		        return "success.jsp";
+		        return "create-employee-account.jsp";
 				
 				
 			} catch (FormBeanException e) {

@@ -8,8 +8,8 @@
     <h3 style="text-align: center">Create an Account for employee</h3>
 
 <jsp:include page="error-list.jsp" />
-<p style="font-size:medium">${message}</p>
-<form class="form-horizontal" method="post" action="create-employee-account.do">
+<jsp:include page="success.jsp" />
+<form class="form-horizontal" method="post" action="emp_create_emp_account.do">
     <fieldset>
         <div class="form-group">
             <label for="inputusername" class="col-lg-4 control-label">User Name:</label>
