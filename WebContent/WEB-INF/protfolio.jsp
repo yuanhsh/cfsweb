@@ -212,6 +212,7 @@ if(role.equals("cust")) {
             		$("#sell-modal").modal();
                 });
             	$(".btn-request-check").click(function(){
+            		$(".submit-request-check").show();
 					$("#requestAmount").val("");
 					$(".alert-success").hide();
 					$(".alert-warning").hide();
@@ -247,9 +248,12 @@ if(role.equals("cust")) {
             		$.post( 'cust_ajax_request_check.do', $('form#form-request-check').serialize(), function(data) {
             	         if(data.success == "true") {
             	        	 $(".alert-success").text(data.info).show();
+            	        	 $(".alert-warning").text(data.error).hide();
             	        	 $(".cust-cash-label").text(data.cash);
+            	        	 $(".submit-request-check").hide();
             	         } else {
             	        	 $(".alert-warning").text(data.error).show();
+            	        	 $(".alert-success").text(data.info).hide();
             	         }
             	      }, 'json' // I expect a JSON response
             	    );
