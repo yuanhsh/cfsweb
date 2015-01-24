@@ -14,18 +14,19 @@
     <h3  style="text-align: center">Search Fund </h3>
 
 <jsp:include page="error-list.jsp" />
+<jsp:include page="search_fund_result.jsp" />
 <form class="form-horizontal" method="post" action="search_fund.do">
     <fieldset>
         <div class="form-group">
             <label for="inputnpassword" class="col-lg-4 control-label">Fund Name:</label>
             <div class="col-lg-4">
-                <input type="Password" class="form-control" id="inputnpassword" name="name" value="" placeholder="Customer name">
+                <input type="text" class="form-control"  name="name" value="" placeholder="Fund name">
             </div>
         </div>
         <div class="form-group">
             <label for="inputnpassword" class="col-lg-4 control-label">Fund Ticker:</label>
             <div class="col-lg-4">
-                <input type="Password" class="form-control" id="inputnpassword" name="symbol" value="" placeholder="Customer ID">
+                <input type="text" class="form-control"  name="symbol" value="" placeholder="Fund ID">
             </div>
         </div>
         <div class="form-group">
