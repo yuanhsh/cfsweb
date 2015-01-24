@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="template-top.jsp" />
-<div id="content">
+<jsp:include page="success.jsp" />
     <%-- <c:items="${fund}" forEach var="fund" > --%>
 <form class="form-horizontal" method="POST" action="emp_create_fund.do">
 

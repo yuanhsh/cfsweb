@@ -57,9 +57,10 @@ public class CreateFund extends Action {
 			
 			fundDAO.createAutoIncrement(fund);
 			
+			request.setAttribute("message", "Success create a Fund"+fund.getName());
+			 return "createFund.jsp";
 			
-			
-			return "createFund.jsp"; 		
+					
 			 
 		} catch (FormBeanException e) {
 			// TODO Auto-generated catch block
