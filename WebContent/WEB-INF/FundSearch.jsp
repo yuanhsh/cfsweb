@@ -3,8 +3,40 @@
 <% String role = (String)request.getSession().getAttribute("loginAs");
 %>
 
-<jsp:include page="error-list.jsp" />
 
+
+
+<div id="content">
+    
+   <div class="mainContent">
+
+
+    <h3  style="text-align: center">Search Fund </h3>
+
+<jsp:include page="error-list.jsp" />
+<form class="form-horizontal" method="post" action="search_fund.do">
+    <fieldset>
+        <div class="form-group">
+            <label for="inputnpassword" class="col-lg-4 control-label">Fund Name:</label>
+            <div class="col-lg-4">
+                <input type="Password" class="form-control" id="inputnpassword" name="name" value="" placeholder="Customer name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputnpassword" class="col-lg-4 control-label">Fund Ticker:</label>
+            <div class="col-lg-4">
+                <input type="Password" class="form-control" id="inputnpassword" name="symbol" value="" placeholder="Customer ID">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-6 col-lg-offset-4">
+                
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+</div>
 <div class="bs-docs-section">
 	<div class="row">
 		<div class="col-md-8">
