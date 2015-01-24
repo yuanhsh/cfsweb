@@ -54,13 +54,11 @@ public class ResetPasswordAction extends Action {
 				customerDAO.setPassword(c_id, form.getNewPassword());
 				request.setAttribute("message", "Password reset for " + c_id);
 				return "reset_password.jsp";
-			} else if (request.getSession().getAttribute("customer_id") == null) {
+			} 
 				request.getSession().setAttribute("customer_id",
 						request.getParameter("customer_id"));
 				return "reset_password.jsp";
-			}
-
-			return "reset_password.jsp";
+			
 
 		} catch (FormBeanException e) {
 			// TODO Auto-generated catch block
