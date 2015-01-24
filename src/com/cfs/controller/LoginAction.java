@@ -67,8 +67,12 @@ public class LoginAction extends Action {
 			}
 
 			// User user = userDAO.read(form.getUsername());
-			CustomerBean customerBean = customerDAO.getCustomer(form.getUsername(), form.getPassword());
-			EmployeeBean employeeBean = employeeDAO.getEmployee(form.getUsername(), form.getPassword());
+			CustomerBean customerBean = null;
+			EmployeeBean employeeBean = null;
+			if(loginAs.equals("cust"))
+				customerBean = customerDAO.getCustomer(form.getUsername(), form.getPassword());
+			if(loginAs.equals("emp"))	
+				employeeBean = employeeDAO.getEmployee(form.getUsername(), form.getPassword());
 
 			if (customerBean == null && employeeBean == null) {
 				errors.add("Username or Password is incorrect");
@@ -98,6 +102,7 @@ public class LoginAction extends Action {
 				session.setAttribute("employee", employeeBean);
 				session.setAttribute("loginAs", "emp");
 				session.setAttribute("username", employeeBean.getUsername());
+				session.setAttribute("employee_id", employeeBean.getEmployee_id());
 				return "search_fund.do";
 			}
 			return "login.jsp"; 

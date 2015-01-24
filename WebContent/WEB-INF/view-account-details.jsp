@@ -10,7 +10,7 @@
 
 
 <% String role = (String)request.getSession().getAttribute("loginAs");
-if(role.equals("cust")) {
+ {
 %>
 <%-- <c:forEach var="customer" items="${customerInfo}"> --%>
 <form class="form-horizontal" method="POST" action="view-account-details.do" >
