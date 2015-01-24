@@ -9,7 +9,8 @@
     <h3  style="text-align: center">Reset password </h3>
 
 <jsp:include page="error-list.jsp" />
-<form class="form-horizontal" method="post" action="reset_password.do">
+<jsp:include page="success.jsp" />
+<form class="form-horizontal" method="post" action="emp_reset_password.do">
     <fieldset>
         <div class="form-group">
             <label for="inputnpassword" class="col-lg-4 control-label">Password:</label>

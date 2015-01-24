@@ -9,7 +9,6 @@ import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
-import com.cfs.bean.CustomerBean;
 import com.cfs.dao.CustomerDAO;
 import com.cfs.dao.Model;
 import com.cfs.form.ResetPasswordForm;
@@ -19,48 +18,63 @@ import com.cfs.form.ResetPasswordForm;
 //I changed it because cust_id is suppose to be an int value
 
 public class ResetPasswordAction extends Action {
-	private FormBeanFactory<ResetPasswordForm> formBeanFactory = FormBeanFactory.getInstance(ResetPasswordForm.class);
+	private FormBeanFactory<ResetPasswordForm> formBeanFactory = FormBeanFactory
+			.getInstance(ResetPasswordForm.class);
 	private CustomerDAO customerDAO;
-	
-	public ResetPasswordAction(Model model){
+
+	public ResetPasswordAction(Model model) {
 		customerDAO = model.getCustomerDAO();
 	}
+
 	@Override
 	public String getName() {
-		
+
 		return "emp_reset_password.do";
 	}
 
 	@Override
 	public String perform(HttpServletRequest request) {
 		List<String> errors = new ArrayList<String>();
-        request.setAttribute("errors",errors);
-        
-        
+		request.setAttribute("errors", errors);
+
 		try {
+
 			ResetPasswordForm form = formBeanFactory.create(request);
-			if (!form.isPresent()) {
-	            return "reset_password.jsp";
-	        }
-	        errors.addAll(form.getValidationErrors());
-	        if (errors.size() != 0) {
-	            return "reset_password.jsp";
-	        }
-	       
-	        
-	        CustomerBean customer =(CustomerBean)request.getSession().getAttribute("customer");
-	        customerDAO.setPassword(customer.getCustomer_id(), form.getNewPassword());
-	        request.setAttribute("message", "Password reset for "+customer.getUsername());
-	        return "success.jsp";
+			if (request.getMethod().equals("POST")) {
+
+				if (!form.isPresent()) {
+					return "reset_password.jsp";
+				}
+				errors.addAll(form.getValidationErrors());
+				if (errors.size() != 0) {
+					return "reset_password.jsp";
+				}
+				int c_id = Integer.parseInt((String) request.getSession()
+						.getAttribute("customer_id"));
+				customerDAO.setPassword(c_id, form.getNewPassword());
+				request.setAttribute("message", "Password reset for " + c_id);
+				return "reset_password.jsp";
+			} else if (request.getSession().getAttribute("customer_id") == null) {
+				request.getSession().setAttribute("customer_id",
+						request.getParameter("customer_id"));
+				return "reset_password.jsp";
+			}
+
+			return "reset_password.jsp";
+
 		} catch (FormBeanException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "error.jsp";
+			return "reset_password.jsp";
 		} catch (RollbackException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "error.jsp";
+			return "reset_password.jsp";
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return "reset_password.jsp";
 		}
+
 	}
 
 }
