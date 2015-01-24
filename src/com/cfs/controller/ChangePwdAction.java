@@ -54,7 +54,7 @@ public class ChangePwdAction extends Action {
 				if (customerBean.checkPassword(form.getOldPassword())) {
 					customerDAO.setPassword(customerBean.getCustomer_id(), form.getNewPassword());
 					request.setAttribute("message", "Password changed for " + customerBean.getUsername());
-					return "success.jsp";
+					return "change-pwd.jsp";
 				} else {
 					errors.add("Old password is incorrect");
 					return "change-pwd.jsp";
@@ -71,7 +71,7 @@ public class ChangePwdAction extends Action {
 					return "change-pwd.jsp";
 				}
 				
-				return "success.jsp";
+				return "change-pwd.jsp";
 			}
 			return "change-pwd.jsp";
 

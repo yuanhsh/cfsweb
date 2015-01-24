@@ -2,6 +2,7 @@
 
 <jsp:include page="template-top.jsp" />
 <jsp:include page="error-list.jsp" />
+<jsp:include page="success.jsp" />
 <form class="form-horizontal"  method="POST" action="change-pwd.do">
     <fieldset>
         <div class="form-group">
