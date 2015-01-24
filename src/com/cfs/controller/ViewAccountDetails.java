@@ -36,7 +36,7 @@ public class ViewAccountDetails extends Action {
 		try {
 			CustIdForm formid=custIdBeanFactory.create(request);
 			CustomerForm form = formBeanFactory.create(request);
-			
+			System.out.println("Custommmm");
 	        errors.addAll(form.getValidationErrors());
 	        if (errors.size() != 0) {
 	            return "error.jsp";
@@ -50,10 +50,6 @@ public class ViewAccountDetails extends Action {
 	        	return "error.jsp";
 	        }*/
 	        
-	        
-	      
-	        
-	       
 			/*List<String> errors = form.getValidationErrors(request);
 			if(errors != null && errors.size() != 0) {
 				request.setAttribute("errors", errors);
@@ -76,6 +72,7 @@ public class ViewAccountDetails extends Action {
 		        	return "error.jsp";*/
 		        
 				//CustomerBean customer;
+				
 				try {
 					customer = customerDAO.getCustomerByCustomerId(customer_id);
 					request.setAttribute("customer", customer);
@@ -88,7 +85,7 @@ public class ViewAccountDetails extends Action {
 			
 			if(role.equals("emp")){
 				CustomerBean[] customers = customerDAO.getCustomers();
-				request.setAttribute("customer", customers);
+				request.setAttribute("customerList", customers);
 			}
 			
 			

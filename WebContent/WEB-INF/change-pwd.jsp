@@ -28,6 +28,7 @@
             <div class="col-lg-6 col-lg-offset-4">
                 
                 <button type="submit" class="btn btn-primary" name="button">Change Password</button>
+                <button class="btn btn-primary btn-request-check" onClick="javascript:history.back()" type="Button">Back</button>
             </div>
         </div>
     </fieldset>
