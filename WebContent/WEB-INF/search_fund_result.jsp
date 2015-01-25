@@ -10,11 +10,11 @@
 					<thead>
 						<tr>
 						
-							<th>Fund Name: ${searchfunds.name}</th>
+							<th>Fund Name: ${searchfund.name}</th>
 							
-							<th>Fund Symbol:${searchfunds.symbol}</th>
+							<th>Fund Symbol:${searchfund.symbol}</th>
 							
-						    <th>Fund Price:${fundInfoList.price}</th>
+						    <th>Fund Price:${fund.price}</th>
 						</tr>
 					</thead></table>
             </div>

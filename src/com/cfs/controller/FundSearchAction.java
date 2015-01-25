@@ -53,7 +53,10 @@ private FormBeanFactory<SearchFundForm> formBeanFactory = FormBeanFactory.getIns
 			HttpSession session = request.getSession();
 			session.setAttribute("searchname", searchfund.getName());
 			return"FundSearch.jsp";
-		}catch(RollbackException | FormBeanException e){
+		} catch (RollbackException e) {
+			errors.add(e.getMessage());
+			return "error.jsp";
+		} catch (FormBeanException e) {
 			errors.add(e.getMessage());
 			return "error.jsp";
 		}
