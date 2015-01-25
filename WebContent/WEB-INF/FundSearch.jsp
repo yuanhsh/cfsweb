@@ -2,42 +2,7 @@
 <jsp:include page="template-top.jsp" />
 <% String role = (String)request.getSession().getAttribute("loginAs");
 %>
-
-
-
-
-<div id="content">
-    
-   <div class="mainContent">
-
-
-    <h3  style="text-align: center">Search Fund </h3>
-
 <jsp:include page="error-list.jsp" />
-<jsp:include page="search_fund_result.jsp" />
-<form class="form-horizontal" method="post" action="search_fund.do">
-    <fieldset>
-        <div class="form-group">
-            <label for="inputnpassword" class="col-lg-4 control-label">Fund Name:</label>
-            <div class="col-lg-4">
-                <input type="text" class="form-control"  name="name" value="" placeholder="Fund name">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="inputnpassword" class="col-lg-4 control-label">Fund Ticker:</label>
-            <div class="col-lg-4">
-                <input type="text" class="form-control"  name="symbol" value="" placeholder="Fund ID">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-lg-6 col-lg-offset-4">
-                
-                <button type="submit" class="btn btn-primary">Search</button>
-            </div>
-        </div>
-    </fieldset>
-</form>
-</div>
 <div class="bs-docs-section">
 	<div class="row">
 		<div class="col-md-8">
@@ -63,18 +28,20 @@
 								<td>${fund.symbol}</td>
 								<td style="text-align: right">${fund.price}</td>
 								<%if(role.equals("cust")) { %>
-							<td style="text-align:right">
-                                            <li style="list-style:none" class="dropdown">
-                <a href="javascript:void(0)" class="dropdown-toggle action" data-toggle="dropdown">Action<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="javascript:void(0)" class="buy-fund-link" 
-                    fund-id="${fund.fund_id }" fund-name="${fund.name }" fund-symbol="${fund.symbol }">Buy</a></li>   
-                    <li><a href="javascript:void(0)" class="view-price-link" 
-                    fund-id="${fund.fund_id }" fund-name="${fund.name }" fund-symbol="${fund.symbol }">View Price History</a></li>               
-                </ul>
-            </li>
-                                        </td>
-							<%} %>
+								<td style="text-align: right">
+									<li style="list-style: none" class="dropdown"><a
+										href="javascript:void(0)" class="dropdown-toggle action"
+										data-toggle="dropdown">Action<b class="caret"></b></a>
+										<ul class="dropdown-menu">
+											<li><a href="javascript:void(0)" class="buy-fund-link"
+												fund-id="${fund.fund_id }" fund-name="${fund.name }"
+												fund-symbol="${fund.symbol }">Buy</a></li>
+											<li><a href="javascript:void(0)" class="view-price-link"
+												fund-id="${fund.fund_id }" fund-name="${fund.name }"
+												fund-symbol="${fund.symbol }">View Price History</a></li>
+										</ul></li>
+								</td>
+								<%} %>
 							</tr>
 
 						</c:forEach>
@@ -86,45 +53,55 @@
 </div>
 
 <div id="buy-modal" class="modal fade" tabindex="-1">
-                <div class="modal-dialog modal-lg-6" style="margin:100px auto">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Buy Fund</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="alert alert-dismissable alert-success">
-                            </div>
-                            <div class="alert alert-dismissable alert-warning">
-                            </div>
-                            <form class="form-horizontal" id="form-buy-fund">
-                                <fieldset>
-                                    <div class="form-group">
-                                        <label for="fundName" class="col-lg-3 control-label">Fund:</label>
-                                        <div class="col-lg-6">
-                                        	<input type="hidden" name="fund_id" class="hidden-fund-id"/>
-                                            <div class="form-control-wrapper"><label class="col-lg-8 control-label fund-name-label"></label><span class="material-input"></span></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="fundAmount" class="col-lg-3 control-label">Amount:</label>
-                                        <div class="col-lg-6">
-                                            <div class="form-control-wrapper"><input type="text" class="form-control empty" id="fundAmount" name="amount" placeholder="Amount" required><span class="material-input"></span></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-lg-6 col-lg-offset-4">
-                                    <!--        <button class="btn btn-default">Cancel</button>
+	<div class="modal-dialog modal-lg-6" style="margin: 100px auto">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Buy Fund</h4>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-dismissable alert-success"></div>
+				<div class="alert alert-dismissable alert-warning"></div>
+				<form class="form-horizontal" id="form-buy-fund">
+					<fieldset>
+						<div class="form-group">
+							<label for="fundName" class="col-lg-3 control-label">Fund:</label>
+							<div class="col-lg-6">
+								<input type="hidden" name="fund_id" class="hidden-fund-id" />
+								<div class="form-control-wrapper">
+									<label class="col-lg-8 control-label fund-name-label"></label><span
+										class="material-input"></span>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="fundAmount" class="col-lg-3 control-label">Amount:</label>
+							<div class="col-lg-6">
+								<div class="form-control-wrapper">
+									<input type="text" class="form-control empty" id="fundAmount"
+										name="amount" placeholder="Amount" required><span
+										class="material-input"></span>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-lg-6 col-lg-offset-4">
+								<!--        <button class="btn btn-default">Cancel</button>
                                              <button class="btn btn-primary submit-buy-fund">Submit</button> -->
-                                            <a href="javascript:void(0)" class="btn btn-primary submit-buy-fund">Submit<div class="ripple-wrapper"></div></a>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+								<a href="javascript:void(0)"
+									class="btn btn-primary submit-buy-fund">Submit
+									<div class="ripple-wrapper"></div>
+								</a>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
 <script>
             $(function() {
             	$(".action").click(function(){

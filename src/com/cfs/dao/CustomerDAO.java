@@ -30,7 +30,7 @@ public class CustomerDAO extends GenericDAO<CustomerBean> {
 	}
 	
 	public CustomerBean getCustomerByCustomerId(int custId) throws RollbackException {
-		CustomerBean[] customer1 = match(MatchArg.equals("customer_Id", custId));
+		CustomerBean[] customer1 = match(MatchArg.equals("customer_id", custId));
 		if (customer1 ==null || customer1.length<1) {
 			return null;
 		}

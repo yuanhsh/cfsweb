@@ -29,7 +29,6 @@ public class CustomerForm extends FormBean {
 		List<String> errors = new ArrayList<String>();
 		try {
 			custId = Integer.parseInt(customer_id);
-			System.out.println("Custome ID "+custId);
 			
 			CustomerBean customer = (CustomerBean)request.getSession().getAttribute("customer");
 			if(customer != null && customer.getCustomer_id() != custId) {
@@ -38,7 +37,6 @@ public class CustomerForm extends FormBean {
 		} catch (NumberFormatException e) {
 			errors.add("customer id error.");
 			e.printStackTrace();
-			System.out.println("Customer ID Error"+customer_id);
 		}
 		return errors;
 	}
