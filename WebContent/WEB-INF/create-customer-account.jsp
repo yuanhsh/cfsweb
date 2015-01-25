@@ -69,7 +69,7 @@
             <div class="col-lg-5">
                 <select class="form-control" id="select" name="state" >
                  <option value="0">Please select your state</option>
-                    <option value="AL">Alabama</option>
+                    <option value="Alabama">Alabama</option>
     <option  value="Alaska">Alaska</option>
     <option  value="Alaska">Alaska</option>
     <option  value="Arkansas">Arkansas</option>
