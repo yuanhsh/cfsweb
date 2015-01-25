@@ -46,22 +46,19 @@ public class CreateFund extends Action {
 	        // Any validation errors?
 	        errors.addAll(form.getValidationErrors());
 	        if (errors.size() != 0) {
-	            return "error.jsp";
+	            return "createFund.jsp";
 	        }
 			
 			FundBean fund=new FundBean();
 			fund.setName(form.getName());
-			
 			fund.setSymbol(form.getSymbol());
 			
 			
 			fundDAO.createAutoIncrement(fund);
 			
-			request.setAttribute("message", "Success create a Fund"+fund.getName());
+			request.setAttribute("message", "Successfully created fund "+fund.getName());
 			 return "createFund.jsp";
-			
-					
-			 
+
 		} catch (FormBeanException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -30,20 +30,14 @@ public String getSymbol() {
 	return symbol;
 }
 
-
-
 public List<String> getValidationErrors() {
 	List<String> errors = new ArrayList<String>();
-    String FundID="fundid";
+    
 	if (name == null || name.length() == 0) {
 		errors.add("fund name is required");
 	}
 	if (symbol == null || symbol.length() == 0) {
 		errors.add("symbol is required");
-	}
-
-	if (FundID == null || FundID.length() == 0) {
-		errors.add("fundID is required");
 	}
 
 	if (name.matches(".*[<>\"].*")) {
@@ -52,13 +46,6 @@ public List<String> getValidationErrors() {
 	if (symbol.matches(".*[<>\"].*")) {
 		errors.add("symbol cannot contain angular brackets or quotes");
 	}
-	if (FundID.matches(".*[<>\"].*")) {
-		errors.add("FundID cannot contain angular brackets or quotes");
-	}
-
-	
-
-
 	if (errors.size() > 0) {
 		return errors;
 	}

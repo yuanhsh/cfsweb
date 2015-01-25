@@ -5,7 +5,7 @@
 <div class="mainContent">
 
 
-    <h3 style="text-align: center">Create an Account for employee</h3>
+    <h3 style="text-align: center">Create an account for employee</h3>
 
 <jsp:include page="error-list.jsp" />
 <jsp:include page="success.jsp" />
@@ -45,7 +45,7 @@
             
         <div class="form-group">
             <div class="col-lg-7 col-lg-offset-5">
-                <button class="btn btn-default">Cancel</button>
+                <button class="btn btn-default" onClick="javascript:history.back()" type="Button">Cancel</button>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
