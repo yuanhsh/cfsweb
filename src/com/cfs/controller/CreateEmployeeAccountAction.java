@@ -29,14 +29,10 @@ public class CreateEmployeeAccountAction extends Action {
 	public String perform(HttpServletRequest request){
 		 List<String> errors = new ArrayList<String>();
 	        request.setAttribute("errors",errors);
-	        
-	        
-	        
 	       
 			try {
 				CreateEmployeeAccountForm form = formBeanFactory.create(request);
 				request.setAttribute("form",form);
-			
 				
 				if (!form.isPresent()) {
 		            return "create-employee-account.jsp";
@@ -46,14 +42,12 @@ public class CreateEmployeeAccountAction extends Action {
 				 
 				EmployeeBean employee = employeeDAO.getEmployeeByUsername(form.getUserName());
 				if(employee !=null){
-					errors.add("This user name is already exist.");
+					errors.add("Username already exists. Use a different username.");
 				}
 				
 				if (errors.size() != 0) {
 					return "create-employee-account.jsp";
 				}
-				
-				
 				
 				employee = new EmployeeBean();
 				employee.setUsername(form.getUserName());
@@ -62,23 +56,16 @@ public class CreateEmployeeAccountAction extends Action {
 				employee.setPassword(form.getPassword());
 				employeeDAO.create(employee);
 	        
-				// Attach (this copy of) the user bean to the session
 		        HttpSession session = request.getSession(false);
 		        session.setAttribute("employee",employee);
-		        request.setAttribute("message", "Success create an account for employee"+employee.getUsername());
+		        request.setAttribute("message", "Account for employee" + employee.getUsername() + "created successfully.");
 		        return "create-employee-account.jsp";
-				
-				
 			} catch (FormBeanException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return "create-employee-account.jsp";
 			} catch (RollbackException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return "create-employee-account.jsp";
 			}	
-
 	}
-
 }

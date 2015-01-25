@@ -38,32 +38,32 @@ public class BuyFundAction extends Action {
 	public String perform(HttpServletRequest request) {
 		return null;
 	}
-	
+
 	@Override
 	public void performAjax(HttpServletRequest request, HttpServletResponse response) {
-    	CustomerBean customer = (CustomerBean)request.getSession().getAttribute("customer");
-    	response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("success", "false");
-    	try {
-    		Integer custId = (Integer)request.getSession().getAttribute("customer_id");
-    		customer = customerDAO.read(custId);
-			if(customer != null) {
+		CustomerBean customer = (CustomerBean) request.getSession().getAttribute("customer");
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("success", "false");
+		try {
+			Integer custId = (Integer) request.getSession().getAttribute("customer_id");
+			customer = customerDAO.read(custId);
+			if (customer != null) {
 				request.getSession().setAttribute("customer", customer);
 			}
-			
+
 			BuyFundForm form = fbFactory.create(request);
 			List<String> errors = form.getValidationErrors(request);
-			if(errors != null && errors.size() != 0) {
+			if (errors != null && errors.size() != 0) {
 				request.setAttribute("errors", errors);
 				map.put("error", errors.get(0));
 				String json = new Gson().toJson(map);
-				System.out.println("json error: "+ json);
+				System.out.println("json error: " + json);
 				response.getWriter().write(json);
 				return;
 			}
-			
+
 			int fundId = form.getBuyFundId();
 			long amount = form.getTotalAmount();
 			transactionDAO.buyFund(customerDAO, customer, fundId, amount);
@@ -72,16 +72,16 @@ public class BuyFundAction extends Action {
 		} catch (Exception e) {
 			e.printStackTrace();
 			map.put("success", "false");
-			map.put("error", "Oops, "+e.getMessage());
+			map.put("error", "Oops, " + e.getMessage());
 		}
-    	
-    	try {
-    		String json = new Gson().toJson(map);
-        	System.out.println("json info: "+ json);
+
+		try {
+			String json = new Gson().toJson(map);
+			System.out.println("json info: " + json);
 			response.getWriter().write(json);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    }
+	}
 
 }

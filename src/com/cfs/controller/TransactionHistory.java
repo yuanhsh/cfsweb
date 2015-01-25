@@ -24,11 +24,9 @@ import com.cfs.form.TransactionHistoryForm;
 
 public class TransactionHistory extends Action {
 	private FormBeanFactory<TransactionHistoryForm> formBeanFactory = FormBeanFactory.getInstance(TransactionHistoryForm.class);
-//	private TransactionDAO transactionDAO;
 	private TransHistoryDAO transHistoryDAO;
 	
 	public TransactionHistory(Model model){
-//		transactionDAO=model.getTransactionDAO();
 		transHistoryDAO = model.getTransHistoryDAO();
 	}
 	

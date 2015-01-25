@@ -19,11 +19,12 @@ public class ViewProtfolioAction extends Action {
 	private FormBeanFactory<ProtfolioForm> formBeanFactory = FormBeanFactory.getInstance(ProtfolioForm.class);
 	private ProtfolioDAO protfolioDAO;
 	private CustomerDAO customerDAO;
+
 	public ViewProtfolioAction(Model model) {
 		protfolioDAO = model.getProtfolioDAO();
 		customerDAO = model.getCustomerDAO();
 	}
-	
+
 	@Override
 	public String getName() {
 		return "view_protfolio.do";
@@ -34,19 +35,19 @@ public class ViewProtfolioAction extends Action {
 		try {
 			ProtfolioForm form = formBeanFactory.create(request);
 			List<String> errors = form.getValidationErrors(request);
-			if(errors != null && errors.size() != 0) {
+			if (errors != null && errors.size() != 0) {
 				request.setAttribute("errors", errors);
 				return "error.jsp";
 			}
 			List<ProtfolioDTO> funds = this.protfolioDAO.getProtfolio(form.getCustomerIdNumber());
 			request.setAttribute("funds", funds);
 			HttpSession session = request.getSession();
-			String role = (String)session.getAttribute("loginAs");
-			if(role.equals("cust")) {
-				Integer customer_id = (Integer)session.getAttribute("customer_id");
+			String role = (String) session.getAttribute("loginAs");
+			if (role.equals("cust")) {
+				Integer customer_id = (Integer) session.getAttribute("customer_id");
 				CustomerBean customer = customerDAO.read(customer_id);
 				session.setAttribute("customer", customer);
-				double balance = ((double)customer.getCash())/100.0;
+				double balance = ((double) customer.getCash()) / 100.0;
 				request.setAttribute("balance", ProtfolioDTO.moneyFomatter.format(balance));
 			}
 			return "protfolio.jsp";
@@ -55,5 +56,4 @@ public class ViewProtfolioAction extends Action {
 			return "error.jsp";
 		}
 	}
-
 }

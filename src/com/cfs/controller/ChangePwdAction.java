@@ -61,13 +61,13 @@ public class ChangePwdAction extends Action {
 					return "change-pwd.jsp";
 				}
 			}
-			
+
 			if (loginAs.equals("emp")) {
 				employeeBean = (EmployeeBean) request.getSession().getAttribute("employee");
 				if (employeeBean.checkPassword(form.getOldPassword())) {
 					employeeBean.setPassword(form.getNewPassword());
 					employeeDAO.update(employeeBean);
-					request.setAttribute("message", "Password changed for "+ employeeBean.getUsername());
+					request.setAttribute("message", "Password changed for " + employeeBean.getUsername());
 				} else {
 					errors.add("Old password is incorrect");
 					return "change-pwd.jsp";

@@ -16,8 +16,7 @@ import com.cfs.dao.Model;
 import com.cfs.form.SearchCustomerForm;
 
 public class SearchCustomerAction extends Action {
-	private FormBeanFactory<SearchCustomerForm> formBeanFactory = FormBeanFactory
-			.getInstance(SearchCustomerForm.class);
+	private FormBeanFactory<SearchCustomerForm> formBeanFactory = FormBeanFactory.getInstance(SearchCustomerForm.class);
 	private CustomerDAO customerDAO;
 
 	public SearchCustomerAction(Model model) {

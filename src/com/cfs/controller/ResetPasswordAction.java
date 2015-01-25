@@ -13,11 +13,8 @@ import com.cfs.dao.CustomerDAO;
 import com.cfs.dao.Model;
 import com.cfs.form.ResetPasswordForm;
 
-
-
 public class ResetPasswordAction extends Action {
-	private FormBeanFactory<ResetPasswordForm> formBeanFactory = FormBeanFactory
-			.getInstance(ResetPasswordForm.class);
+	private FormBeanFactory<ResetPasswordForm> formBeanFactory = FormBeanFactory.getInstance(ResetPasswordForm.class);
 	private CustomerDAO customerDAO;
 
 	public ResetPasswordAction(Model model) {
@@ -26,7 +23,6 @@ public class ResetPasswordAction extends Action {
 
 	@Override
 	public String getName() {
-
 		return "emp_reset_password.do";
 	}
 
@@ -36,10 +32,8 @@ public class ResetPasswordAction extends Action {
 		request.setAttribute("errors", errors);
 
 		try {
-
 			ResetPasswordForm form = formBeanFactory.create(request);
 			if (request.getMethod().equals("POST")) {
-
 				if (!form.isPresent()) {
 					return "reset_password.jsp";
 				}
@@ -50,14 +44,11 @@ public class ResetPasswordAction extends Action {
 				int c_id = Integer.parseInt((String) request.getSession()
 						.getAttribute("customer_id"));
 				customerDAO.setPassword(c_id, form.getNewPassword());
-				request.setAttribute("message", "Password reset for " + c_id);
+				request.setAttribute("message", "Password has been reset for " + c_id);
 				return "reset_password.jsp";
 			} 
-				request.getSession().setAttribute("customer_id",
-						request.getParameter("customer_id"));
+				request.getSession().setAttribute("customer_id", request.getParameter("customer_id"));
 				return "reset_password.jsp";
-			
-
 		} catch (FormBeanException e) {
 			e.printStackTrace();
 			return "reset_password.jsp";

@@ -15,15 +15,12 @@ import com.cfs.dao.Model;
 import com.cfs.form.FundForm;
 
 public class FundHistoryAction extends Action {
-	private FormBeanFactory<FundForm> formBeanFactory = FormBeanFactory
-			.getInstance(FundForm.class);
+	private FormBeanFactory<FundForm> formBeanFactory = FormBeanFactory.getInstance(FundForm.class);
 
 	private FundPriceHistoryDAO fundHistDAO;
 
 	public FundHistoryAction(Model model) {
-
 		fundHistDAO = model.getPriceHistoryDAO();
-
 	}
 
 	public String getName() {
@@ -40,7 +37,6 @@ public class FundHistoryAction extends Action {
 			FundForm form = formBeanFactory.create(request);
 			int id = form.getIdAsInt();
 			FundPriceHistoryBean f = fundHistDAO.read(id);
-
 			request.setAttribute("fundInfoList", f);
 			return "fundHistory.jsp";
 		} catch (RollbackException e) {
@@ -50,6 +46,5 @@ public class FundHistoryAction extends Action {
 			errors.add(e.getMessage());
 			return "error.jsp";
 		}
-
 	}
 }

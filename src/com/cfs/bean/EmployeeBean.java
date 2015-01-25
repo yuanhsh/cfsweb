@@ -14,7 +14,6 @@ public class EmployeeBean {
 	private String lastname;
 	private String hashedPassword = "*";
 	private int salt = 0;
-	
 
 	public int getEmployee_id() {
 		return employee_id;
@@ -39,39 +38,37 @@ public class EmployeeBean {
 	public String getHashedPassword() {
 		return hashedPassword;
 	}
-	
+
 	public int getSalt() {
 		return salt;
 	}
-	
+
 	public int hashCode() {
 		return username.hashCode();
 	}
-	
+
 	public void setHashedPassword(String x) {
 		hashedPassword = x;
 	}
-	
+
 	public void setPassword(String s) {
 		salt = newSalt();
 		hashedPassword = hash(s);
 	}
-	
+
 	public void setSalt(int x) {
 		salt = x;
 	}
 
 	private String hash(String clearPassword) {
-		// TODO Auto-generated method stub
 		if (salt == 0)
-		return null;
-		
+			return null;
+
 		MessageDigest md = null;
 		try {
 			md = MessageDigest.getInstance("SHA1");
 		} catch (NoSuchAlgorithmException e) {
-			throw new AssertionError(
-					"Can't find the SHA1 algorithm in the java.security package");
+			throw new AssertionError("Can't find the SHA1 algorithm in the java.security package");
 		}
 
 		String saltString = String.valueOf(salt);
@@ -94,7 +91,6 @@ public class EmployeeBean {
 	}
 
 	private int newSalt() {
-		// TODO Auto-generated method stub
 		Random random = new Random();
 		return random.nextInt(8192) + 1; // salt cannot be zero
 	}

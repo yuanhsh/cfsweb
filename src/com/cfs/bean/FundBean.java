@@ -41,6 +41,4 @@ public class FundBean {
 		this.price = price;
 	}
 
-	
-	
 }

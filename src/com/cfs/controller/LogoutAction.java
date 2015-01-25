@@ -8,7 +8,7 @@ import com.cfs.dao.Model;
 public class LogoutAction extends Action {
 
 	public LogoutAction(Model model) {
-		
+
 	}
 
 	public String getName() {

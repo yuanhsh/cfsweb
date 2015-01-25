@@ -1,6 +1,5 @@
 package com.cfs.controller;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +16,6 @@ import com.cfs.dao.CustomerDAO;
 import com.cfs.dao.EmployeeDAO;
 import com.cfs.dao.Model;
 import com.cfs.form.LoginForm;
-
-
 
 public class LoginAction extends Action {
 	private FormBeanFactory<LoginForm> formBeanFactory = FormBeanFactory.getInstance(LoginForm.class);
@@ -42,13 +39,8 @@ public class LoginAction extends Action {
 		loginAs = request.getParameter("loginAs");
 
 		try {
-
 			LoginForm form = formBeanFactory.create(request);
 			if (loginAs != null && loginAs.equals("cust")) {
-				// receive the value here by comparing the value of the
-				// customerbean
-
-				// CustomerBean customerBean = getCustomerByUserName(form.getUsername();
 				System.out.println(form.getUsername());
 				System.out.println(form.getPassword());
 				request.setAttribute("customer", customerDAO.getCustomerByUsername(form.getUsername()));
@@ -66,12 +58,11 @@ public class LoginAction extends Action {
 				return "login.jsp";
 			}
 
-			// User user = userDAO.read(form.getUsername());
 			CustomerBean customerBean = null;
 			EmployeeBean employeeBean = null;
-			if(loginAs.equals("cust"))
+			if (loginAs.equals("cust"))
 				customerBean = customerDAO.getCustomer(form.getUsername(), form.getPassword());
-			if(loginAs.equals("emp"))	
+			if (loginAs.equals("emp"))
 				employeeBean = employeeDAO.getEmployee(form.getUsername(), form.getPassword());
 
 			if (customerBean == null && employeeBean == null) {
@@ -80,12 +71,12 @@ public class LoginAction extends Action {
 			}
 
 			if (loginAs.equals("cust")) {
-				if (customerBean!=null &&!customerBean.checkPassword(form.getPassword())) {
+				if (customerBean != null && !customerBean.checkPassword(form.getPassword())) {
 					errors.add("Username or Password is incorrect");
 					return "login.jsp";
 				}
 			} else if (loginAs.equals("emp")) {
-				if (employeeBean!=null && !employeeBean.checkPassword(form.getPassword())) {
+				if (employeeBean != null && !employeeBean.checkPassword(form.getPassword())) {
 					errors.add("Username or Password is incorrect");
 					return "login.jsp";
 				}
@@ -97,7 +88,7 @@ public class LoginAction extends Action {
 				session.setAttribute("loginAs", "cust");
 				session.setAttribute("username", customerBean.getUsername());
 				session.setAttribute("customer_id", customerBean.getCustomer_id());
-				return "view_protfolio.do?customer_id="+customerBean.getCustomer_id();
+				return "view_protfolio.do?customer_id=" + customerBean.getCustomer_id();
 			} else if (loginAs.equals("emp")) {
 				session.setAttribute("employee", employeeBean);
 				session.setAttribute("loginAs", "emp");
@@ -105,7 +96,7 @@ public class LoginAction extends Action {
 				session.setAttribute("employee_id", employeeBean.getEmployee_id());
 				return "search_fund.do";
 			}
-			return "login.jsp"; 
+			return "login.jsp";
 		} catch (RollbackException e) {
 			errors.add(e.getMessage());
 			return "error.jsp";

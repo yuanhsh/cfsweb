@@ -19,10 +19,6 @@ import com.cfs.dao.Model;
 
 import com.cfs.form.DepositCheckForm;
 
-//note from Aditi:::::::
-//@ Meiqi: The error is because of making Customer_Id a int instead of a String in the CustomerBean. 
-//I changed it because cust_id is suppose to be an int value
-
 public class DepositCheck extends Action {
 	private FormBeanFactory<DepositCheckForm> formBeanFactory = FormBeanFactory.getInstance(DepositCheckForm.class);
 	private CustomerDAO customerDAO;
@@ -42,10 +38,6 @@ public class DepositCheck extends Action {
 			DepositCheckForm form = formBeanFactory.create(request);
 			request.setAttribute("form",form);
 			
-		
-			
-			
-			
 	        if (!form.isPresent()) {
 	            return "depositCheck.jsp";
 	        }
@@ -58,8 +50,7 @@ public class DepositCheck extends Action {
 			
 			CustomerBean check=new CustomerBean();
 			check.setCustomer_id(form.getCustomerID());
-			check.setCash(form.getCash());  // the cash means the check the customer wants to deposit, right?
-			
+			check.setCash(form.getCash());  
 			
 			FundBean deposit=new FundBean();
 			deposit.setFund_id(form.getFund_id());
@@ -74,11 +65,9 @@ public class DepositCheck extends Action {
 			return "depositCheck.jsp"; 		
 			 
 		} catch (FormBeanException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "error.jsp";
 		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "error.jsp";
 		}

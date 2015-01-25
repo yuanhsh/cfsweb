@@ -15,11 +15,11 @@ public class TransactionBean {
 	private long amount;
 	private long price;
 	private String status;
-	
+
 	public static final String STATUS_PENDING = "Pending";
 	public static final String STATUS_COMPLETED = "Completed";
 	public static final String STATUS_CANCELLED = "Cancelled";
-	
+
 	public static final String TYPE_BUY = "Buy";
 	public static final String TYPE_SELL = "Sell";
 	public static final String TYPE_DEPOSIT = "Deposit";
@@ -88,7 +88,7 @@ public class TransactionBean {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
 	public long getPrice() {
 		return price;
 	}

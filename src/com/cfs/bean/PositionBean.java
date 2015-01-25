@@ -9,7 +9,7 @@ public class PositionBean {
 	private int fund_id;
 	private long shares;
 	private long price;
-	
+
 	public int getPosition_id() {
 		return position_id;
 	}
