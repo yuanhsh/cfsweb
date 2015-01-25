@@ -1,29 +1,20 @@
 package com.cfs.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.genericdao.RollbackException;
-import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import com.cfs.bean.CustomerBean;
-import com.cfs.bean.FundBean;
 import com.cfs.dao.CustomerDAO;
-import com.cfs.dao.FundDAO;
 import com.cfs.dao.Model;
 import com.cfs.dao.TransactionDAO;
 import com.cfs.dto.ProtfolioDTO;
-import com.cfs.form.DepositCheckForm;
 import com.cfs.form.RequestCheckForm;
-import com.cfs.form.SellFundForm;
 import com.google.gson.Gson;
 
 public class RequestCheckAction extends Action {

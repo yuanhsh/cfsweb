@@ -1,14 +1,11 @@
 package com.cfs.form;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.mybeans.form.FormBean;
-
-import com.cfs.bean.CustomerBean;
 
 public class TransactionHistoryForm extends FormBean {
 	private List<String> errors = new ArrayList<String>();

@@ -8,16 +8,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.genericdao.RollbackException;
-import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
-import com.cfs.bean.CustomerBean;
-import com.cfs.dao.CustomerDAO;
 import com.cfs.dao.Model;
 import com.cfs.dao.PositionDAO;
 import com.cfs.dao.TransactionDAO;
-import com.cfs.form.BuyFundForm;
 import com.cfs.form.SellFundForm;
 import com.google.gson.Gson;
 
@@ -44,7 +39,6 @@ public class SellFundAction extends Action {
 
 	@Override
 	public void performAjax(HttpServletRequest request, HttpServletResponse response) {
-		CustomerBean customer = (CustomerBean) request.getSession().getAttribute("customer");
 		Integer custId = (Integer) request.getSession().getAttribute("customer_id");
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

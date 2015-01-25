@@ -8,7 +8,6 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
-import com.cfs.dto.ProtfolioDTO;
 import com.cfs.dto.TransHistoryDTO;
 
 public class TransHistoryDAO {
