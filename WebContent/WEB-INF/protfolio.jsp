@@ -13,7 +13,7 @@ if(role.equals("cust")) {
                      <div class="form-group">
                                         <h4 class="col-lg-3 cust-cash-label">USD ${balance }</h4>
                                         <div class="col-lg-6">
-                                        <button class="btn btn-primary btn-request-check">Request Check<div class="ripple-wrapper"></div></button>
+                                        <button class="btn btn-primary btn-request-check" style="margin:0px 0px">Request Check<div class="ripple-wrapper"></div></button>
                                         <!-- <a href="javascript:void(0)" class="btn btn-default btn-raised btn-request-check">Request Check</a> -->
                                         </div>
                                     </div>
@@ -25,7 +25,7 @@ if(role.equals("cust")) {
 <div class="bs-docs-section">
                 <div class="row">
                     <div class="col-md-8">
-                        <h3 id="tables">Protfolio</h3>
+                        <h3 id="tables">Portfolio</h3>
                         <div class="bs-component">
                             <table class="table table-striped table-hover ">
                                 <thead>
@@ -94,7 +94,7 @@ if(role.equals("cust")) {
                                     <div class="form-group">
                                         <label for="fundAmount" class="col-lg-3 control-label">Amount:</label>
                                         <div class="col-lg-6">
-                                            <div class="form-control-wrapper"><input type="text" class="form-control empty" id="fundAmount" name="amount" placeholder="Amount" required><span class="material-input"></span></div>
+                                            <div class="form-control-wrapper"><input type="text" class="form-control empty" id="fundAmount" name="amount" placeholder="Amount"><span class="material-input"></span></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -135,7 +135,7 @@ if(role.equals("cust")) {
                                     <div class="form-group">
                                         <label for="fundAmount" class="col-lg-3 control-label">Shares to sell:</label>
                                         <div class="col-lg-6">
-                                            <div class="form-control-wrapper"><input type="text" class="form-control empty" id="sellShares" name="shares" placeholder="Share number" required><span class="material-input"></span></div>
+                                            <div class="form-control-wrapper"><input type="text" class="form-control empty" id="sellShares" name="shares" placeholder="Share number"><span class="material-input"></span></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -168,7 +168,7 @@ if(role.equals("cust")) {
                                     <div class="form-group">
                                         <label for="fundAmount" class="col-lg-5 control-label">Request Check Amount:</label>
                                         <div class="col-lg-5">
-                                            <div class="form-control-wrapper"><input type="text" class="form-control empty" id="requestAmount" name="requestAmount" placeholder="Request Check Amount" required><span class="material-input"></span></div>
+                                            <div class="form-control-wrapper"><input type="text" class="form-control empty" id="requestAmount" name="requestAmount" placeholder="Request Check Amount"><span class="material-input"></span></div>
                                         </div>
                                     </div>
                                     <div class="form-group">

@@ -16,8 +16,22 @@ public class CustomerDAO extends GenericDAO<CustomerBean> {
 			throws DAOException {
 		super(CustomerBean.class, tableName, pool);
 	}
-	public CustomerBean[] getCustomers() throws RollbackException {
-		CustomerBean[] customer = match();
+	public CustomerBean[] getCustomers(String keyword) throws RollbackException {
+		CustomerBean[] customer = null;
+		if(keyword == null || keyword.trim().isEmpty()) {
+			customer= match();
+		} else {
+			keyword = keyword.trim();
+			MatchArg firstnameMatch = MatchArg.containsIgnoreCase("firstname", keyword);
+			MatchArg lastnameMatch = MatchArg.containsIgnoreCase("lastname", keyword);
+			MatchArg usernameMatch = MatchArg.containsIgnoreCase("username", keyword);
+			MatchArg matches = MatchArg.or(firstnameMatch, lastnameMatch, usernameMatch);
+			if(keyword.matches("^\\d+$")) {
+				MatchArg idMatch = MatchArg.equals("customer_id", Integer.valueOf(keyword));
+				matches = idMatch; //MatchArg.or(matches, idMatch);
+			}
+			customer = match(matches);
+		}
 		return customer;
 	}
 

@@ -49,8 +49,8 @@
                                 <li><a href="transactionHistory.do?customer_id=${customer_id }">Transactions</a></li>
                                 <li><a href="search_fund.do">Funds</a></li>
                             </ul>
-                            <form class="navbar-form navbar-left">
-                                <div class="form-control-wrapper"><input type="text" class="form-control col-lg-8 empty" placeholder="Search Fund"><span class="material-input"></span></div>
+                            <form class="navbar-form navbar-left" method="get" action="search_fund.do">
+                                <div class="form-control-wrapper"><input type="text" class="form-control col-lg-8 empty" name="fund_key" placeholder="Search Fund" value="${fund_key }"><span class="material-input"></span></div>
                             </form>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="javascript:void(0)">Contact us<div class="ripple-wrapper"></div></a></li>
@@ -59,7 +59,6 @@
                                     <ul class="dropdown-menu">
                                         <li><a href="view_account_details.do?customer_id=${customer_id }">View Account Info</a></li>
                                         <li><a href="change-pwd.do">Change Password</a></li>
-                                        <li><a href="javascript:void(0)">Help</a></li>
                                         <li><a href="logout.do">Logout</a></li>
                                     </ul>
                                 </li>
@@ -85,8 +84,8 @@
                                 </li>
                                 <li><a href="emp_transition_day.do">Transition Day</a></li>
                             </ul>
-                            <form class="navbar-form navbar-left">
-                                <div class="form-control-wrapper"><input type="text" class="form-control col-lg-8 empty" placeholder="Search Fund"><span class="material-input"></span></div>
+                            <form class="navbar-form navbar-left" method="get" action="search_fund.do">
+                                <div class="form-control-wrapper"><input type="text" class="form-control col-lg-8 empty" name="fund_key" placeholder="Search Fund" value="${fund_key }"><span class="material-input"></span></div>
                             </form>
                             <ul class="nav navbar-nav navbar-right">
                                 <!-- <li><a href="javascript:void(0)">Help<div class="ripple-wrapper"></div></a></li> -->

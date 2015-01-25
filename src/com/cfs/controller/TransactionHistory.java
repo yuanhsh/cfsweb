@@ -40,12 +40,11 @@ public class TransactionHistory extends Action {
 	        if (!form.isPresent()) {
 	            return "TransactionHistory.jsp";
 	        }
-	        List<String> errors = form.getValidationErrors();
+	        List<String> errors = form.getValidationErrors(request);
 	        if (errors != null && errors.size() != 0) {
 	        	request.setAttribute("errors", errors);
 	            return "error.jsp";
 	        }
-//			TransactionBean[] trans = transactionDAO.getTransactions(form.getCustID());
 	        List<TransHistoryDTO> trans = transHistoryDAO.getTransHistory(form.getCustID());
 			request.setAttribute("transactionList", trans);
 			return "TransactionHistory.jsp"; 	

@@ -59,15 +59,11 @@ public class CreateFund extends Action {
 			request.setAttribute("message", "Successfully created fund "+fund.getName());
 			 return "createFund.jsp";
 
-		} catch (FormBeanException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
+			errors.add("Oops, failed to create new fund. please check again.");
 			e.printStackTrace();
-			return "error.jsp";
-		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "error.jsp";
-		}
+			return "createFund.jsp";
+		} 
 		
 	}
 	

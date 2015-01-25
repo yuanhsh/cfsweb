@@ -1,38 +1,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="template-top.jsp" />
-<div id="content">
+
     
    <div class="mainContent">
 
 
-    <h3  style="text-align: center">Search Customer </h3>
-
 <jsp:include page="error-list.jsp" />
-<form class="form-horizontal" method="post" action="searchCustomer.do">
+<form class="form-horizontal" method="get" action="emp_search_customer.do">
     <fieldset>
         <div class="form-group">
-            <label for="inputnpassword" class="col-lg-4 control-label">Customer Name:</label>
-            <div class="col-lg-4">
-                <input type="Password" class="form-control" id="inputnpassword" name="customers" value="" placeholder="Customer name">
-            </div>
+        <div class="col-lg-3">
+           <input type="text" class="form-control"  name="keyword" value="${keyword }" placeholder="Search customer id/name/username">    
         </div>
-        <div class="form-group">
-            <label for="inputnpassword" class="col-lg-4 control-label">Customer ID:</label>
-            <div class="col-lg-4">
-                <input type="Password" class="form-control" id="inputnpassword" name="customerID" value="" placeholder="Customer ID">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-lg-6 col-lg-offset-4">
-                
-                <button type="submit" class="btn btn-primary">Search</button>
+        <div class="col-lg-3" >
+                <button type="submit" class="btn btn-primary" style="margin:-6px 0px">Search</button>
             </div>
         </div>
     </fieldset>
 </form>
 </div>
-<div class="container">
     		<div class="bs-docs-section">
                 <div class="row">
                     <div class="col-lg-12">

@@ -31,32 +31,23 @@ private FormBeanFactory<SearchFundForm> formBeanFactory = FormBeanFactory.getIns
 	public String getName() {return "search_fund.do";}
 	
 	public String perform (HttpServletRequest request) {
-		
 		List<String> errors = new ArrayList<String>();
-		
-		request.setAttribute("errors",errors);
 		
 		try{
 			SearchFundForm form = formBeanFactory.create(request);
-		
-			request.setAttribute("form",form);
-			
-			FundBean[] fundList= fundDAO.getFunds();
+			request.setAttribute("fund_key",form.getFund_key());
+			String keyword = null;
+			errors = form.getValidationErrors();
+			if(errors != null && errors.size() != 0) {
+				request.setAttribute("errors", errors);
+			} else {
+				keyword = form.getFund_key();
+			}
+			FundBean[] fundList= fundDAO.getFunds(keyword);
 			request.setAttribute("fundList",fundList);
-			
-			FundBean searchfund= new FundBean();
-			searchfund.setName(form.getName());
-			searchfund.setSymbol(form.getSymbol());
-			
-			request.setAttribute("searchfund", searchfund);
-			
-			HttpSession session = request.getSession();
-			session.setAttribute("searchname", searchfund.getName());
 			return"FundSearch.jsp";
-		} catch (RollbackException e) {
-			errors.add(e.getMessage());
-			return "error.jsp";
-		} catch (FormBeanException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			errors.add(e.getMessage());
 			return "error.jsp";
 		}

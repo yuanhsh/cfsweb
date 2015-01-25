@@ -14,7 +14,7 @@
 %>
 <%-- <c:forEach var="customer" items="${customerInfo}"> --%>
 <form class="form-horizontal" method="POST" action="view-account-details.do" >
- <div class="mainContent" align="center">
+ <div class="mainContent">
     <fieldset>
 	
         <div class="form-group">

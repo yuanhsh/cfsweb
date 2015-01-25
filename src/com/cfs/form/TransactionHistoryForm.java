@@ -29,7 +29,7 @@ public class TransactionHistoryForm extends FormBean {
 			if(!"emp".equals(role)) {
 				int customerId = (Integer)request.getSession().getAttribute("customer_id");
 				if(custId != customerId) {
-					errors.add("permission denied.");
+					errors.add("you do not have permission to view other's account.");
 				}
 			}
 			
