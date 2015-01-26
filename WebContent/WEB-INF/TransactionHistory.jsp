@@ -10,14 +10,14 @@
                             <table class="table table-striped table-hover" data-toggle="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th data-sortable="true">#</th>
                                         <th data-sortable="true">Date</th>
                                         <th data-sortable="true">Fund Name(Ticker)</th>
-                                        <th >Action</th>
-                                        <th style="text-align:right">Shares</th>
-                                        <th style="text-align:right">Price</th>
-                                        <th style="text-align:right">Amount</th>
-                                        <th style="text-align:right">Status</th>
+                                        <th data-sortable="true">Action</th>
+                                        <th class="text-right">Shares</th>
+                                        <th class="text-right">Price</th>
+                                        <th class="text-right">Amount</th>
+                                        <th data-sortable="true" class="text-right">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -26,10 +26,10 @@
                                         <td>${t.disp_date }</td>
                                         <td>${t.disp_fund }</td>
                                         <td>${t.transaction_type } </td>
-                                        <td style="text-align:right">${t.disp_shares }</td>
-                                        <td style="text-align:right">${t.disp_price }</td>
-                                        <td style="text-align:right">${t.disp_amount}</td>
-                                         <td style="text-align:right">${t.status }</td>
+                                        <td class="text-right">${t.disp_shares }</td>
+                                        <td class="text-right">${t.disp_price }</td>
+                                        <td class="text-right">${t.disp_amount}</td>
+                                        <td class="text-right">${t.status }</td>
                                     </tr>
                                 </c:forEach>    
                                 </tbody>

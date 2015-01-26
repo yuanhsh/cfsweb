@@ -27,16 +27,16 @@ if(role.equals("cust")) {
                     <div class="col-md-8">
                         <h3 id="tables">Portfolio</h3>
                         <div class="bs-component">
-                            <table class="table table-striped table-hover ">
+                            <table class="table table-striped table-hover " data-toggle="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Fund Name(Ticker)</th>
-                                        <th style="text-align:right">Shares</th>
-                                        <th style="text-align:right">Price</th>
-                                        <th style="text-align:right">Amount</th>
+                                        <th data-sortable="true">#</th>
+                                        <th data-sortable="true">Fund Name(Ticker)</th>
+                                        <th class="text-right">Shares</th>
+                                        <th class="text-right">Price</th>
+                                        <th class="text-right">Amount</th>
                                         <%if(role.equals("cust")) { %>
-                                        <th style="text-align:right">Action</th>
+                                        <th class="text-right">Action</th>
                                         <%} %>
                                     </tr>
                                 </thead>
@@ -45,11 +45,11 @@ if(role.equals("cust")) {
                                     <tr>
                                         <td>${status.count}</td>
                                         <td>${fund.fund_name } (${fund.fund_symbol })</td>
-                                        <td style="text-align:right">${fund.disp_shares }</td>
-                                        <td style="text-align:right">${fund.disp_price }</td>
-                                        <td style="text-align:right">${fund.disp_amount }</td>
+                                        <td class="text-right">${fund.disp_shares }</td>
+                                        <td class="text-right">${fund.disp_price }</td>
+                                        <td class="text-right">${fund.disp_amount }</td>
                                          <% if(role.equals("cust")) {%>
-                                        <td style="text-align:right">
+                                        <td class="text-right">
                                             <li style="list-style:none" class="dropdown">
                 <a href="javascript:void(0)" class="dropdown-toggle action" data-toggle="dropdown">Action<b class="caret"></b></a>
                 <ul class="dropdown-menu">

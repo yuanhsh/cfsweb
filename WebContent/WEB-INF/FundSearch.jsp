@@ -8,12 +8,12 @@
 		<div class="col-lg-6">
 			<h3 id="tables">Fund List</h3>
 			<div class="bs-component">
-				<table class="table table-striped table-hover " id="flTable">
+				<table class="table table-striped table-hover" id="flTable">
 					<thead>
 						<tr>
-							<th>Fund ID</th>
-							<th>Fund Name</th>
-							<th>Fund Symbol</th>
+							<th data-sortable="true">#</th>
+							<th data-sortable="true">Fund Name</th>
+							<th data-sortable="true">Fund Symbol</th>
 							<th class="text-right">Price</th>
 							<%if(role.equals("cust")) { %>
 							<th class="text-right">Action</th>
