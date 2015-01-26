@@ -30,8 +30,8 @@
 							<th>User Name</th>
 							<th>Customer Name</th>
 							<th>Last Trading Day</th>
-							<th class="decimal">Cash Balance</th>
-							<th class="decimal">Action</th>
+							<th class="text-right">Cash Balance</th>
+							<th class="text-right">Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -41,8 +41,8 @@
 								<td>${customer.username }</td>
 								<td>${customer.firstname } ${customer.lastname }</td>
 								<td>01/15/2015</td>
-								<td class="decimal">${customer.cash }</td>
-								<td class="decimal"><li style="list-style: none" class="dropdown"><a
+								<td class="text-right">${customer.cash }</td>
+								<td class="text-right"><li style="list-style: none" class="dropdown"><a
 										href="javascript:void(0)" class="dropdown-toggle"
 										data-toggle="dropdown">Action<b class="caret"></b></a>
 										<ul class="dropdown-menu">

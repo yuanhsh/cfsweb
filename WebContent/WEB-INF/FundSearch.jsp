@@ -5,7 +5,7 @@
 <jsp:include page="error-list.jsp" />
 <div class="bs-docs-section">
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-lg-6">
 			<h3 id="tables">Fund List</h3>
 			<div class="bs-component">
 				<table class="table table-striped table-hover " id="flTable">
@@ -14,21 +14,21 @@
 							<th>Fund ID</th>
 							<th>Fund Name</th>
 							<th>Fund Symbol</th>
-							<th style="text-align: right">Price</th>
+							<th class="text-right">Price</th>
 							<%if(role.equals("cust")) { %>
-							<th style="text-align: right">Action</th>
+							<th class="text-right">Action</th>
 							<%} %>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${fundList}" var="fund">
-							<tr>
+							<tr fund-id="${fund.fund_id}" fund-symbol="${fund.symbol}">
 								<td>${fund.fund_id}</td>
 								<td>${fund.name}</td>
 								<td>${fund.symbol}</td>
-								<td style="text-align: right">${fund.price}</td>
+								<td class="text-right">${fund.price}</td>
 								<%if(role.equals("cust")) { %>
-								<td style="text-align: right">
+								<td class="text-right">
 									<li style="list-style: none" class="dropdown"><a
 										href="javascript:void(0)" class="dropdown-toggle action"
 										data-toggle="dropdown">Action<b class="caret"></b></a>
@@ -50,6 +50,10 @@
 					</tbody>
 				</table>
 			</div>
+		</div>
+		
+		<div id="fundChart" class="col-lg-6" style="height: 400px; min-width: 310px">
+		
 		</div>
 	</div>
 </div>
@@ -135,9 +139,31 @@
             	    );
                 });
             	
-            	var c = $("#flTable thead th").length;
-            	$("#flTable thead tr").append("<th class='decimal'>Closing Price</th>");
-            	$("#flTable tr:gt(0)").append("<td class='decimal'>Col</td>");
+            	$("#flTable tbody tr").click(function(){
+            		refreshFundChart($(this).attr("fund-id"), $(this).attr("fund-symbol"));
+            		$("#flTable tbody tr").removeClass("info");
+            		$(this).addClass("info");
+            	});
+            	
+            	/* var c = $("#flTable thead th").length;
+            	$("#flTable thead tr").append("<th class='text-right'>Closing Price</th>");
+            	$("#flTable tr:gt(0)").append("<td class='text-right'>Col</td>");
+            	 */
             });
+            
+            function refreshFundChart(fundId, ticker) {
+            	//$.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
+                  $.getJSON('ajax_price_history.do?fund_id='+fundId, function(data) {
+                    $('#fundChart').highcharts('StockChart', {
+                        rangeSelector : {selected : 1},
+                        title : {text : ticker + ' Price History'},
+                        series : [{
+                            name : ticker,
+                            data : data,
+                            tooltip: { valueDecimals: 2}
+                        }]
+                    });
+                });
+            }
         </script>
 <jsp:include page="template-bottom.jsp" />

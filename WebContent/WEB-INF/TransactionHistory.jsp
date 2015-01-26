@@ -7,12 +7,12 @@
                     <div class="col-lg-10">
                         <h3 id="tables">Transaction History</h3>
                         <div class="bs-component">
-                            <table class="table table-striped table-hover ">
+                            <table class="table table-striped table-hover" data-toggle="table">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Date</th>
-                                        <th >Fund Name(Ticker)</th>
+                                        <th data-sortable="true">Date</th>
+                                        <th data-sortable="true">Fund Name(Ticker)</th>
                                         <th >Action</th>
                                         <th style="text-align:right">Shares</th>
                                         <th style="text-align:right">Price</th>
