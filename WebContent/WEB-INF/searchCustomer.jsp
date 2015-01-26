@@ -127,28 +127,28 @@
                             <form class="form-horizontal" id="form-reset-password" action="#">
                                 <fieldset>
                                      <div class="form-group">
-                                     <label for="fundId" class="col-lg-3 control-label">User ID:</label>
+                                     <label for="fundId" class="col-lg-4 control-label">User ID:</label>
                                      
                                         	<input type="text" name="customer_id" id="customer_id" class="hidden-customer-id" style="border-style:none" readonly/>
 
                                         </div>
                                         
                                         <div class="form-group">
-                                     <label for="fundName" class="col-lg-3 control-label">User Name:</label>
+                                     <label for="fundName" class="col-lg-4 control-label">User Name:</label>
                                       
                                         	<input type="text" name="customer_name" class="hidden-customer-name" style="border-style:none" readonly/>
                                             
                                         </div>
                                         <div class="form-group">
-                                        <label for="newPsw" class="col-lg-3 control-label">New Password:</label>
+                                        <label for="newPsw" class="col-lg-4 control-label">New Password:</label>
                                         <div class="col-lg-6">
                                             <div class="form-control-wrapper"><input type="password" class="form-control empty" id="newPassword" name="newPassword" value="" placeholder="New Password"><span class="material-input"></span></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="cNewPsw" class="col-lg-3 control-label">Enter New Password Again:</label>
+                                        <label for="cNewPsw" class="col-lg-4 control-label">Confirm New Password:</label>
                                         <div class="col-lg-6">
-                                            <div class="form-control-wrapper"><input type="password" class="form-control empty" id="confirmPassword" name="confirmPassword" value="" placeholder="Enter New Password Again"><span class="material-input"></span></div>
+                                            <div class="form-control-wrapper"><input type="password" class="form-control empty" id="confirmPassword" name="confirmPassword" value="" placeholder="Confirm New Password"><span class="material-input"></span></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
