@@ -4,7 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +60,7 @@ public class TransitionAction extends Action {
 
 			String d= form.getDate();
 			DateFormat format = new SimpleDateFormat("MMDDyyyy");
-			Date date= format.parse(d);
+			Date date= (Date) format.parse(d);
 			
 			
 			

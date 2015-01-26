@@ -2,7 +2,7 @@ package com.cfs.bean;
 
 
 
-import java.util.Date;
+import java.sql.Date;
 
 import org.genericdao.PrimaryKey;
 
