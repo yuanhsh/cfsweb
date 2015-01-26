@@ -23,13 +23,13 @@
 		<div class="col-lg-10">
 			<h3 id="tables">Customer List</h3>
 			<div class="bs-component">
-				<table class="table table-striped table-hover ">
+				<table class="table table-striped table-hover">
 					<thead>
 						<tr>
-							<th>User Id</th>
-							<th>User Name</th>
-							<th>Customer Name</th>
-							<th>Last Trading Day</th>
+							<th data-sortable="true">User ID</th>
+							<th data-sortable="true">User Name</th>
+							<th data-sortable="true">Customer Name</th>
+							<th data-sortable="true">Last Trading Day</th>
 							<th class="text-right">Cash Balance</th>
 							<th class="text-right">Action</th>
 						</tr>
