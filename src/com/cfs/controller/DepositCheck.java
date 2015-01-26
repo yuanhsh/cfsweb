@@ -40,7 +40,7 @@ public class DepositCheck extends Action {
 			if (errors != null && errors.size() != 0) {
 				map.put("error", errors.get(0));
 			} else {
-				int custId = form.getCustomer_id();
+				int custId = form.getIntCustomerID();
 				long amount = form.getDepositAmount();
 				transactionDAO.depositCheck(custId, amount);
 				map.put("success", "true");

@@ -6,11 +6,11 @@ import java.util.List;
 import org.mybeans.form.FormBean;
 
 public class DepositCheckForm extends FormBean {
-	private int customer_id;
+	private String customer_id;
 	private String amount;
 	private List<String> errors = new ArrayList<String>();
 
-	public int getCustomer_id() {
+	public String getCustomer_id() {
 		return customer_id;
 	}
 
@@ -18,12 +18,26 @@ public class DepositCheckForm extends FormBean {
 		return amount;
 	}
 
-	public void setCustomer_id(int customer_id) {
+	public void setCustomer_id(String customer_id) {
 		this.customer_id = customer_id;
 	}
 
 	public void setAmount(String amount) {
 		this.amount = amount;
+	}
+	
+	public int getIntCustomerID() {
+		int custId = 0;
+		try {
+			custId = Integer.parseInt(this.customer_id);
+			if (custId < 1) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			errors.add("customer id error.");
+			e.printStackTrace();
+		}
+		return custId;
 	}
 	
 	public long getDepositAmount() {
@@ -44,9 +58,7 @@ public class DepositCheckForm extends FormBean {
 	}
 
 	public List<String> getValidationErrors() {
-		if (this.customer_id < 1) {
-			errors.add("CustomerID is required");
-		}
+		getIntCustomerID();
 		getDepositAmount();
 		return errors;
 	}
