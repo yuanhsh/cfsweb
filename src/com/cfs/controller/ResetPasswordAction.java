@@ -1,20 +1,25 @@
 package com.cfs.controller;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import org.genericdao.RollbackException;
-import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import com.cfs.dao.CustomerDAO;
 import com.cfs.dao.Model;
 import com.cfs.form.ResetPasswordForm;
+import com.google.gson.Gson;
+
+
 
 public class ResetPasswordAction extends Action {
-	private FormBeanFactory<ResetPasswordForm> formBeanFactory = FormBeanFactory.getInstance(ResetPasswordForm.class);
+	private FormBeanFactory<ResetPasswordForm> formBeanFactory = FormBeanFactory
+			.getInstance(ResetPasswordForm.class);
 	private CustomerDAO customerDAO;
 
 	public ResetPasswordAction(Model model) {
@@ -23,43 +28,47 @@ public class ResetPasswordAction extends Action {
 
 	@Override
 	public String getName() {
-		return "emp_reset_password.do";
+
+		return "emp_ajax_reset_password.do";
 	}
 
 	@Override
 	public String perform(HttpServletRequest request) {
-		List<String> errors = new ArrayList<String>();
-		request.setAttribute("errors", errors);
-
-		try {
-			ResetPasswordForm form = formBeanFactory.create(request);
-			if (request.getMethod().equals("POST")) {
-				if (!form.isPresent()) {
-					return "reset_password.jsp";
-				}
-				errors.addAll(form.getValidationErrors());
-				if (errors.size() != 0) {
-					return "reset_password.jsp";
-				}
-				int c_id = Integer.parseInt((String) request.getSession()
-						.getAttribute("customer_id"));
-				customerDAO.setPassword(c_id, form.getNewPassword());
-				request.setAttribute("message", "Password has been reset for " + c_id);
-				return "reset_password.jsp";
-			} 
-				request.getSession().setAttribute("customer_id", request.getParameter("customer_id"));
-				return "reset_password.jsp";
-		} catch (FormBeanException e) {
-			e.printStackTrace();
-			return "reset_password.jsp";
-		} catch (RollbackException e) {
-			e.printStackTrace();
-			return "reset_password.jsp";
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-			return "reset_password.jsp";
-		}
-
+		
+		return null;
 	}
-
+	
+	@Override
+	public void performAjax(HttpServletRequest request, HttpServletResponse response) {
+    	response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("success", "false");
+        try {
+        	ResetPasswordForm form = formBeanFactory.create(request);
+			List<String> errors = form.getValidationErrors();
+			if(errors != null && errors.size() != 0) {
+				map.put("error", errors.get(0));
+			}else {
+				int custId=form.getCustId();
+				String passWord=form.getNewPassword();
+				customerDAO.setPassword(custId, passWord);
+				map.put("success", "true");
+				map.put("info", "Your reset the password success.");
+			}
+        
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("success", "false");
+			map.put("error", "Oops, "+e.getMessage());
+		}
+    	
+    	try {
+    		String json = new Gson().toJson(map);
+        	System.out.println("json info: "+ json);
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
 }

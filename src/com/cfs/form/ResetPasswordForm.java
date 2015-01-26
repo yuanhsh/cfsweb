@@ -6,9 +6,11 @@ import java.util.List;
 import org.mybeans.form.FormBean;
 
 public class ResetPasswordForm extends FormBean{
+	List<String> errors = new ArrayList<String>();
 	private String customer_id;
 	private String confirmPassword;
 	private String newPassword;
+
 	
 	public String getCustomer_id() {
 		return customer_id;
@@ -30,7 +32,6 @@ public class ResetPasswordForm extends FormBean{
 	}
 	
 	public List<String> getValidationErrors() {
-		List<String> errors = new ArrayList<String>();
 
 		if (newPassword == null || newPassword.length() == 0) {
 			errors.add("New Password is required");
@@ -47,17 +48,22 @@ public class ResetPasswordForm extends FormBean{
 		if (!newPassword.equals(confirmPassword)) {
 			errors.add("New password with confirm password do not match");
 		}
-
+		
+			getCustId();
+		
 		return errors;
-	}
-	public int getCustID(){
+}
+	public int getCustId(){
 		int custId = 0;
 		try {
 			custId = Integer.parseInt(this.customer_id);
-		} catch (NumberFormatException e) {
+			if (custId < 1) {
+				throw new Exception();
+			}
+		} catch (Exception e) {
+			errors.add("customer id error.");
 			e.printStackTrace();
-		}		
+		}
 		return custId;
-		
-	}
+}
 }
