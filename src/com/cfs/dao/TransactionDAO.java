@@ -16,11 +16,6 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 		super (TransactionBean.class,tableName,pool);
 	}
 
-	public TransactionBean[] getTransaction() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public TransactionBean[] getTransactions(int customer_id) throws RollbackException {
 		MatchArg arg = MatchArg.equals("customer_id", customer_id);
 		TransactionBean[] trans= match(arg);
@@ -105,5 +100,24 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 			throw e;
 		}
 		return customer;
+	}
+	
+	public void depositCheck(int customer_id, long depositAmount) throws RollbackException {
+		TransactionBean trans = new TransactionBean();
+		trans.setTransaction_type(TransactionBean.TYPE_DEPOSIT);
+		trans.setCustomer_id(customer_id);
+		trans.setStatus(TransactionBean.STATUS_PENDING);
+		trans.setAmount(depositAmount);
+		try {
+			Transaction.begin();
+			this.createAutoIncrement(trans);
+			Transaction.commit();
+		} catch (RollbackException e) {
+			e.printStackTrace();
+			if(Transaction.isActive()) {
+				Transaction.rollback();
+			}
+			throw e;
+		}
 	}
 }

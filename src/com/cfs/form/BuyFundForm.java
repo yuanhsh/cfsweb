@@ -35,6 +35,9 @@ public class BuyFundForm extends FormBean {
 			if(amount > customer.getCash()) {
 				errors.add("amount exceeds you cash balance.");
 			}
+			if(amount <= 0) {
+				errors.add("buy fund amount can not be less than USD 0.01.");
+			}
 		} catch (Exception e) {
 			errors.add("input error.");
 			e.printStackTrace();

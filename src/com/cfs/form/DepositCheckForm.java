@@ -6,101 +6,49 @@ import java.util.List;
 import org.mybeans.form.FormBean;
 
 public class DepositCheckForm extends FormBean {
-	private String name;
-	private int customerID;
-	private String button;
-	private long cash;
-	private int fundID;
-	
-	
-		public void setName(String s) {
-		name = s.trim();
+	private int customer_id;
+	private String amount;
+	private List<String> errors = new ArrayList<String>();
+
+	public int getCustomer_id() {
+		return customer_id;
 	}
 
-	public void setCustomerID(int s) {
-		customerID = s;
-	}
-	
-    public void setCash(long s){
-    	cash=s;
-    }
-	public long getCash() {
-		// TODO Auto-generated method stub
-		return cash;
+	public String getAmount() {
+		return amount;
 	}
 
-	public void setFund_id(int s){
-		fundID=s;
+	public void setCustomer_id(int customer_id) {
+		this.customer_id = customer_id;
 	}
-	public int getFund_id() {
-		// TODO Auto-generated method stub
-		return fundID;
-	}
-	
 
-	public int getCustomerID() {
-		// TODO Auto-generated method stub
-		return customerID;
-	}
-	public void setButton(String s) {
-		button = s;
-	}
-	public String getButton() {
-		return button;
+	public void setAmount(String amount) {
+		this.amount = amount;
 	}
 	
-  
-	String FundID="fundID";
-	String cash1="cash";
-	String customerid="customerID";
+	public long getDepositAmount() {
+		long result = 0;
+		try {
+			double amount1 = Double.parseDouble(amount);
+			double total = amount1 * 100;
+			result = (long)total;
+			if(total != result || result <= 0) {
+				throw new Exception("deposit amount precision or value error.");
+			}
+		} catch (Exception e) {
+			errors.add("deposit amount precision or value error.");
+			e.printStackTrace();
+		}
+			
+		return result;
+	}
 
 	public List<String> getValidationErrors() {
-		List<String> errors = new ArrayList<String>();
-
-		if (name == null || name.length() == 0) {
-			errors.add("Fund name is required");
-		}
-		if (customerid == null || customerid.length() == 0) {
+		if (this.customer_id < 1) {
 			errors.add("CustomerID is required");
 		}
-		if (FundID==null||FundID.length()==0) {
-			errors.add("FundID is required");
-		}
-		if (cash1==null||cash1.length()==0) {
-			errors.add("cash is required");
-		}
-
-		if (name.matches(".*[<>\"].*")) {
-			errors.add("Funds name cannot contain angular brackets or quotes");
-		}
-		if (customerid.matches(".*[<>\"].*")) {
-			errors.add("customerID cannot contain angular brackets or quotes");
-		}
-		if (FundID.matches(".*[<>\"].*")) {
-			errors.add("FundID  cannot contain angular brackets or quotes");
-		}
-		if (cash1.matches(".*[<>\"].*")) {
-			errors.add("cash1  cannot contain angular brackets or quotes");
-		}
-		
-
-		if (button == null) {
-			errors.add("Clicking on deposit button is required");
-		}
-
-		if (!button.equals("Deposit")) {
-			errors.add("Invalid button");
-		}
-
-		if (errors.size() > 0) {
-			return errors;
-		}
-
+		getDepositAmount();
 		return errors;
 	}
-
-
-
-
 
 }

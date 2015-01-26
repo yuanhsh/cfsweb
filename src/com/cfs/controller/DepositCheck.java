@@ -1,77 +1,64 @@
 package com.cfs.controller;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.genericdao.RollbackException;
-import org.mybeans.form.FormBeanException;
+import javax.servlet.http.HttpServletResponse;
 import org.mybeans.form.FormBeanFactory;
 
-import com.cfs.bean.CustomerBean;
-import com.cfs.bean.FundBean;
-import com.cfs.dao.CustomerDAO;
-
-import com.cfs.dao.FundDAO;
 import com.cfs.dao.Model;
-
+import com.cfs.dao.TransactionDAO;
 import com.cfs.form.DepositCheckForm;
+import com.google.gson.Gson;
 
 public class DepositCheck extends Action {
-	private FormBeanFactory<DepositCheckForm> formBeanFactory = FormBeanFactory.getInstance(DepositCheckForm.class);
-	private CustomerDAO customerDAO;
-	private FundDAO fundDAO;
+	private FormBeanFactory<DepositCheckForm> fbFactory = FormBeanFactory.getInstance(DepositCheckForm.class);
+	private TransactionDAO transactionDAO;
 	public DepositCheck(Model model){
-		customerDAO=model.getCustomerDAO();
-		fundDAO= model.getFundDAO();
+		transactionDAO = model.getTransactionDAO();
 	}
 	
-	public String getName() { return "depositCheck.do"; }
+	public String getName() { return "emp_ajax_deposit_check.do"; }
 	
-	public String perform(HttpServletRequest request){
-		List<String> errors = new ArrayList<String>();
-        request.setAttribute("errors",errors);
-        
-        try {
-			DepositCheckForm form = formBeanFactory.create(request);
-			request.setAttribute("form",form);
-			
-	        if (!form.isPresent()) {
-	            return "depositCheck.jsp";
-	        }
-	
-	        // Any validation errors?
-	        errors.addAll(form.getValidationErrors());
-	        if (errors.size() != 0) {
-	            return "error.jsp";
-	        }
-			
-			CustomerBean check=new CustomerBean();
-			check.setCustomer_id(form.getCustomerID());
-			check.setCash(form.getCash());  
-			
-			FundBean deposit=new FundBean();
-			deposit.setFund_id(form.getFund_id());
-			deposit.setPrice(form.getCash());
-			
-			fundDAO.create(deposit);
-			customerDAO.create(check);
-			
-			HttpSession session = request.getSession(false);
-			session.setAttribute("check", check);
-			
-			return "depositCheck.jsp"; 		
-			 
-		} catch (FormBeanException e) {
+	@Override
+	public String perform(HttpServletRequest request) {
+		return null;
+	}
+
+	@Override
+	public void performAjax(HttpServletRequest request, HttpServletResponse response) {
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("success", "false");
+		try {
+			DepositCheckForm form = fbFactory.create(request);
+			List<String> errors = form.getValidationErrors();
+			if (errors != null && errors.size() != 0) {
+				map.put("error", errors.get(0));
+			} else {
+				int custId = form.getCustomer_id();
+				long amount = form.getDepositAmount();
+				transactionDAO.depositCheck(custId, amount);
+				map.put("success", "true");
+				map.put("info", "Your order has been scheduled.");
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
-			return "error.jsp";
-		} catch (RollbackException e) {
-			e.printStackTrace();
-			return "error.jsp";
+			map.put("success", "false");
+			map.put("error", e.getMessage());
 		}
-		
+
+		try {
+			String json = new Gson().toJson(map);
+			System.out.println("json result: " + json);
+			response.getWriter().write(json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

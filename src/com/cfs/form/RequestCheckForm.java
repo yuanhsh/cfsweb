@@ -23,8 +23,8 @@ public class RequestCheckForm extends FormBean {
 			double amount = Double.parseDouble(requestAmount);
 			double total = amount * 100;
 			result = (long)total;
-			if(total != result) {
-				throw new Exception("amount input error.");
+			if(total != result || result <= 0) {
+				throw new Exception("request amount input error.");
 			}
 		} catch (Exception e) {
 			errors.add("request amount input error.");
@@ -36,7 +36,10 @@ public class RequestCheckForm extends FormBean {
 
 	public List<String> getValidationErrors() {
 		try {
-			getRequestCashAmount();
+			long amount = getRequestCashAmount();
+			if(amount <= 0) {
+				throw new Exception("request amount input error.");
+			}
 		} catch (Exception e) {
 			errors.add("request amount input error.");
 			e.printStackTrace();

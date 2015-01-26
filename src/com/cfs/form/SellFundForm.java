@@ -48,7 +48,7 @@ public class SellFundForm extends FormBean {
 			double shareNo = Double.parseDouble(shares);
 			double total = shareNo * 1000;
 			result = (long)total;
-			if(total != result) {
+			if(total != result || result <= 0) {
 				throw new Exception("shares input error.");
 			}
 		} catch (Exception e) {
