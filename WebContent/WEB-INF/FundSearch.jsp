@@ -52,8 +52,9 @@
 			</div>
 		</div>
 		
-		<div id="fundChart" class="col-lg-6" style="height: 400px; min-width: 310px">
-		
+		<div class="col-lg-6" >
+			<h3>&nbsp;&nbsp;</h3>
+			<div class="bs-component" id="fundChart" style="height:400px; min-width:310px"></div>
 		</div>
 	</div>
 </div>
