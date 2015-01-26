@@ -22,7 +22,7 @@ public class TransactionBean {
 
 	public static final String TYPE_BUY = "Buy";
 	public static final String TYPE_SELL = "Sell";
-	public static final String TYPE_DEPOSIT = "Deposit";
+	public static final String TYPE_DEPOSIT = "Deposit Check";
 	public static final String TYPE_REQUEST = "Request Check";
 
 	public int getTransaction_id() {
