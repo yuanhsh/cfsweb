@@ -2,7 +2,7 @@ package com.cfs.bean;
 
 import org.genericdao.PrimaryKey;
 
-@PrimaryKey("position_id")
+@PrimaryKey("position_id,customer_id")
 public class PositionBean {
 	private int position_id;
 	private int customer_id;

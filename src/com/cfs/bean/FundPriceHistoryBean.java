@@ -1,6 +1,8 @@
 package com.cfs.bean;
 
-import java.sql.Date;
+
+
+import java.util.Date;
 
 import org.genericdao.PrimaryKey;
 

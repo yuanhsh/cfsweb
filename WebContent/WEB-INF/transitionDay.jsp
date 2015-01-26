@@ -8,24 +8,25 @@
 	<form method="post" action="transition_day.do"> 									
 		<table border="1">
 		
+		<tr> 
+		<td valign="top"> Enter Transition Date :<input type="date" name="date"> </td>	
+		</tr>	
 			<tr>
 				<td valign="top">Fund Name </td> 	
-				<td valign="top">  Fund Ticker </td>
-				<td valign="top">Current Price </td>
-				<td valign="top"> Price </td>  
+				<td valign="top">New Price </td>  
 			</tr>
 		<c:forEach items="${fundList}" var="fund">
 			<tr>
 				<td>${fund.name} </td> 	
-				<td>${fund.symbol} </td>
 				<td>${fund.price} </td> 
-				<td><input type="text"> </td> 
+				<td><input type="text" name="fundPrice"><input type="hidden" name="fundId" value="${fund.fund_id}"/>  </td> 
+				
 				
 			</tr>
 			
 			</c:forEach>
 			<tr>
-			<td><input type="submit" value="Transition"> </td>
+			<td><input type="submit" value="Submit"> </td>
 			</tr>
 		</table>
 	</form>
