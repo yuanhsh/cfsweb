@@ -29,19 +29,9 @@
 								<td class="text-right currency">${fund.price/100.0}</td>
 								<%if(role.equals("cust")) { %>
 								<td class="text-right">
-									<li style="list-style: none" class="dropdown"><a
-										href="javascript:void(0)" class="dropdown-toggle action"
-										data-toggle="dropdown">Action<b class="caret"></b></a>
-										<ul class="dropdown-menu">
-										
-											<li><a href="javascript:void(0)" class="buy-fund-link"
+									<a href="javascript:void(0)" class="buy-fund-link"
 												fund-id="${fund.fund_id }" fund-name="${fund.name }"
-												fund-symbol="${fund.symbol }">Buy</a></li>
-										
-											<li><a href="javascript:void(0)" class="view-price-link"
-												fund-id="${fund.fund_id }" fund-name="${fund.name }"
-												fund-symbol="${fund.symbol }">View Price History</a></li>
-										</ul></li>
+												fund-symbol="${fund.symbol }">Buy</a>
 								</td>
 								<%} %>
 							</tr>
@@ -141,6 +131,7 @@
                 });
             	
             	$("#flTable tbody tr").click(function(){
+            		if($(this).hasClass("info")) return;
             		refreshFundChart($(this).attr("fund-id"), $(this).attr("fund-symbol"));
             		$("#flTable tbody tr").removeClass("info");
             		$(this).addClass("info");
