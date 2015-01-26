@@ -14,6 +14,7 @@ import com.cfs.bean.CustomerBean;
 import com.cfs.dao.CustomerDAO;
 import com.cfs.dao.Model;
 import com.cfs.dao.TransactionDAO;
+import com.cfs.dto.ProtfolioDTO;
 import com.cfs.form.BuyFundForm;
 import com.google.gson.Gson;
 
@@ -66,6 +67,7 @@ public class BuyFundAction extends Action {
 			long amount = form.getTotalAmount();
 			transactionDAO.buyFund(customerDAO, customer, fundId, amount);
 			map.put("success", "true");
+			map.put("cash", "USD " + ProtfolioDTO.moneyFomatter.format(customer.getCash() / 100.0));
 			map.put("info", "Your order has been scheduled successfully.");
 		} catch (Exception e) {
 			e.printStackTrace();

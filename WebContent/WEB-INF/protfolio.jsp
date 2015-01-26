@@ -223,6 +223,7 @@ if(role.equals("cust")) {
             	         if(data.success == "true") {
             	        	 $(".alert-success").text(data.info).show();
             	        	 $(".alert-warning").text(data.error).hide();
+            	        	 $(".cust-cash-label").text(data.cash);
             	        	 $(".submit-buy-fund").hide();
             	         } else {
             	        	 $(".alert-warning").text(data.error).show();
