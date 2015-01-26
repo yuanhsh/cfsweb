@@ -22,6 +22,11 @@
                 $.material.init();
             });
         </script>
+        <style>
+          .decimal {
+            text-align:right;
+          }
+        </style>
     </head>
     <body>
         <div class="header-panel">

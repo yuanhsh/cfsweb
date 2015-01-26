@@ -20,7 +20,7 @@
 </div>
 <div class="bs-docs-section">
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-10">
 			<h3 id="tables">Customer List</h3>
 			<div class="bs-component">
 				<table class="table table-striped table-hover ">
@@ -29,9 +29,9 @@
 							<th>User Id</th>
 							<th>User Name</th>
 							<th>Customer Name</th>
-							<th>Cash Balance</th>
 							<th>Last Trading Day</th>
-							<th>Action</th>
+							<th class="decimal">Cash Balance</th>
+							<th class="decimal">Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -40,9 +40,9 @@
 								<td>${customer.customer_id }</td>
 								<td>${customer.username }</td>
 								<td>${customer.firstname } ${customer.lastname }</td>
-								<td>${customer.cash }</td>
 								<td>01/15/2015</td>
-								<td><li style="list-style: none" class="dropdown"><a
+								<td class="decimal">${customer.cash }</td>
+								<td class="decimal"><li style="list-style: none" class="dropdown"><a
 										href="javascript:void(0)" class="dropdown-toggle"
 										data-toggle="dropdown">Action<b class="caret"></b></a>
 										<ul class="dropdown-menu">
@@ -86,13 +86,18 @@
                                         <label for="fundName" class="col-lg-4 control-label">Customer:</label>
                                         <div class="col-lg-6">
                                         	<input type="hidden" name="customer_id" class="hidden-customer-id"/>
-                                            <div class="form-control-wrapper"><label class="col-lg-12 control-label customer-name-label"></label><span class="material-input"></span></div>
+                                            <div class="form-control-wrapper">
+                                            <input type="text" class="form-control empty disabled" id="depositCustomerName" name="customerName" readonly>
+                                            <!-- <label class="col-lg-12 control-label customer-name-label"></label><span class="material-input"></span> -->
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="depositAmount" class="col-lg-4 control-label">Deposit Check Amount:</label>
+                                        <label for="depositAmount" class="col-lg-4 control-label">Deposit Amount($):</label>
                                         <div class="col-lg-6">
-                                            <div class="form-control-wrapper"><input type="text" class="form-control empty" id="depositAmount" name="amount" placeholder="Deposit Check Amount"><span class="material-input"></span></div>
+                                            <div class="form-control-wrapper">
+                                            <input type="text" class="form-control empty" id="depositAmount" name="amount" placeholder="Deposit Check Amount">
+                                            <span class="material-input"></span></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -112,7 +117,8 @@
             		var customer_id = $(this).attr("customer-id");
 					var customer_name = $(this).attr("customer-name");
 					$(".hidden-customer-id").val(customer_id);
-					$(".customer-name-label").text(customer_name);
+					//$(".customer-name-label").text(customer_name);
+					$("#depositCustomerName").val(customer_name);
             		$(".submit-deposit-check").show();
 					$("#depositAmount").val("");
 					$(".alert-success").hide();
@@ -135,5 +141,4 @@
                 });
             });
 </script>
-            }
 <jsp:include page="template-bottom.jsp" />

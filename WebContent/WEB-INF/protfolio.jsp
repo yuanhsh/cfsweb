@@ -11,7 +11,7 @@ if(role.equals("cust")) {
                     <div class="col-md-8">
                      <h3 id="tables">Cash Balance</h3>
                      <div class="form-group">
-                                        <h4 class="col-lg-3 cust-cash-label">USD ${balance }</h4>
+                                        <h4 class="col-lg-3 cust-cash-label">$${balance }</h4>
                                         <div class="col-lg-6">
                                         <button class="btn btn-primary btn-request-check" style="margin:0px 0px">Request Check<div class="ripple-wrapper"></div></button>
                                         <!-- <a href="javascript:void(0)" class="btn btn-default btn-raised btn-request-check">Request Check</a> -->
@@ -92,7 +92,7 @@ if(role.equals("cust")) {
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="fundAmount" class="col-lg-3 control-label">Amount:</label>
+                                        <label for="fundAmount" class="col-lg-3 control-label">Amount($):</label>
                                         <div class="col-lg-6">
                                             <div class="form-control-wrapper"><input type="text" class="form-control empty" id="fundAmount" name="amount" placeholder="Amount"><span class="material-input"></span></div>
                                         </div>
@@ -166,7 +166,7 @@ if(role.equals("cust")) {
                                 <fieldset>
                                    
                                     <div class="form-group">
-                                        <label for="fundAmount" class="col-lg-5 control-label">Request Check Amount:</label>
+                                        <label for="fundAmount" class="col-lg-5 control-label">Request Check Amount($):</label>
                                         <div class="col-lg-5">
                                             <div class="form-control-wrapper"><input type="text" class="form-control empty" id="requestAmount" name="requestAmount" placeholder="Request Check Amount"><span class="material-input"></span></div>
                                         </div>

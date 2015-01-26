@@ -66,7 +66,7 @@ public class ProtfolioDTO {
 	}
 
 	public String getDisp_price() {
-		disp_price = "USD " + moneyFomatter.format((double) this.price / 100);
+		disp_price = "$" + moneyFomatter.format((double) this.price / 100);
 		return disp_price;
 	}
 
@@ -76,7 +76,7 @@ public class ProtfolioDTO {
 	}
 
 	public String getDisp_amount() {
-		disp_amount = "USD " + moneyFomatter.format((double) this.price * (double) this.shares / 100000);
+		disp_amount = "$" + moneyFomatter.format((double) this.price * (double) this.shares / 100000);
 		return disp_amount;
 	}
 

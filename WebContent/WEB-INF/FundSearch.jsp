@@ -8,15 +8,16 @@
 		<div class="col-md-6">
 			<h3 id="tables">Fund List</h3>
 			<div class="bs-component">
-				<table class="table table-striped table-hover ">
+				<table class="table table-striped table-hover " id="flTable">
 					<thead>
 						<tr>
 							<th>Fund ID</th>
 							<th>Fund Name</th>
 							<th>Fund Symbol</th>
 							<th style="text-align: right">Price</th>
+							<%if(role.equals("cust")) { %>
 							<th style="text-align: right">Action</th>
-							
+							<%} %>
 						</tr>
 					</thead>
 					<tbody>
@@ -26,22 +27,23 @@
 								<td>${fund.name}</td>
 								<td>${fund.symbol}</td>
 								<td style="text-align: right">${fund.price}</td>
+								<%if(role.equals("cust")) { %>
 								<td style="text-align: right">
 									<li style="list-style: none" class="dropdown"><a
 										href="javascript:void(0)" class="dropdown-toggle action"
 										data-toggle="dropdown">Action<b class="caret"></b></a>
 										<ul class="dropdown-menu">
-										<%if(role.equals("cust")) { %>
+										
 											<li><a href="javascript:void(0)" class="buy-fund-link"
 												fund-id="${fund.fund_id }" fund-name="${fund.name }"
 												fund-symbol="${fund.symbol }">Buy</a></li>
-										<%} %>
+										
 											<li><a href="javascript:void(0)" class="view-price-link"
 												fund-id="${fund.fund_id }" fund-name="${fund.name }"
 												fund-symbol="${fund.symbol }">View Price History</a></li>
 										</ul></li>
 								</td>
-								
+								<%} %>
 							</tr>
 
 						</c:forEach>
@@ -133,6 +135,9 @@
             	    );
                 });
             	
+            	var c = $("#flTable thead th").length;
+            	$("#flTable thead tr").append("<th class='decimal'>Closing Price</th>");
+            	$("#flTable tr:gt(0)").append("<td class='decimal'>Col</td>");
             });
         </script>
 <jsp:include page="template-bottom.jsp" />

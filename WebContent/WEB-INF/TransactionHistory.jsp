@@ -24,7 +24,7 @@
                                 <c:forEach items="${transactionList}" var="t" >
                                     <tr><td>${t.transaction_id }</td>
                                         <td>${t.disp_date }</td>
-                                        <td>${t.fund_name } (${t.fund_symbol }) </td>
+                                        <td>${t.disp_fund }</td>
                                         <td>${t.transaction_type } </td>
                                         <td style="text-align:right">${t.disp_shares }</td>
                                         <td style="text-align:right">${t.disp_price }</td>

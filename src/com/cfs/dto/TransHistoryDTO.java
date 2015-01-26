@@ -21,6 +21,7 @@ public class TransHistoryDTO {
 	private String disp_shares;
 	private String disp_amount;
 	private String disp_date;
+	private String disp_fund;
 
 	public static final DecimalFormat moneyFomatter = new DecimalFormat( "###,###,###,##0.00" );
 	public static final DecimalFormat shareFomatter = new DecimalFormat( "###,###,###,##0.000" );
@@ -107,7 +108,7 @@ public class TransHistoryDTO {
 	}
 
 	public String getDisp_price() {
-		disp_price = "USD " + moneyFomatter.format((double) this.price / 100);
+		disp_price = "$" + moneyFomatter.format((double) this.price / 100);
 		if (this.price == 0) {
 			disp_price = "-";
 		}
@@ -123,7 +124,7 @@ public class TransHistoryDTO {
 	}
 
 	public String getDisp_amount() {
-		disp_amount = "USD " + moneyFomatter.format((double) this.amount / 100);
+		disp_amount = "$" + moneyFomatter.format((double) this.amount / 100);
 		if (amount == 0) {
 			disp_amount = "-";
 		}
@@ -157,5 +158,17 @@ public class TransHistoryDTO {
 	public void setDisp_date(String disp_date) {
 		this.disp_date = disp_date;
 	}
+
+	public String getDisp_fund() {
+		if(this.fund_id == 0) return "-";
+		disp_fund = this.fund_name + " (" + this.fund_symbol + ")";
+		return disp_fund;
+	}
+
+	public void setDisp_fund(String disp_fund) {
+		this.disp_fund = disp_fund;
+	}
+	
+	
 
 }
