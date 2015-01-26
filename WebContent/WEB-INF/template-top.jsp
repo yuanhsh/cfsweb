@@ -23,9 +23,11 @@
         <script src="http://cdn.rawgit.com/FezVrasta/dropdown.js/master/jquery.dropdown.js"></script>
         <script src="http://code.highcharts.com/stock/highstock.js"></script>
 		<script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
+		<script src="https://jquery-formatcurrency.googlecode.com/files/jquery.formatCurrency-1.4.0.min.js"></script>
         <script>
             $(function() {
                 $.material.init();
+                $('.currency').formatCurrency();
             });
         </script>
     </head>

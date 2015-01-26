@@ -41,7 +41,7 @@
 								<td>${customer.username }</td>
 								<td>${customer.firstname } ${customer.lastname }</td>
 								<td>01/15/2015</td>
-								<td class="text-right">${customer.cash }</td>
+								<td class="text-right currency">${customer.cash/100.0 }</td>
 								<td class="text-right"><li style="list-style: none" class="dropdown"><a
 										href="javascript:void(0)" class="dropdown-toggle"
 										data-toggle="dropdown">Action<b class="caret"></b></a>

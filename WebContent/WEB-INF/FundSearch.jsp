@@ -26,7 +26,7 @@
 								<td>${fund.fund_id}</td>
 								<td>${fund.name}</td>
 								<td>${fund.symbol}</td>
-								<td class="text-right">${fund.price}</td>
+								<td class="text-right currency">${fund.price/100.0}</td>
 								<%if(role.equals("cust")) { %>
 								<td class="text-right">
 									<li style="list-style: none" class="dropdown"><a

@@ -4,6 +4,7 @@ import org.genericdao.PrimaryKey;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 import java.util.Random;
 
 @PrimaryKey("customer_id")
@@ -21,6 +22,7 @@ public class CustomerBean {
 
 	private String hashedPassword = "*";
 	private int salt = 0;
+	private Date last_trading_day;
 
 	public int getCustomer_id() {
 		return customer_id;
@@ -130,6 +132,14 @@ public class CustomerBean {
 
 	public void setCash(long cash) {
 		this.cash = cash;
+	}
+
+	public Date getLast_trading_day() {
+		return last_trading_day;
+	}
+
+	public void setLast_trading_day(Date last_trading_day) {
+		this.last_trading_day = last_trading_day;
 	}
 
 	public String hash(String clearPassword) {

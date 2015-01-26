@@ -12,13 +12,13 @@
                                     <div class="form-group">
                                         <label for="inputEmail" class="col-lg-3 control-label">Fund Name</label>
                                         <div class="col-lg-4">
-                                            <div class="form-control-wrapper"><input name="name" type="text" class="form-control empty" value="${fund.name}" placeholder="Fund Name"/><span class="material-input"></span></div>
+                                            <div class="form-control-wrapper"><input name="name" type="text" class="form-control empty" value="${form.name}" placeholder="Fund Name"/><span class="material-input"></span></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="inputPassword" class="col-lg-3 control-label">Fund Ticker</label>
                                         <div class="col-lg-4">
-                                            <div class="form-control-wrapper"><input name="symbol" type="text" class="form-control empty" value="${fund.symbol}" placeholder="Fund Ticker"/><span class="material-input"></span></div>
+                                            <div class="form-control-wrapper"><input name="symbol" type="text" class="form-control empty" value="${form.symbol}" placeholder="Fund Ticker"/><span class="material-input"></span></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
