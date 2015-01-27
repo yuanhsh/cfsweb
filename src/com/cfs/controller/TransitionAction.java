@@ -178,7 +178,8 @@ public class TransitionAction extends Action {
 					posDAO.update(posBean);
 					transcBean[k].setExecute_date(transcBean[k].getExecute_date());
 					transcBean[k].setStatus("Completed");
-					transcDAO.update(transcBean[k]);}
+					transcDAO.update(transcBean[k]);
+					break;}
 					else{
 						posBean.setCustomer_id(transcBean[k].getCustomer_id());
 						posBean.setFund_id(transcBean[k].getFund_id());
@@ -188,11 +189,12 @@ public class TransitionAction extends Action {
 						transcBean[k].setExecute_date(transcBean[k].getExecute_date());
 						transcBean[k].setStatus("Completed");
 						transcDAO.update(transcBean[k]);
+						break;
 						
 					}
 					}
 					
-					break;
+					
 				 case 'R':									//Request Check
 					 
 						
