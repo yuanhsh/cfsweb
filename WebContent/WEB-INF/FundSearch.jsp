@@ -60,7 +60,7 @@ String fund_key = (String)request.getAttribute("fund_key");
 					<div class="col-lg-3" style="padding-right: 0px">
 						<div class="form-control-wrapper">
 							<input type="text" class="form-control empty text-right" name="date" style="height: 20px"
-								placeHolder="MM-dd-yyyy"><span class="material-input"></span>
+								placeHolder="MM/dd/yyyy"><span class="material-input"></span>
 						</div>
 					</div>
 					</div>
@@ -167,7 +167,19 @@ String fund_key = (String)request.getAttribute("fund_key");
             	<%if("emp".equals(role)) { %>
             	$(".btn-transition").click(function(){
             		if($("#flTable").hasClass("transitioning")) {
-            			$("#form-transition").submit();
+            			//$("#form-transition").submit();
+            			$.post( 'emp_ajax_transition_day.do', $('form#form-transition').serialize(), function(data) {
+	               	         if(data.success == "true") {
+	               	        	 $(".alert-success").text(data.info).show();
+	               	        	 $(".alert-warning").text(data.error).hide();
+	               	        	 $(".cust-cash-label").text(data.cash);
+	               	        	 $(".submit-request-check").hide();
+	               	         } else {
+	               	        	 $(".alert-warning").text(data.error).show();
+	               	        	 $(".alert-success").text(data.info).hide();
+	               	         }
+	               	      }, 'json' // I expect a JSON response
+	               	    );
             		} else {
             			$(".btn-cancel-transition").removeClass("hidden");
             			$("#TransDateArea").removeClass("hidden");

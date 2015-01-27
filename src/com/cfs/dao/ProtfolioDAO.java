@@ -29,7 +29,7 @@ public class ProtfolioDAO {
 		List<ProtfolioDTO> protfolio = null;
 		try {
 			protfolio = run.query("SELECT p.customer_id as customer_id, p.fund_id as fund_id, "
-					+ "p.price as price, p.shares as shares, "
+					+ "f.price as price, p.shares as shares, "
 					+ "f.name as fund_name, f.symbol as fund_symbol "
 					+ "FROM position p, fund f "
 					+ "WHERE p.customer_id=? and p.fund_id=f.fund_id", h, customer_id);

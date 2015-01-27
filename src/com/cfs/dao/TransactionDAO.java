@@ -22,6 +22,12 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 		return trans;
 	}
 	
+	public TransactionBean[] getPendingTransactions() throws RollbackException {
+		MatchArg arg = MatchArg.equals("status", TransactionBean.STATUS_PENDING);
+		TransactionBean[] trans= match(arg);
+		return trans;
+	}
+	
 	// IMPORTANT: need to be synchonized, customer cash should be updated through sql, 
 	// not bean object from session.
 	public void buyFund(CustomerDAO customerDAO, CustomerBean customer, int fund_id, long amount) throws RollbackException {
