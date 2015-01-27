@@ -46,7 +46,7 @@ public class TransitionAction extends Action {
 
 	public String getName() {
 
-		return "transition_day.do";
+		return "emp_transition_day.do";
 	}
 
 	@Override
@@ -68,6 +68,8 @@ public class TransitionAction extends Action {
 		FundPriceHistoryBean fundPriceHistoryBean[]= new FundPriceHistoryBean[fundNum];
 			double numPrice=0;
 			int id[] = form.getFundId();
+			String price[]=form.getFundPrice(); 
+			
 			
 			for(int i=0;i<fundNum;i++)
 			{   
@@ -80,44 +82,93 @@ public class TransitionAction extends Action {
 			
 			
 			
-			TransactionBean transcBean[] =transcDAO.match(MatchArg.equals("status","Complete"));
+			TransactionBean transcBean[] =transcDAO.match(MatchArg.equals("status","Completed"));
 			int len=transcBean.length;
 			while(len>0){
 				String transcType=transcBean[len].getTransaction_type();
 				char first=transcType.charAt(0);
+				long shares;
+				long sell_amount=0;
+				double temp;
+				long closingPrice=0;
 				
+				for(int i=0;i<id.length;i++)	//getting the closing price for the current fund, with fund_id
+				{if(id[i]==transcBean[len].getFund_id())
+					{temp= Double.parseDouble(price[i])*100;
+					 closingPrice=new Double(temp).longValue();	
+					 closingPrice=closingPrice/100;}
+					}
 				switch(first)
 				{case 'B':									//Buy Shares
-						if(transcBean[len].getShares()<0.001){
+					
+						shares=(transcBean[len].getAmount()*1000)/closingPrice; // getting the share price, inaccordance to closing price
+						if(shares<1){											//validating share if less than 0.01, then fail transaction
 							transcBean[len].setExecute_date(transcBean[len].getExecute_date());
 							transcBean[len].setStatus("Failed");
 							transcDAO.update(transcBean[len]);
 						}else{
 					custBean=customerDAO.read(transcBean[len].getCustomer_id());
 					custBean.setCash(custBean.getCash()-transcBean[len].getAmount());
+					custBean.setLast_trading_day(date);
+					customerDAO.update(custBean);
 					posBean=posDAO.read(transcBean[len].getCustomer_id());
 					posBean.setShares(transcBean[len].getShares()+posBean.getShares());
 					transcBean[len].setExecute_date(transcBean[len].getExecute_date());
-					transcBean[len].setStatus("Complete");
+					transcBean[len].setStatus("Completed");
 					transcDAO.update(transcBean[len]);
 					break;}
 					
 				case 'S':									//Sell Shares
+					sell_amount=transcBean[len].getShares()*closingPrice*100/1000;
+					if(sell_amount<1)
+					{
+						transcBean[len].setExecute_date(transcBean[len].getExecute_date());
+						transcBean[len].setStatus("Failed");
+						posBean=posDAO.read(transcBean[len].getCustomer_id());
+						posBean.setShares(posBean.getShares()+transcBean[len].getShares()); // reverting shares to customer
+						posDAO.update(posBean);
+						transcDAO.update(transcBean[len]);
+						
+					}else{
 					custBean=customerDAO.read(transcBean[len].getCustomer_id());
 					custBean.setCash(custBean.getCash()+transcBean[len].getAmount());
-					posBean=posDAO.read(transcBean[len].getCustomer_id());
+					PositionBean tempBean[]=posDAO.match(MatchArg.equals("customer_id",transcBean[len].getCustomer_id()));
+					boolean isPresent=false;
+					for(int i=0;i<tempBean.length;i++)
+					{
+						if(transcBean[len].getFund_id()==tempBean[i].getFund_id())
+						{
+							posBean=tempBean[i];
+							isPresent=true;
+						}						
+					}
+					
+					if(isPresent){
 					posBean.setShares(transcBean[len].getShares()-posBean.getShares());
+					posBean.setPrice(closingPrice);
+					posDAO.update(posBean);
 					transcBean[len].setExecute_date(transcBean[len].getExecute_date());
-					transcBean[len].setStatus("Complete");
-					transcDAO.update(transcBean[len]);
+					transcBean[len].setStatus("Completed");
+					transcDAO.update(transcBean[len]);}
+					else{
+						posBean.setCustomer_id(transcBean[len].getCustomer_id());
+						posBean.setFund_id(transcBean[len].getFund_id());
+						posBean.setShares(transcBean[len].getShares());
+						posBean.setPrice(closingPrice);
+						posDAO.createAutoIncrement(posBean);
+						transcBean[len].setExecute_date(transcBean[len].getExecute_date());
+						transcBean[len].setStatus("Completed");
+						transcDAO.update(transcBean[len]);
+						
+					}
+					}
 					
 					break;
 				 case 'R':									//Request Check
-					 	custBean=customerDAO.read(transcBean[len].getCustomer_id());
-						custBean.setCash(custBean.getCash()-transcBean[len].getAmount());
+					 
 						
 						transcBean[len].setExecute_date(transcBean[len].getExecute_date());
-						transcBean[len].setStatus("Complete");
+						transcBean[len].setStatus("Completed");
 						transcDAO.update(transcBean[len]);
 						break;
 				 case 'D':									//Deposit Check
@@ -125,7 +176,7 @@ public class TransitionAction extends Action {
 						custBean.setCash(custBean.getCash()+transcBean[len].getAmount());
 						
 						transcBean[len].setExecute_date(transcBean[len].getExecute_date());
-						transcBean[len].setStatus("Complete");
+						transcBean[len].setStatus("Completed");
 						transcDAO.update(transcBean[len]);
 						break;
 				default :
@@ -137,7 +188,7 @@ public class TransitionAction extends Action {
 			
 		
 		
-			return "transition_day.do";
+			return "emp_transition_day.do";
 		}  catch(RollbackException e) {
 			errors.add(e.getMessage());
 			return "transitionDay.jsp";
