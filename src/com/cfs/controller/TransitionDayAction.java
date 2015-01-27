@@ -71,9 +71,12 @@ public class TransitionDayAction extends Action {
 				Map<Integer, Long> priceTable = form.getFundPriceTable();
 				this.transitionDay(priceTable, form.getExecuteDate());
 				map.put("success", "true");
-				map.put("info", "Transition day operation has been executed.");
+				map.put("info", "Transition day operation has been executed. Reloading page...");
 			}
 		} catch (Exception e) {
+			if(Transaction.isActive()) {
+				Transaction.rollback();
+			}
 			e.printStackTrace();
 			map.put("success", "false");
 			map.put("error", e.getMessage());

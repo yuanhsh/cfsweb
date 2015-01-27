@@ -4,6 +4,10 @@
 String fund_key = (String)request.getAttribute("fund_key");
 %>
 <jsp:include page="error-list.jsp" />
+<%if("emp".equals(role)) { %>
+	<div class="alert alert-dismissable alert-success"></div>
+	<div class="alert alert-dismissable alert-warning"></div>
+<%} %>
 <div class="bs-docs-section">
 	<div class="row">
 		<div class="col-lg-6">
@@ -75,7 +79,7 @@ String fund_key = (String)request.getAttribute("fund_key");
 		</div>
 	</div>
 </div>
-
+<%if("cust".equals(role)) { %>
 <div id="buy-modal" class="modal fade" tabindex="-1">
 	<div class="modal-dialog modal-lg-6" style="margin: 100px auto">
 		<div class="modal-content">
@@ -104,7 +108,7 @@ String fund_key = (String)request.getAttribute("fund_key");
 							<div class="col-lg-6">
 								<div class="form-control-wrapper">
 									<input type="text" class="form-control empty" id="fundAmount"
-										name="amount" placeholder="Amount" required><span
+										name="amount" placeholder="Amount"><span
 										class="material-input"></span>
 								</div>
 							</div>
@@ -125,9 +129,11 @@ String fund_key = (String)request.getAttribute("fund_key");
 		</div>
 	</div>
 </div>
-
+<%} %>
 <script>
             $(function() {
+            	$(".alert-success").hide();
+            	$(".alert-warning").hide();
             	$(".action").click(function(){
             		$(".submit-buy-fund").show();
             	});
@@ -173,7 +179,9 @@ String fund_key = (String)request.getAttribute("fund_key");
 	               	        	 $(".alert-success").text(data.info).show();
 	               	        	 $(".alert-warning").text(data.error).hide();
 	               	        	 $(".cust-cash-label").text(data.cash);
-	               	        	 $(".submit-request-check").hide();
+	               	        	 setTimeout(function(){
+	               	        		location.reload();
+	               	        	 }, 1000);
 	               	         } else {
 	               	        	 $(".alert-warning").text(data.error).show();
 	               	        	 $(".alert-success").text(data.info).hide();
@@ -206,7 +214,8 @@ String fund_key = (String)request.getAttribute("fund_key");
             
             function refreshFundChart(fundId, ticker) {
 //$.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
-                  $.getJSON('ajax_price_history.do?fund_id='+fundId, function(data) {
+                disableIndicator();  
+				$.getJSON('ajax_price_history.do?fund_id='+fundId, function(data) {
                     $('#fundChart').highcharts('StockChart', {
                         rangeSelector : {selected : 1},
                         title : {text : ticker + ' Price History'},
@@ -216,6 +225,7 @@ String fund_key = (String)request.getAttribute("fund_key");
                             tooltip: { valueDecimals: 2}
                         }]
                     });
+                    enableIndicator();
                 });
             }
         </script>

@@ -54,11 +54,23 @@ function ajaxindicatorstop() {
 	jQuery('#resultLoading').fadeOut(300);
 	jQuery('body').css('cursor', 'default');
 }
-
+var ajaxIndicatorEnabled = true;
 jQuery(document).ajaxStart(function() {
 	//show ajax indicator
-	ajaxindicatorstart('processing... please wait...');
+	if(ajaxIndicatorEnabled) {
+		ajaxindicatorstart('processing... please wait...');
+	}
 }).ajaxStop(function() {
 	//hide ajax indicator
-	ajaxindicatorstop();
+	if(ajaxIndicatorEnabled) {
+		ajaxindicatorstop();
+	}
 });
+
+function disableIndicator() {
+	ajaxIndicatorEnabled = false;
+}
+
+function enableIndicator() {
+	ajaxIndicatorEnabled = true;
+}
