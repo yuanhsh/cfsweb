@@ -1,10 +1,8 @@
 package com.cfs.controller;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +13,7 @@ import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
 import com.cfs.bean.CustomerBean;
+import com.cfs.bean.FundBean;
 import com.cfs.bean.FundPriceHistoryBean;
 import com.cfs.bean.PositionBean;
 import com.cfs.bean.TransactionBean;
@@ -44,6 +43,7 @@ public class TransitionAction extends Action {
 		transcDAO = model.getTransactionDAO();
 		posDAO= model.getPositionDAO();
 		fundHistoryDAO=model.getPriceHistoryDAO();
+		fundDAO=model.getFundDAO();
 	}
 
 	public String getName() {
@@ -70,22 +70,22 @@ public class TransitionAction extends Action {
 			}
 			
 			String d= form.getDate();
-			DateFormat format = new SimpleDateFormat("MMDDyyyy");
-			Date date= (Date) format.parse(d);
+			java.util.Date utilDate = new SimpleDateFormat("MM-dd-yyyy").parse(d);
+			java.sql.Date date = new java.sql.Date(utilDate.getTime());			
 			
+			FundBean tempFundBean[]=fundDAO.getFunds(null);
 			
-			
-			int fundNum=fundDAO.getCount();
+			int fundNum=tempFundBean.length;
 		FundPriceHistoryBean fundPriceHistoryBean[]= new FundPriceHistoryBean[fundNum];
 			double numPrice=0;
-			int id[] = form.getFundId();
+			String id[] = form.getFundId();
 			String price[]=form.getFundPrice(); 
 			
 			
 			for(int i=0;i<fundNum;i++)
-			{   
+			{   numPrice=Double.parseDouble(price[i]);
 			    fundPriceHistoryBean[i]=new FundPriceHistoryBean();
-				fundPriceHistoryBean[i].setFund_id(id[i]);
+				fundPriceHistoryBean[i].setFund_id(Integer.parseInt(id[i]));
 				fundPriceHistoryBean[i].setPrice((new Double(numPrice*100)).longValue());
 				fundPriceHistoryBean[i].setPrice_date(date);
 				fundHistoryDAO.createAutoIncrement(fundPriceHistoryBean[i]);
@@ -95,8 +95,8 @@ public class TransitionAction extends Action {
 			
 			TransactionBean transcBean[] =transcDAO.match(MatchArg.equals("status","Pending"));
 			int len=transcBean.length;
-			while(len>0){
-				String transcType=transcBean[len].getTransaction_type();
+			for (int k=0;k<len;k++){
+				String transcType=transcBean[k].getTransaction_type();
 				char first=transcType.charAt(0);
 				long shares;
 				long sell_amount=0;
@@ -104,50 +104,63 @@ public class TransitionAction extends Action {
 				long closingPrice=0;
 				
 				for(int i=0;i<id.length;i++)	//getting the closing price for the current fund, with fund_id
-				{if(id[i]==transcBean[len].getFund_id())
+				{if(Integer.parseInt(id[i])==transcBean[k].getFund_id())
 					{temp= Double.parseDouble(price[i])*100;
 					 closingPrice=new Double(temp).longValue();	
-					 closingPrice=closingPrice/100;}
+					 closingPrice=closingPrice/100;
+					 break;
+					 }
 					}
 				switch(first)
 				{case 'B':									//Buy Shares
 					
-						shares=(transcBean[len].getAmount()*1000)/closingPrice; // getting the share price, inaccordance to closing price
+						shares=(transcBean[k].getAmount()*1000)/closingPrice; // getting the share price, inaccordance to closing price
 						if(shares<1){											//validating share if less than 0.01, then fail transaction
-							transcBean[len].setExecute_date(transcBean[len].getExecute_date());
-							transcBean[len].setStatus("Failed");
-							transcDAO.update(transcBean[len]);
+							transcBean[k].setExecute_date(transcBean[k].getExecute_date());
+							transcBean[k].setStatus("Failed");
+							transcDAO.update(transcBean[k]);
 						}else{
-					custBean=customerDAO.read(transcBean[len].getCustomer_id());
-					custBean.setCash(custBean.getCash()-transcBean[len].getAmount());
+					custBean=customerDAO.read(transcBean[k].getCustomer_id());
+					custBean.setCash(custBean.getCash()-transcBean[k].getAmount());
 					custBean.setLast_trading_day(date);
 					customerDAO.update(custBean);
-					posBean=posDAO.read(transcBean[len].getCustomer_id());
-					posBean.setShares(transcBean[len].getShares()+posBean.getShares());
-					transcBean[len].setExecute_date(transcBean[len].getExecute_date());
-					transcBean[len].setStatus("Completed");
-					transcDAO.update(transcBean[len]);
-					break;}
+					posBean=posDAO.getCustomerFundPosition(transcBean[k].getCustomer_id(), transcBean[k].getFund_id());
+					PositionBean tempBean= new PositionBean();
+					if(posBean==null)
+					{	tempBean.setCustomer_id(transcBean[k].getCustomer_id());
+						tempBean.setFund_id(transcBean[k].getFund_id());
+						tempBean.setPrice(closingPrice);
+						tempBean.setShares(transcBean[k].getShares());
+						posDAO.createAutoIncrement(tempBean);
+							}
+					else{
+					posBean.setShares(transcBean[k].getShares()+posBean.getShares());}
+					transcBean[k].setExecute_date(transcBean[k].getExecute_date());
+					transcBean[k].setStatus("Completed");
+					transcDAO.update(transcBean[k]);
+					
+					
+						}break;
 					
 				case 'S':									//Sell Shares
-					sell_amount=transcBean[len].getShares()*closingPrice*100/1000;
+					sell_amount=transcBean[k].getShares()*closingPrice*100/1000;
 					if(sell_amount<1)
 					{
-						transcBean[len].setExecute_date(transcBean[len].getExecute_date());
-						transcBean[len].setStatus("Failed");
-						posBean=posDAO.read(transcBean[len].getCustomer_id());
-						posBean.setShares(posBean.getShares()+transcBean[len].getShares()); // reverting shares to customer
+						transcBean[k].setExecute_date(transcBean[k].getExecute_date());
+						transcBean[k].setStatus("Failed");
+						posBean=posDAO.getCustomerFundPosition(transcBean[k].getCustomer_id(), transcBean[k].getFund_id());
+						posBean.setShares(posBean.getShares()+transcBean[k].getShares()); // reverting shares to customer
 						posDAO.update(posBean);
-						transcDAO.update(transcBean[len]);
+						transcDAO.update(transcBean[k]);
 						
 					}else{
-					custBean=customerDAO.read(transcBean[len].getCustomer_id());
-					custBean.setCash(custBean.getCash()+transcBean[len].getAmount());
-					PositionBean tempBean[]=posDAO.match(MatchArg.equals("customer_id",transcBean[len].getCustomer_id()));
+					custBean=customerDAO.read(transcBean[k].getCustomer_id());
+					custBean.setCash(custBean.getCash()+transcBean[k].getAmount());
+					PositionBean tempBean[]=posDAO.match(MatchArg.equals("customer_id",transcBean[k].getCustomer_id()));
 					boolean isPresent=false;
 					for(int i=0;i<tempBean.length;i++)
 					{
-						if(transcBean[len].getFund_id()==tempBean[i].getFund_id())
+						if(transcBean[k].getFund_id()==tempBean[i].getFund_id())
 						{
 							posBean=tempBean[i];
 							isPresent=true;
@@ -155,21 +168,21 @@ public class TransitionAction extends Action {
 					}
 					
 					if(isPresent){
-					posBean.setShares(transcBean[len].getShares()-posBean.getShares());
+					posBean.setShares(transcBean[k].getShares()-posBean.getShares());
 					posBean.setPrice(closingPrice);
 					posDAO.update(posBean);
-					transcBean[len].setExecute_date(transcBean[len].getExecute_date());
-					transcBean[len].setStatus("Completed");
-					transcDAO.update(transcBean[len]);}
+					transcBean[k].setExecute_date(transcBean[k].getExecute_date());
+					transcBean[k].setStatus("Completed");
+					transcDAO.update(transcBean[k]);}
 					else{
-						posBean.setCustomer_id(transcBean[len].getCustomer_id());
-						posBean.setFund_id(transcBean[len].getFund_id());
-						posBean.setShares(transcBean[len].getShares());
+						posBean.setCustomer_id(transcBean[k].getCustomer_id());
+						posBean.setFund_id(transcBean[k].getFund_id());
+						posBean.setShares(transcBean[k].getShares());
 						posBean.setPrice(closingPrice);
 						posDAO.createAutoIncrement(posBean);
-						transcBean[len].setExecute_date(transcBean[len].getExecute_date());
-						transcBean[len].setStatus("Completed");
-						transcDAO.update(transcBean[len]);
+						transcBean[k].setExecute_date(transcBean[k].getExecute_date());
+						transcBean[k].setStatus("Completed");
+						transcDAO.update(transcBean[k]);
 						
 					}
 					}
@@ -178,22 +191,22 @@ public class TransitionAction extends Action {
 				 case 'R':									//Request Check
 					 
 						
-						transcBean[len].setExecute_date(transcBean[len].getExecute_date());
-						transcBean[len].setStatus("Completed");
-						transcDAO.update(transcBean[len]);
+						transcBean[k].setExecute_date(transcBean[k].getExecute_date());
+						transcBean[k].setStatus("Completed");
+						transcDAO.update(transcBean[k]);
 						break;
 				 case 'D':									//Deposit Check
-					 	custBean=customerDAO.read(transcBean[len].getCustomer_id());
-						custBean.setCash(custBean.getCash()+transcBean[len].getAmount());
+					 	custBean=customerDAO.read(transcBean[k].getCustomer_id());
+						custBean.setCash(custBean.getCash()+transcBean[k].getAmount());
 						
-						transcBean[len].setExecute_date(transcBean[len].getExecute_date());
-						transcBean[len].setStatus("Completed");
-						transcDAO.update(transcBean[len]);
+						transcBean[k].setExecute_date(transcBean[k].getExecute_date());
+						transcBean[k].setStatus("Completed");
+						transcDAO.update(transcBean[k]);
 						break;
 				default :
 					break;
 				}
-				len--;
+				
 			}
 			
 			

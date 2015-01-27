@@ -7,7 +7,7 @@ import org.mybeans.form.FormBean;
 
 public class TransitionForm extends FormBean{
 	private String date;
-	private int fundId[];
+	private String fundId[];
 	private String fundPrice[];
 
 	public String getDate() {
@@ -26,11 +26,11 @@ public class TransitionForm extends FormBean{
 		this.fundPrice = fundPrice;
 	}
 	
-	public int[] getFundId() {
+	public String[] getFundId() {
 		return fundId;
 	}
 
-	public void setFundId(int fundId[]) {
+	public void setFundId(String fundId[]) {
 		this.fundId = fundId;}
 	
 
