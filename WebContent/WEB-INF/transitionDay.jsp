@@ -5,7 +5,7 @@
 <jsp:include page="error-list.jsp" />
 
 <p>
-	<form method="post" action="transition_day.do"> 									
+	<form method="post" action="emp_transition_day.do"> 									
 		<table border="1">
 		
 		<tr> 
