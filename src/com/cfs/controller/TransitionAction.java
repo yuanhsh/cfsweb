@@ -73,10 +73,11 @@ public class TransitionAction extends Action {
 			java.util.Date utilDate = new SimpleDateFormat("MM-dd-yyyy").parse(d);
 			java.sql.Date date = new java.sql.Date(utilDate.getTime());			
 			
-			FundBean tempFundBean[]=fundDAO.getFunds(null);
+			FundBean fundBean[]=fundDAO.getFunds(null);
 			
-			int fundNum=tempFundBean.length;
+			int fundNum=fundBean.length;
 		FundPriceHistoryBean fundPriceHistoryBean[]= new FundPriceHistoryBean[fundNum];
+		
 			double numPrice=0;
 			String id[] = form.getFundId();
 			String price[]=form.getFundPrice(); 
@@ -84,6 +85,8 @@ public class TransitionAction extends Action {
 			
 			for(int i=0;i<fundNum;i++)
 			{   numPrice=Double.parseDouble(price[i]);
+				fundBean[i].setPrice(((new Double(numPrice*100)).longValue()));
+				fundDAO.update(fundBean[i]);
 			    fundPriceHistoryBean[i]=new FundPriceHistoryBean();
 				fundPriceHistoryBean[i].setFund_id(Integer.parseInt(id[i]));
 				fundPriceHistoryBean[i].setPrice((new Double(numPrice*100)).longValue());
@@ -156,6 +159,8 @@ public class TransitionAction extends Action {
 					}else{
 					custBean=customerDAO.read(transcBean[k].getCustomer_id());
 					custBean.setCash(custBean.getCash()+transcBean[k].getAmount());
+					custBean.setLast_trading_day(date);
+					customerDAO.update(custBean);
 					PositionBean tempBean[]=posDAO.match(MatchArg.equals("customer_id",transcBean[k].getCustomer_id()));
 					boolean isPresent=false;
 					for(int i=0;i<tempBean.length;i++)
@@ -198,7 +203,7 @@ public class TransitionAction extends Action {
 				 case 'D':									//Deposit Check
 					 	custBean=customerDAO.read(transcBean[k].getCustomer_id());
 						custBean.setCash(custBean.getCash()+transcBean[k].getAmount());
-						
+						customerDAO.update(custBean);
 						transcBean[k].setExecute_date(transcBean[k].getExecute_date());
 						transcBean[k].setStatus("Completed");
 						transcDAO.update(transcBean[k]);

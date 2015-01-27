@@ -60,7 +60,7 @@ String fund_key = (String)request.getAttribute("fund_key");
 					<div class="col-lg-3" style="padding-right: 0px">
 						<div class="form-control-wrapper">
 							<input type="text" class="form-control empty text-right" name="date" style="height: 20px"
-								placeHolder="MM/dd/yyyy"><span class="material-input"></span>
+								placeHolder="MM-dd-yyyy"><span class="material-input"></span>
 						</div>
 					</div>
 					</div>
