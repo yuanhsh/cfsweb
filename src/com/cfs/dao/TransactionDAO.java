@@ -68,7 +68,7 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 			if(shares > position.getShares()) {
 				throw new RollbackException("Sell share number exceeds your current share numbers");
 			} else if(shares == position.getShares()) {
-				positionDAO.delete(position);
+				positionDAO.delete(position.getPosition_id());
 			} else {
 				position.setShares(position.getShares()-shares);
 				positionDAO.update(position);
