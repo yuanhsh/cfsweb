@@ -70,8 +70,15 @@ public class TransitionAction extends Action {
 			}
 			
 			String d= form.getDate();
+			TransactionBean tempTranscBean[]=transcDAO.match(MatchArg.equals("status","Completed"));
+			int lastCompletedTransc=tempTranscBean.length-1;
+			java.sql.Date lastTradingDay=tempTranscBean[lastCompletedTransc].getExecute_date();
 			java.util.Date utilDate = new SimpleDateFormat("MM-dd-yyyy").parse(d);
-			java.sql.Date date = new java.sql.Date(utilDate.getTime());			
+			java.sql.Date date = new java.sql.Date(utilDate.getTime());	
+			if(date.before(lastTradingDay)){
+				errors.add("Date entered cannot be from past");
+				return "error.jsp";}
+			
 			
 			FundBean fundBean[]=fundDAO.getFunds(null);
 			
@@ -84,7 +91,11 @@ public class TransitionAction extends Action {
 			
 			
 			for(int i=0;i<fundNum;i++)
-			{   numPrice=Double.parseDouble(price[i]);
+			{  numPrice=Double.parseDouble(price[i]);
+				if(numPrice<0.01)
+				{ errors.add("Fund price entered should be greater than 0.01");	
+					return "error.jsp";}
+				
 				fundBean[i].setPrice(((new Double(numPrice*100)).longValue()));
 				fundDAO.update(fundBean[i]);
 			    fundPriceHistoryBean[i]=new FundPriceHistoryBean();
@@ -228,7 +239,9 @@ public class TransitionAction extends Action {
 			return "error.jsp";
 		} catch (ParseException e) {
 				return"error.jsp";
+		
 		}
 	}
+	}
 
-}
+
