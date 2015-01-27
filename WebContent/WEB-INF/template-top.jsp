@@ -25,6 +25,7 @@
 		<script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
 		<script src="https://jquery-formatcurrency.googlecode.com/files/jquery.formatCurrency-1.4.0.min.js"></script>
 		<script src="js/bootstrap-table.js"></script>
+		<script src="js/ajax-loader.js"></script>
         <script>
             $(function() {
                 $.material.init();
