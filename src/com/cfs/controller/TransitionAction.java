@@ -19,6 +19,7 @@ import com.cfs.bean.FundPriceHistoryBean;
 import com.cfs.bean.PositionBean;
 import com.cfs.bean.TransactionBean;
 import com.cfs.dao.CustomerDAO;
+import com.cfs.dao.FundDAO;
 import com.cfs.dao.FundPriceHistoryDAO;
 import com.cfs.dao.Model;
 import com.cfs.dao.PositionDAO;
@@ -33,6 +34,7 @@ public class TransitionAction extends Action {
 	private CustomerDAO customerDAO;
 	private TransactionDAO transcDAO;
 	private PositionDAO posDAO;
+	private FundDAO fundDAO;
 	private FundPriceHistoryDAO fundHistoryDAO;
 	private CustomerBean custBean;
 	private PositionBean posBean;
@@ -57,14 +59,23 @@ public class TransitionAction extends Action {
 			TransitionForm form = formBeanFactory.create(request);
 			request.setAttribute("form",form);
 			
-
+			request.setAttribute("form", form);
+			if (!form.isPresent()) {
+				return "FundSearch.jsp";
+			}
+			
+			errors.addAll(form.getValidationErrors());
+			if (errors.size() != 0) {
+				return "FundSearch.jsp";
+			}
+			
 			String d= form.getDate();
 			DateFormat format = new SimpleDateFormat("MMDDyyyy");
 			Date date= (Date) format.parse(d);
 			
 			
 			
-			int fundNum=fundHistoryDAO.getCount();
+			int fundNum=fundDAO.getCount();
 		FundPriceHistoryBean fundPriceHistoryBean[]= new FundPriceHistoryBean[fundNum];
 			double numPrice=0;
 			int id[] = form.getFundId();
@@ -82,7 +93,7 @@ public class TransitionAction extends Action {
 			
 			
 			
-			TransactionBean transcBean[] =transcDAO.match(MatchArg.equals("status","Completed"));
+			TransactionBean transcBean[] =transcDAO.match(MatchArg.equals("status","Pending"));
 			int len=transcBean.length;
 			while(len>0){
 				String transcType=transcBean[len].getTransaction_type();
@@ -188,15 +199,15 @@ public class TransitionAction extends Action {
 			
 		
 		
-			return "emp_transition_day.do";
+			return "FundSearch.jsp";
 		}  catch(RollbackException e) {
 			errors.add(e.getMessage());
-			return "transitionDay.jsp";
+			return "error.jsp";
 		}catch(FormBeanException e) {
 			errors.add(e.getMessage());
-			return "transitionDay.jsp";
+			return "error.jsp";
 		} catch (ParseException e) {
-				return"transitionDay.jsp";
+				return"error.jsp";
 		}
 	}
 

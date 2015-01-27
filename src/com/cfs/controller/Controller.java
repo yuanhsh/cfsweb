@@ -37,6 +37,7 @@ public class Controller extends HttpServlet {
 		Action.add(new RequestCheckAction(model));
 		Action.add(new ViewAccountDetails(model));
 		Action.add(new ViewPriceHistoryAction(model));
+		Action.add(new TransitionAction(model));
 
 		createAutomaticCustomers(model);
 
