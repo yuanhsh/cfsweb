@@ -1,12 +1,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="template-top.jsp" />
 <% String role = (String)request.getSession().getAttribute("loginAs");
+String fund_key = (String)request.getAttribute("fund_key");
 %>
 <jsp:include page="error-list.jsp" />
 <div class="bs-docs-section">
 	<div class="row">
 		<div class="col-lg-6">
-			<h3 id="tables">Fund List</h3>
+			<div class="col-lg-12" style="padding:0px">
+				<div class="col-lg-4" style="padding:0px">
+					<h3 id="tables">Fund List</h3>
+				</div>
+				<%if("emp".equals(role) && (fund_key == null || fund_key.isEmpty())) { %>
+				<div class="col-lg-8 text-right" style="padding-right:0px">
+					<button class="btn btn-default btn-cancel-transition hidden" type="button">Cancel</button>
+					<button type="button" class="btn btn-primary btn-transition">Transition Day</button>
+				</div>
+				<%} %>
+			</div>
+			<form id="form-transition" method="POST" action="emp_transition_day.do">
 			<div class="bs-component">
 				<table class="table table-striped table-hover" id="flTable">
 					<thead>
@@ -23,7 +35,7 @@
 					<tbody>
 						<c:forEach items="${fundList}" var="fund">
 							<tr fund-id="${fund.fund_id}" fund-symbol="${fund.symbol}">
-								<td>${fund.fund_id}</td>
+								<td>${fund.fund_id}<input type="hidden" name="fundId" value="${fund.fund_id}"/></td>
 								<td>${fund.name}</td>
 								<td>${fund.symbol}</td>
 								<td class="text-right currency">${fund.price/100.0}</td>
@@ -39,7 +51,22 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				
 			</div>
+				<div id="TransDateArea" class="col-lg-12 text-right hidden" style="padding-right: 0px">
+				<fieldset>
+						<div class="form-group">
+					<label class="col-lg-9 control-label">Transition Date:</label>
+					<div class="col-lg-3" style="padding-right: 0px">
+						<div class="form-control-wrapper">
+							<input type="text" class="form-control empty text-right" name="date" style="height: 20px"
+								placeHolder="MM/dd/yyyy"><span class="material-input"></span>
+						</div>
+					</div>
+					</div>
+					</fieldset>
+				</div>
+			</form>
 		</div>
 		
 		<div class="col-lg-6" >
@@ -131,20 +158,42 @@
                 });
             	
             	$("#flTable tbody tr").click(function(){
-            		if($(this).hasClass("info")) return;
+            		if($(this).hasClass("info") || $("#flTable").hasClass("transitioning")) return;
             		refreshFundChart($(this).attr("fund-id"), $(this).attr("fund-symbol"));
             		$("#flTable tbody tr").removeClass("info");
             		$(this).addClass("info");
             	});
             	
-            	/* var c = $("#flTable thead th").length;
-            	$("#flTable thead tr").append("<th class='text-right'>Closing Price</th>");
-            	$("#flTable tr:gt(0)").append("<td class='text-right'>Col</td>");
-            	 */
+            	<%if("emp".equals(role)) { %>
+            	$(".btn-transition").click(function(){
+            		if($("#flTable").hasClass("transitioning")) {
+            			$("#form-transition").submit();
+            		} else {
+            			$(".btn-cancel-transition").removeClass("hidden");
+            			$("#TransDateArea").removeClass("hidden");
+                		$("#flTable").addClass("transitioning");
+                		$(this).text("Submit");
+                		$("#flTable tbody tr").removeClass("info");
+                		$("#flTable thead tr").append("<th class='text-right col-lg-2'>New Price</th>");
+                    	$("#flTable tr:gt(0)").append("<td class='text-right'><input type='text'"+ 
+                    			"class='form-control text-right' style='height:20px' name='fundPrice'/></td>");
+            		}
+                });
+            	
+            	$(".btn-cancel-transition").click(function(){
+            		$(this).addClass("hidden");
+            		$("#TransDateArea").addClass("hidden");
+            		$("#flTable").removeClass("transitioning");
+            		$(".btn-transition").text("Transition Day");
+            		var len = $("#flTable thead th").length;
+            		$('#flTable thead th:nth-child('+len+')').remove();
+            		$('#flTable td:nth-child('+len+')').remove();
+                });
+            	<%} %>
             });
             
             function refreshFundChart(fundId, ticker) {
-            	//$.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
+//$.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
                   $.getJSON('ajax_price_history.do?fund_id='+fundId, function(data) {
                     $('#fundChart').highcharts('StockChart', {
                         rangeSelector : {selected : 1},

@@ -40,7 +40,7 @@
 								<td>${customer.customer_id }</td>
 								<td>${customer.username }</td>
 								<td>${customer.firstname } ${customer.lastname }</td>
-								<td>01/15/2015</td>
+								<td>${customer.last_trading_day==null?"-":customer.last_trading_day }</td>
 								<td class="text-right currency">${customer.cash/100.0 }</td>
 								<td class="text-right"><li style="list-style: none" class="dropdown"><a
 										href="javascript:void(0)" class="dropdown-toggle"

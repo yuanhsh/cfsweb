@@ -91,7 +91,7 @@
                                         <li><a href="emp_create_emp_account.do">Create Employee Account</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="emp_transition_day.do">Transition Day</a></li>
+                                <!-- <li><a href="emp_transition_day.do">Transition Day</a></li> -->
                             </ul>
                             <form class="navbar-form navbar-left" method="get" action="search_fund.do">
                                 <div class="form-control-wrapper"><input type="text" class="form-control col-lg-8 empty" name="fund_key" placeholder="Search Fund" value="${fund_key }"><span class="material-input"></span></div>
