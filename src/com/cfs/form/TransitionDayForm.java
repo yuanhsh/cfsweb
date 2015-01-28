@@ -65,7 +65,7 @@ public class TransitionDayForm extends FormBean{
 				double newPrice = Double.valueOf(fundPrice[i]);
 				newPrice = newPrice * 100;
 				long price = (long)(newPrice);
-				if(price == 0) {
+				if(price <= 0) {
 					errors.add("Fund price less than 0.01.");
 					break;
 				} else if(price != newPrice) {
