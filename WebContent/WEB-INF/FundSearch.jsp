@@ -134,15 +134,13 @@ String fund_key = (String)request.getAttribute("fund_key");
             $(function() {
             	$(".alert-success").hide();
             	$(".alert-warning").hide();
-            	$(".action").click(function(){
-            		$(".submit-buy-fund").show();
-            	});
             	$(".buy-fund-link").click(function(){
             		var fundId = $(this).attr("fund-id");
 					var fundName = $(this).attr("fund-name");
 					var fundSymbol = $(this).attr("fund-symbol");
 					$(".hidden-fund-id").val(fundId);
 					$("#fundAmount").val("");
+					$(".submit-buy-fund").show();
 					$(".fund-name-label").text(fundName+" ("+fundSymbol+")");
 					$(".alert-success").hide();
 					$(".alert-warning").hide();
