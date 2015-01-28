@@ -42,7 +42,7 @@ public class CreateFund extends Action {
 			if (errors.size() != 0) {
 				return "createFund.jsp";
 			}
-			FundBean temp[]= fundDAO.match(MatchArg.equalsIgnoreCase("symbol",form.getSymbol()));
+			FundBean temp[]= fundDAO.match(MatchArg.equalsIgnoreCase("symbol",form.getSymbol().trim()),MatchArg.endsWithIgnoreCase("name", form.getName().trim()));
 			if(temp.length!=0)
 			{errors.add("Fund Already exist");
 			return "createFund.jsp";				}
