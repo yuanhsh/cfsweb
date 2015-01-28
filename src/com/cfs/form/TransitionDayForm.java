@@ -51,7 +51,7 @@ public class TransitionDayForm extends FormBean{
 			errors.add("Fund ID is required");
 		}
 		if (fundPrice == null || fundPrice.length == 0) {
-			errors.add("Fund Price is required");
+			errors.add("Fund price is required");
 		}
 		getFundPriceTable();
 		return errors;
@@ -63,11 +63,19 @@ public class TransitionDayForm extends FormBean{
 		try {
 			for(int i=0; i<fundId.length; i++) {
 				double newPrice = Double.valueOf(fundPrice[i]);
-				long price = (long)(newPrice * 100);
+				newPrice = newPrice * 100;
+				long price = (long)(newPrice);
+				if(price == 0) {
+					errors.add("Fund price less than 0.01.");
+					break;
+				} else if(price != newPrice) {
+					errors.add("Fund price can not be more than 2 decimal.");
+					break;
+				}
 				priceTable.put(Integer.valueOf(fundId[i]), price);
 			}
 		} catch (NumberFormatException e) {
-			errors.add("Fund Price format is wrong.");
+			errors.add("Fund price format is wrong.");
 			e.printStackTrace();
 		}
 		return priceTable;	

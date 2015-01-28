@@ -69,9 +69,15 @@ public class TransitionDayAction extends Action {
 				map.put("error", errors.get(0));
 			} else {
 				Map<Integer, Long> priceTable = form.getFundPriceTable();
-				this.transitionDay(priceTable, form.getExecuteDate());
-				map.put("success", "true");
-				map.put("info", "Transition day operation has been executed. Reloading page...");
+				Date date = form.getExecuteDate();
+				if(this.priceDAO.hasPriceDateGE(date)) {
+					map.put("success", "false");
+					map.put("error", "Transition date must be a larger value.");
+				} else {
+					this.transitionDay(priceTable, date);
+					map.put("success", "true");
+					map.put("info", "Transition day operation has been executed. Reloading page...");
+				}
 			}
 		} catch (Exception e) {
 			if(Transaction.isActive()) {
