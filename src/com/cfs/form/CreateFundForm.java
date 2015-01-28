@@ -39,7 +39,7 @@ public class CreateFundForm extends FormBean {
 		}
 
 		if (name.matches(".*[<>\"].*")) {
-			errors.add("Customer's name cannot contain angular brackets or quotes");
+			errors.add("Fund name cannot contain angular brackets or quotes");
 		}
 		if (symbol.matches(".*[<>\"].*")) {
 			errors.add("symbol cannot contain angular brackets or quotes");
