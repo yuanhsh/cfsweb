@@ -5,13 +5,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.genericdao.MatchArg;
 import org.mybeans.form.FormBeanFactory;
 
 import com.cfs.bean.FundBean;
-
 import com.cfs.dao.FundDAO;
 import com.cfs.dao.Model;
-
 import com.cfs.form.CreateFundForm;
 
 public class CreateFund extends Action {
@@ -43,8 +42,13 @@ public class CreateFund extends Action {
 			if (errors.size() != 0) {
 				return "createFund.jsp";
 			}
-
+			FundBean temp[]= fundDAO.match(MatchArg.equalsIgnoreCase("symbol",form.getSymbol()));
+			if(temp.length!=0)
+			{errors.add("Fund Already exist");
+			return "createFund.jsp";				}
+				
 			FundBean fund = new FundBean();
+
 			fund.setName(form.getName());
 			fund.setSymbol(form.getSymbol());
 
