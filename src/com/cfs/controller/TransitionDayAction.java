@@ -70,14 +70,15 @@ public class TransitionDayAction extends Action {
 			} else {
 				Map<Integer, Long> priceTable = form.getFundPriceTable();
 				Date date = form.getExecuteDate();
-				if(this.priceDAO.hasPriceDateGE(date)) {
-					map.put("success", "false");
-					map.put("error", "Transition date must be a larger value.");
-				} else {
-					this.transitionDay(priceTable, date);
-					map.put("success", "true");
-					map.put("info", "Transition day operation has been executed. Reloading page...");
-				}
+//				if(this.priceDAO.hasPriceDateGE(date)) {
+//					map.put("success", "false");
+//					map.put("error", "Transition date must be a larger value.");
+//				} else {
+//					this.transitionDay(priceTable, date, map);
+//					map.put("success", "true");
+//					map.put("info", "Transition day operation has been executed. Reloading page...");
+//				}
+				this.transitionDay(priceTable, date, map);
 			}
 		} catch (Exception e) {
 			if(Transaction.isActive()) {
@@ -96,9 +97,15 @@ public class TransitionDayAction extends Action {
 		}
 	}
 	
-	public void transitionDay(Map<Integer, Long> priceTable, Date date) throws RollbackException {
+	public void transitionDay(Map<Integer, Long> priceTable, Date date, Map<String, String> msg) throws RollbackException {
 		try {
 			Transaction.begin();
+			if(this.priceDAO.hasPriceDateGE(date)) {
+				msg.put("success", "false");
+				msg.put("error", "Transition date must be a larger value.");
+				Transaction.commit();
+				return;
+			}
 			TransactionBean[] trans = this.transDAO.getPendingTransactions();
 			for(TransactionBean tran:trans) {
 				String action = tran.getTransaction_type();
@@ -123,6 +130,8 @@ public class TransitionDayAction extends Action {
 			e.printStackTrace();
 			throw e;
 		}
+		msg.put("success", "true");
+		msg.put("info", "Transition day operation has been executed. Reloading page...");
 	}
 	
 	private void requestCheck(TransactionBean tran) throws RollbackException {
