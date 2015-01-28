@@ -18,7 +18,7 @@
 		</init-param>
 		<init-param>
 			<param-name>jdbcURL</param-name>
-			<param-value>jdbc:mysql://54.172.83.108:3306/cfs</param-value>
+			<param-value>jdbc:mysql://54.172.83.108:3306/cfsdb</param-value>
 		</init-param>
 		<init-param>
 			<param-name>username</param-name>

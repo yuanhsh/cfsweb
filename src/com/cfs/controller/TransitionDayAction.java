@@ -149,6 +149,9 @@ public class TransitionDayAction extends Action {
 		long shares = tran.getAmount() * 1000 / priceTable.get(tran.getFund_id());
 		int customer_id = tran.getCustomer_id();
 		int fund_id = tran.getFund_id();
+		long price = priceTable.get(tran.getFund_id());
+		tran.setPrice(price);
+		tran.setShares(shares);
 		CustomerBean cust = this.customerDAO.read(customer_id);
 		if(shares < 1) {
 			tran.setStatus(TransactionBean.STATUS_CANCELLED);
@@ -177,6 +180,8 @@ public class TransitionDayAction extends Action {
 		long sellAmount = tran.getShares() * closingPrice / 1000;
 		int customer_id = tran.getCustomer_id();
 		int fund_id = tran.getFund_id();
+		tran.setPrice(closingPrice);
+		tran.setAmount(sellAmount);
 		CustomerBean cust = this.customerDAO.read(customer_id);
 		if(sellAmount < 1) {
 			tran.setStatus(TransactionBean.STATUS_CANCELLED);
