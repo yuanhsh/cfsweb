@@ -37,13 +37,18 @@ public class CreateFundForm extends FormBean {
 		if (symbol == null || symbol.length() == 0) {
 			errors.add("symbol is required");
 		}
-
-		if (name.matches(".*[<>\"].*")) {
-			errors.add("Fund name cannot contain angular brackets or quotes");
+		if(name != null && !name.trim().isEmpty()) {
+			if(!name.matches(".*[<>\"].*@")) {
+				errors.add(" illegal characters.");
+			}
 		}
-		if (symbol.matches(".*[<>\"].*")) {
-			errors.add("symbol cannot contain angular brackets or quotes");
+		if(symbol != null && !symbol.trim().isEmpty()) {
+			if(!symbol.matches(".*[<>\"].*@")) {
+				errors.add(" illegal characters.");
+			}
 		}
+		
+	
 		if (errors.size() > 0) {
 			return errors;
 		}
