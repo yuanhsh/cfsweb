@@ -5,13 +5,13 @@ String fund_key = (String)request.getAttribute("fund_key");
 %>
 <jsp:include page="error-list.jsp" />
 <%if("emp".equals(role)) { %>
-	<div class="alert alert-dismissable alert-success"></div>
-	<div class="alert alert-dismissable alert-warning"></div>
+	<div id="emp-alert-success" class="alert alert-dismissable alert-success"></div>
+	<div id="emp-alert-warning" class="alert alert-dismissable alert-warning"></div>
 <%} %>
 <div class="bs-docs-section">
-	<div class="row">
-		<div class="col-lg-6">
-			<div class="col-lg-12" style="padding:0px">
+	<div class="row" style="width:1200px!important">
+		<div  style="width:600px!important; float:left">
+			<div class="col-lg-12" >
 				<div class="col-lg-4" style="padding:0px">
 					<h3 id="tables">Fund List</h3>
 				</div>
@@ -23,7 +23,7 @@ String fund_key = (String)request.getAttribute("fund_key");
 				<%} %>
 			</div>
 			<form id="form-transition" method="POST" action="emp_transition_day.do">
-			<div class="bs-component">
+			<div class="col-lg-12">
 				<table class="table table-striped table-hover" id="flTable">
 					<thead>
 						<tr>
@@ -57,11 +57,11 @@ String fund_key = (String)request.getAttribute("fund_key");
 				</table>
 				
 			</div>
-				<div id="TransDateArea" class="col-lg-12 text-right hidden" style="padding-right: 0px">
+				<div id="TransDateArea" class="col-lg-12 text-right hidden" >
 				<fieldset>
 						<div class="form-group">
 					<label class="col-lg-9 control-label">Transition Date:</label>
-					<div class="col-lg-3" style="padding-right: 0px">
+					<div class="col-lg-3" >
 						<div class="form-control-wrapper">
 							<input type="text" class="form-control empty text-right" name="date" style="height: 20px"
 								placeHolder="MM/dd/yyyy"><span class="material-input"></span>
@@ -73,7 +73,7 @@ String fund_key = (String)request.getAttribute("fund_key");
 			</form>
 		</div>
 		
-		<div class="col-lg-6" >
+		<div  style="width:580px!important; float:right; padding-right:20px">
 			<h3>&nbsp;&nbsp;</h3>
 			<div class="bs-component" id="fundChart" style="height:400px; min-width:310px"></div>
 		</div>
@@ -132,8 +132,8 @@ String fund_key = (String)request.getAttribute("fund_key");
 <%} %>
 <script>
             $(function() {
-            	$(".alert-success").hide();
-            	$(".alert-warning").hide();
+            	$("#emp-alert-success").hide();
+            	$("#emp-alert-warning").hide();
             	$(".buy-fund-link").click(function(){
             		var fundId = $(this).attr("fund-id");
 					var fundName = $(this).attr("fund-name");
@@ -174,15 +174,14 @@ String fund_key = (String)request.getAttribute("fund_key");
             			//$("#form-transition").submit();
             			$.post( 'emp_ajax_transition_day.do', $('form#form-transition').serialize(), function(data) {
 	               	         if(data.success == "true") {
-	               	        	 $(".alert-success").text(data.info).show();
-	               	        	 $(".alert-warning").text(data.error).hide();
-	               	        	 $(".cust-cash-label").text(data.cash);
+	               	        	 $("#emp-alert-success").text(data.info).show();
+	               	        	 $("#emp-alert-warning").text(data.error).hide();
 	               	        	 setTimeout(function(){
 	               	        		location.reload();
 	               	        	 }, 1000);
 	               	         } else {
-	               	        	 $(".alert-warning").text(data.error).show();
-	               	        	 $(".alert-success").text(data.info).hide();
+	               	        	 $("#emp-alert-warning").text(data.error).show();
+	               	        	 $("#emp-alert-success").text(data.info).hide();
 	               	         }
 	               	      }, 'json' // I expect a JSON response
 	               	    );

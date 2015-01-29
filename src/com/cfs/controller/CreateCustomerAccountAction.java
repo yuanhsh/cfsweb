@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
@@ -37,6 +38,7 @@ public class CreateCustomerAccountAction extends Action {
 			if (!form.isPresent()) {
 				return "create-customer-account.jsp";
 			}
+			Transaction.begin();
 			errors.addAll(form.getValidationErrors());
 			CustomerBean customer = customerDAO.getCustomerByUsername(form.getUserName());
 			if (customer != null) {
@@ -46,6 +48,7 @@ public class CreateCustomerAccountAction extends Action {
 				errors.add("State is required");
 			}
 			if (errors.size() != 0) {
+				Transaction.commit();
 				return "create-customer-account.jsp";
 			}
 
@@ -59,17 +62,17 @@ public class CreateCustomerAccountAction extends Action {
 			customer.setCity(form.getCity());
 			customer.setZip(form.getZip());
 			customer.setState(form.getState());
-			customerDAO.create(customer);
-
+			customerDAO.createAutoIncrement(customer);
+			Transaction.commit();
 
 			request.setAttribute("message", "Account for customer " + customer.getUsername() + " created successfully.");
 			return "create-customer-account.jsp";
 
-		} catch (FormBeanException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			return "create-customer-account.jsp";
-		} catch (RollbackException e) {
-			e.printStackTrace();
+			if(Transaction.isActive()) {
+				Transaction.rollback();
+			}
 			return "create-customer-account.jsp";
 		}
 

@@ -71,6 +71,9 @@ public class TransitionDayForm extends FormBean{
 				} else if(price != newPrice) {
 					errors.add("Fund price can not be more than 2 decimal.");
 					break;
+				} else if(price>=1000000) {
+					errors.add("Fund price can not be larger than $1,000,000.00");
+					break;
 				}
 				priceTable.put(Integer.valueOf(fundId[i]), price);
 			}

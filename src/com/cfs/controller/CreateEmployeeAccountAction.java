@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
@@ -38,13 +39,14 @@ public class CreateEmployeeAccountAction extends Action {
 		        }
 				
 				errors.addAll(form.getValidationErrors());
-				 
+				Transaction.begin();
 				EmployeeBean employee = employeeDAO.getEmployeeByUsername(form.getUserName());
 				if(employee !=null){
 					errors.add("Username already exists. Use a different username.");
 				}
 				
 				if (errors.size() != 0) {
+					Transaction.commit();
 					return "create-employee-account.jsp";
 				}
 				
@@ -53,17 +55,17 @@ public class CreateEmployeeAccountAction extends Action {
 				employee.setFirstname(form.getFirstName());
 				employee.setLastname(form.getLastName());
 				employee.setPassword(form.getPassword());
-				employeeDAO.create(employee);
-	        
+				employeeDAO.createAutoIncrement(employee);
+				Transaction.commit();
 		        //HttpSession session = request.getSession(false);
 		        //session.setAttribute("employee",employee);
 		        request.setAttribute("message", "Account for employee " + employee.getUsername() + " created successfully.");
 		        return "create-employee-account.jsp";
-			} catch (FormBeanException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
-				return "create-employee-account.jsp";
-			} catch (RollbackException e) {
-				e.printStackTrace();
+				if(Transaction.isActive()) {
+					Transaction.rollback();
+				}
 				return "create-employee-account.jsp";
 			}	
 	}
