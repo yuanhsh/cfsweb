@@ -42,10 +42,10 @@ if(role.equals("cust")) {
                                 </thead>
                                 <tbody>
                                 <c:forEach items="${funds}" var="fund" varStatus="status">
-                                    <tr>
+                                    <tr id="tr-fund-${fund.fund_id }">
                                         <td>${status.count}</td>
                                         <td>${fund.fund_name } (${fund.fund_symbol })</td>
-                                        <td class="text-right">${fund.disp_shares }</td>
+                                        <td class="text-right" id="td-share-${fund.fund_id }">${fund.disp_shares }</td>
                                         <td class="text-right">${fund.disp_price }</td>
                                         <td class="text-right">${fund.disp_amount }</td>
                                          <% if(role.equals("cust")) {%>
@@ -128,7 +128,7 @@ if(role.equals("cust")) {
                                     <div class="form-group">
                                         <label for="fundName" class="col-lg-3 control-label">Fund:</label>
                                         <div class="col-lg-6">
-                                        	<input type="hidden" name="fund_id" class="hidden-fund-id"/>
+                                        	<input type="hidden" name="fund_id" class="hidden-fund-id" id="sell-hidden-fund-id"/>
                                             <div class="form-control-wrapper"><label class="col-lg-8 control-label fund-name-label"></label><span class="material-input"></span></div>
                                         </div>
                                     </div>
@@ -233,11 +233,18 @@ if(role.equals("cust")) {
             	    );
                 });
             	$(".submit-sell-fund").click(function(){
+            		//var fundId = $("#sell-hidden-fund-id").val();
+            		//var sellShares = $("#sellShares").val();
+            		//var originShares = $("#td-share-"+fundId).text();
+            		//var leftShares = (sellShares-originShares) + "";
             		$.post( 'cust_ajax_sell_fund.do', $('form#form-sell-fund').serialize(), function(data) {
             	         if(data.success == "true") {
             	        	 $(".alert-success").text(data.info).show();
             	        	 $(".alert-warning").text(data.error).hide();
             	        	 $(".submit-sell-fund").hide();
+            	        	 setTimeout(function(){
+	               	        		location.reload();
+	               	         }, 1000);
             	         } else {
             	        	 $(".alert-warning").text(data.error).show();
             	        	 $(".alert-success").text(data.info).hide();

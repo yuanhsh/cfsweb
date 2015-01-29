@@ -104,7 +104,7 @@ String fund_key = (String)request.getAttribute("fund_key");
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="fundAmount" class="col-lg-3 control-label">Amount:</label>
+							<label for="fundAmount" class="col-lg-3 control-label">Amount($):</label>
 							<div class="col-lg-6">
 								<div class="form-control-wrapper">
 									<input type="text" class="form-control empty" id="fundAmount"

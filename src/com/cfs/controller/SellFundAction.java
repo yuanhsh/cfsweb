@@ -60,7 +60,7 @@ public class SellFundAction extends Action {
 			long shares = form.getSellShares();
 			transactionDAO.sellFund(positionDAO, custId, fundId, shares);
 			map.put("success", "true");
-			map.put("info", "Your order has been scheduled.");
+			map.put("info", "Your order has been scheduled. Reloading page...");
 		} catch (Exception e) {
 			e.printStackTrace();
 			map.put("success", "false");

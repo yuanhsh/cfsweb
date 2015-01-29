@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.genericdao.RollbackException;
+import org.genericdao.Transaction;
 import org.mybeans.form.FormBeanException;
 import org.mybeans.form.FormBeanFactory;
 
@@ -50,35 +51,43 @@ public class ChangePwdAction extends Action {
 			EmployeeBean employeeBean = null;
 			String loginAs = (String) request.getSession().getAttribute("loginAs");
 			if (loginAs.equals("cust")) {
-				customerBean = (CustomerBean) request.getSession().getAttribute("customer");
+//				customerBean = (CustomerBean) request.getSession().getAttribute("customer");
+				Integer customerId = (Integer)request.getSession().getAttribute("customer_id");
+				Transaction.begin();
+				customerBean = customerDAO.read(customerId);
 				if (customerBean.checkPassword(form.getOldPassword())) {
 					customerBean.setPassword(form.getNewPassword());
 					customerDAO.update(customerBean);
+					Transaction.commit();
 					request.setAttribute("message", "Password changed for " + customerBean.getUsername());
 					return "change-pwd.jsp";
 				} else {
+					Transaction.commit();
 					errors.add("Old password is incorrect");
 					return "change-pwd.jsp";
 				}
 			}
 
 			if (loginAs.equals("emp")) {
-				employeeBean = (EmployeeBean) request.getSession().getAttribute("employee");
+				Integer employeeId = (Integer)request.getSession().getAttribute("employee_id");
+				Transaction.begin();
+				employeeBean = this.employeeDAO.read(employeeId);
+//				employeeBean = (EmployeeBean) request.getSession().getAttribute("employee");
 				if (employeeBean.checkPassword(form.getOldPassword())) {
 					employeeBean.setPassword(form.getNewPassword());
 					employeeDAO.update(employeeBean);
 					request.setAttribute("message", "Password changed for " + employeeBean.getUsername());
 				} else {
 					errors.add("Old password is incorrect");
-					return "change-pwd.jsp";
 				}
+				Transaction.commit();
 			}
 			return "change-pwd.jsp";
 
-		} catch (RollbackException e) {
-			errors.add(e.toString());
-			return "error.jsp";
-		} catch (FormBeanException e) {
+		} catch (Exception e) {
+			if(Transaction.isActive()) {
+				Transaction.rollback();
+			}
 			errors.add(e.toString());
 			return "error.jsp";
 		}
