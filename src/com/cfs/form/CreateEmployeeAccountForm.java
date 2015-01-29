@@ -50,12 +50,21 @@ public class CreateEmployeeAccountForm extends FormBean {
 		if (userName == null || userName.length() == 0) {
 			errors.add("User Name is required");
 		}
+		if (!userName.matches("\\w+")) {
+			errors.add("User name Should use numbers, letters or underscore.User name cannot contain angular brackets or quotes");
+		}
 		if (firstName == null || firstName.length() == 0) {
 			errors.add("First Name is required");
+		}
+		if (!firstName.matches("\\w+")) {
+			errors.add("First name Should use numbers, letters or underscore.First name cannot contain angular brackets or quotes");
 		}
 
 		if (lastName == null || lastName.length() == 0) {
 			errors.add("Last Name is required");
+		}
+		if (!lastName.matches("\\w+")) {
+			errors.add("Last name Should use numbers, letters or underscore.Last name cannot contain angular brackets or quotes");
 		}
 		
 		if (password == null || password.length() == 0) {
@@ -66,13 +75,14 @@ public class CreateEmployeeAccountForm extends FormBean {
 			errors.add("Confirm Password is required");
 		}
 		
+		if (!password.equals(confirm)) {
+			errors.add("Passwords are not the same");
+		}
+		
 		if (errors.size() > 0) {
 			return errors;
 		}
 		
-		if (!password.equals(confirm)) {
-			errors.add("Passwords are not the same");
-		}
 		
 		return errors;
 		

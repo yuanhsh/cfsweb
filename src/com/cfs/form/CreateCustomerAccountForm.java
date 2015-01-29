@@ -85,13 +85,22 @@ public class CreateCustomerAccountForm extends FormBean{
 		if (userName == null || userName.length() == 0) {
 			errors.add("User Name is required");
 		}
+		if (!userName.matches("\\w+")) {
+			errors.add("User name Should use numbers, letters or underscore.User name cannot contain angular brackets or quotes");
+		}
 
 		if (firstName == null || firstName.length() == 0) {
 			errors.add("First Name is required");
 		}
+		if (!firstName.matches("\\w+")) {
+			errors.add("First name Should use numbers, letters or underscore.First name cannot contain angular brackets or quotes");
+		}
 
 		if (lastName == null || lastName.length() == 0) {
 			errors.add("Last Name is required");
+		}
+		if (!lastName.matches("\\w+")) {
+			errors.add("Last name Should use numbers, letters or underscore.Last name cannot contain angular brackets or quotes");
 		}
 
 		if (password == null || password.length() == 0) {
@@ -110,11 +119,11 @@ public class CreateCustomerAccountForm extends FormBean{
 		if (zip == null || zip.length() == 0) {
 			errors.add("Zip is required");
 		}
-		if (state == null || state.length() == 0) {
-			errors.add("State is required");
-		}
 		if (!zip.matches("[0-9]{5}")) {
 			errors.add("Zip must be five-digit number");
+		}
+		if (state == null || state.length() == 0) {
+			errors.add("State is required");
 		}
 		if (errors.size() > 0) {
 			return errors;
