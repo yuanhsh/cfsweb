@@ -68,7 +68,7 @@
             <label for="select" class="col-lg-4 control-label">State:</label>
             <div class="col-lg-5">
                 <select class="form-control" id="select" name="state" >
-                 <option value="0">Please select your state</option>
+                 <option value="null">Please select your state</option>
                     <option value="Alabama">Alabama</option>
     <option  value="Alaska">Alaska</option>
     <option  value="Alaska">Alaska</option>

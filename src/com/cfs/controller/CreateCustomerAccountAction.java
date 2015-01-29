@@ -42,6 +42,9 @@ public class CreateCustomerAccountAction extends Action {
 			if (customer != null) {
 				errors.add("Username already exists. Use a different username.");
 			}
+			if (form.getState().equals("null")) {
+				errors.add("State is required");
+			}
 			if (errors.size() != 0) {
 				return "create-customer-account.jsp";
 			}
@@ -54,12 +57,12 @@ public class CreateCustomerAccountAction extends Action {
 			customer.setAddr_line1(form.getAddressl1());
 			customer.setAddr_line2(form.getAddressl2());
 			customer.setCity(form.getCity());
-			customer.setState(form.getState());
 			customer.setZip(form.getZip());
+			customer.setState(form.getState());
 			customerDAO.create(customer);
 
 
-			request.setAttribute("message", "Account for customer" + customer.getUsername() + "created successfully.");
+			request.setAttribute("message", "Account for customer " + customer.getUsername() + " created successfully.");
 			return "create-customer-account.jsp";
 
 		} catch (FormBeanException e) {
