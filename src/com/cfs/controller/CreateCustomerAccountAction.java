@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
@@ -59,8 +58,6 @@ public class CreateCustomerAccountAction extends Action {
 			customer.setZip(form.getZip());
 			customerDAO.create(customer);
 
-			HttpSession session = request.getSession(false);
-			session.setAttribute("customer", customer);
 
 			request.setAttribute("message", "Account for customer" + customer.getUsername() + "created successfully.");
 			return "create-customer-account.jsp";

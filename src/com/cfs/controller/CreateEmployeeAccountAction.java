@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.genericdao.RollbackException;
 import org.mybeans.form.FormBeanException;
@@ -56,8 +55,8 @@ public class CreateEmployeeAccountAction extends Action {
 				employee.setPassword(form.getPassword());
 				employeeDAO.create(employee);
 	        
-		        HttpSession session = request.getSession(false);
-		        session.setAttribute("employee",employee);
+		        //HttpSession session = request.getSession(false);
+		        //session.setAttribute("employee",employee);
 		        request.setAttribute("message", "Account for employee" + employee.getUsername() + "created successfully.");
 		        return "create-employee-account.jsp";
 			} catch (FormBeanException e) {
