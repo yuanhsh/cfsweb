@@ -113,7 +113,9 @@ public class CreateCustomerAccountForm extends FormBean{
 		if (state == null || state.length() == 0) {
 			errors.add("State is required");
 		}
-		
+		if (!zip.matches("[0-9]{5}")) {
+			errors.add("Zip must be five-digit number");
+		}
 		if (errors.size() > 0) {
 			return errors;
 		}
