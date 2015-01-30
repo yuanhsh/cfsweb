@@ -5,8 +5,8 @@ String fund_key = (String)request.getAttribute("fund_key");
 %>
 <jsp:include page="error-list.jsp" />
 <%if("emp".equals(role)) { %>
-	<div id="emp-alert-success" class="alert alert-dismissable alert-success"></div>
-	<div id="emp-alert-warning" class="alert alert-dismissable alert-warning"></div>
+	<div id="emp-alert-success" class="alert alert-dismissable alert-success hidden"></div>
+	<div id="emp-alert-warning" class="alert alert-dismissable alert-warning hidden"></div>
 <%} %>
 <div class="bs-docs-section">
 	<div class="row" style="width:1200px!important">
@@ -134,6 +134,8 @@ String fund_key = (String)request.getAttribute("fund_key");
             $(function() {
             	$("#emp-alert-success").hide();
             	$("#emp-alert-warning").hide();
+            	$("#emp-alert-success").removeClass("hidden");
+            	$("#emp-alert-warning").removeClass("hidden");
             	$(".buy-fund-link").click(function(){
             		var fundId = $(this).attr("fund-id");
 					var fundName = $(this).attr("fund-name");
@@ -199,6 +201,8 @@ String fund_key = (String)request.getAttribute("fund_key");
             	
             	$(".btn-cancel-transition").click(function(){
             		$(this).addClass("hidden");
+            		$("#emp-alert-success").hide();
+                	$("#emp-alert-warning").hide();
             		$("#TransDateArea").addClass("hidden");
             		$("#flTable").removeClass("transitioning");
             		$(".btn-transition").text("Transition Day");
