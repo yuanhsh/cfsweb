@@ -44,8 +44,8 @@ public class DepositCheckForm extends FormBean {
 		long result = 0;
 		try {
 			double amount1 = Double.parseDouble(amount);
-			if(amount1 > 10000000.0) {
-				String msg = "You can't deposit amount larger than $10,000,000.00";
+			if(amount1 > 1000000.0) {
+				String msg = "You can't deposit amount larger than $1,000,000.00";
 				errors.add(msg);
 				throw new Exception(msg);
 			}

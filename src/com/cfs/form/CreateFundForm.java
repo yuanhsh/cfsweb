@@ -15,7 +15,7 @@ public class CreateFundForm extends FormBean {
 	}
 
 	public void setSymbol(String s) {
-		symbol = s.trim();
+		symbol = s.trim().toUpperCase();
 	}
 
 	public String getName() {
@@ -37,18 +37,15 @@ public class CreateFundForm extends FormBean {
 		if (symbol == null || symbol.length() == 0) {
 			errors.add("symbol is required");
 		}
-
-		
+		if(name.length()>20) {
+			errors.add("fund name can't have more than 20 characters.");
+		}
 		if (name.matches(".*[<>\"@$%!^&*/].*")) {
 			errors.add("fund name cannot contain angular brackets or quotes");
 		}
-		if (symbol.matches(".*[<>\"@$%!^&*/].*")) {
-			errors.add("symbol cannot contain angular brackets or quotes");
+		if (!symbol.matches("^[a-zA-Z]{1,5}$")) {
+			errors.add("symbol must be one to five characters.");
 		}
-		if (errors.size() > 0) {
-			return errors;
-		}
-
 		return errors;
 	}
 
