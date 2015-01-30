@@ -30,18 +30,22 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 	
 	// IMPORTANT: need to be synchonized, customer cash should be updated through sql, 
 	// not bean object from session.
-	public void buyFund(CustomerDAO customerDAO, CustomerBean customer, int fund_id, long amount) throws RollbackException {
+	public CustomerBean buyFund(CustomerDAO customerDAO, int customer_id, int fund_id, long amount) throws RollbackException {
 		TransactionBean trans = new TransactionBean();
 		trans.setTransaction_type(TransactionBean.TYPE_BUY);
-		trans.setCustomer_id(customer.getCustomer_id());
+		trans.setCustomer_id(customer_id);
 		trans.setFund_id(fund_id);
 		trans.setAmount(amount);
 		trans.setStatus(TransactionBean.STATUS_PENDING);
 		
-		long originalCash = customer.getCash();
-		customer.setCash(customer.getCash()-amount);
+		CustomerBean customer;
 		try {
 			Transaction.begin();
+			customer = customerDAO.read(customer_id);
+			if(amount > customer.getCash()) {
+				throw new RollbackException("Amount exceeds your current cash balance.");
+			}
+			customer.setCash(customer.getCash()-amount);
 			this.createAutoIncrement(trans);
 			customerDAO.update(customer);
 			Transaction.commit();
@@ -49,10 +53,10 @@ public class TransactionDAO extends GenericDAO<TransactionBean> {
 			e.printStackTrace();
 			if(Transaction.isActive()) {
 				Transaction.rollback();
-				customer.setCash(originalCash);
 			}
 			throw e;
 		}
+		return customer;
 	}
 	
 	public void sellFund(PositionDAO positionDAO, int customer_id, int fund_id, long shares) throws RollbackException {

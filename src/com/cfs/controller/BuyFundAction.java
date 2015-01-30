@@ -47,10 +47,6 @@ public class BuyFundAction extends Action {
 		map.put("success", "false");
 		try {
 			Integer custId = (Integer) request.getSession().getAttribute("customer_id");
-			customer = customerDAO.read(custId);
-			if (customer != null) {
-				request.getSession().setAttribute("customer", customer);
-			}
 
 			BuyFundForm form = fbFactory.create(request);
 			List<String> errors = form.getValidationErrors(request);
@@ -65,7 +61,10 @@ public class BuyFundAction extends Action {
 
 			int fundId = form.getBuyFundId();
 			long amount = form.getTotalAmount();
-			transactionDAO.buyFund(customerDAO, customer, fundId, amount);
+			customer = transactionDAO.buyFund(customerDAO, custId, fundId, amount);
+			if(customer != null) {
+				request.getSession().setAttribute("customer", customer);
+			}
 			map.put("success", "true");
 			map.put("cash", "USD " + ProtfolioDTO.moneyFomatter.format(customer.getCash() / 100.0));
 			map.put("info", "Your order has been scheduled successfully.");
